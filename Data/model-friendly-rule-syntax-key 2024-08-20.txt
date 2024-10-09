@@ -1,0 +1,69 @@
+# Ruleset Definition
+
+## Core Structure
+- A RuleSet consists of one or more Rules.
+- Each Rule defines a term and its associated elements.
+
+## Rule Format
+```
+TERM: "TermName"
+[Elements]
+[NOTE: "Additional information about the term"]
+```
+
+## Elements
+Elements can be Definitions, Formulas, or Contexts. Multiple elements are allowed per Rule.
+
+### Definition
+```
+DEF ["ContextDescriptor"]: "Definition text"
+```
+- ContextDescriptor is optional
+
+### Formula
+```
+FORMULA ["ContextDescriptor"]: "Mathematical expression"
+WHERE Variable1 IS "Explanation"
+WHERE Variable2 IS "Explanation"
+```
+- ContextDescriptor is optional
+- Multiple WHERE clauses are allowed
+
+### Context
+```
+CONTEXT ["ContextDescriptor"]:
+IF "Condition1" THEN USE THIS MEANING
+IF "Condition2" THEN USE THIS MEANING
+```
+- ContextDescriptor is optional
+- Multiple IF-THEN statements are allowed
+
+## Text Representation
+- Text can be represented as either QuotedString or UnquotedString
+- QuotedString: Enclosed in double quotes (")
+- UnquotedString: Any text not containing newlines or colons
+
+## Key Points for LLM Usage
+1. Always start a new term with "TERM:" followed by the term name in quotes.
+2. Use appropriate keywords (DEF, FORMULA, CONTEXT) to introduce different types of elements.
+3. Context descriptors, when used, are always enclosed in square brackets [].
+4. Formulas can include WHERE clauses to define variables.
+5. Context elements use IF-THEN structures to specify conditions for meaning.
+6. The NOTE field is optional and comes at the end of a term's definition.
+7. Maintain consistent indentation for readability (especially for nested structures like in CONTEXT).
+
+## Example Usage
+```
+TERM: "Compound Interest"
+DEF: "Interest calculated on the initial principal and accumulated interest from previous periods"
+FORMULA: "A = P(1 + r/n)^(nt)"
+WHERE A IS "Final amount"
+WHERE P IS "Principal balance"
+WHERE r IS "Annual interest rate"
+WHERE n IS "Number of times interest is compounded per year"
+WHERE t IS "Number of years the amount is invested"
+CONTEXT [Finance]:
+IF "Savings Account" THEN USE THIS MEANING
+IF "Investment Growth" THEN USE THIS MEANING
+NOTE: "Commonly used in banking and investment calculations"
+```
