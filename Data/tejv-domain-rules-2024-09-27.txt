@@ -1,0 +1,232 @@
+TERM: "Product"
+DEF: "A good offered for sale."
+NOTE: "It is often the leaf of a hierarchy of categorization, e.g. category to subcategory to product."
+
+TERM: "Product Hierarchy"
+DEF: "A structure used to categorize products, where subcategories are subsets of categories, subfamilies are subsets of families, and subgroups are subsets of groups."
+NOTE: "Labels or column headers in the source data may not match the language used by the user."
+
+TERM: "Assortment"
+DEF: "The set of products offered."
+NOTE: "It can be overall, or can be limited by a selling location (stores, regions, clusters) or by season or by period."
+
+TERM: "Range"
+DEF: "The full set of products sold, unless restricted or qualified in a specific usage."
+
+TERM: "SKU"
+DEF: "A uniquely-identified stock keeping unit."
+CONTEXT:
+IF "Single size" THEN USE THIS MEANING "A style-color is only offered in one size, the style-color has the same specificity, 1:1 as a SKU"
+IF "Multiple sizes" THEN USE THIS MEANING "A style-color is offered in multiple sizes, a SKU is identified by a combination of style-color and size"
+
+TERM: "Newness"
+DEF: "A range_segment indicating recently introduced style-colors."
+NOTE: "Style-colors with the range_segment 'newness' are collectively referred to as 'newness'."
+
+TERM: "Intro"
+DEF: "Products with a product type or range_segment of 'newness' or 'introduction'."
+NOTE: "These are typically recently added items to the assortment."
+
+TERM: "Launch"
+DEF: "The date of first sale of a product. Specified as a day or month"
+
+TERM: "Sales ranking"
+DEF: "An ordering of products or groups of products based on their sales performance. In units by default"
+CONTEXT:
+IF "By units" THEN USE THIS MEANING
+IF "By cash or revenue" THEN USE THIS MEANING
+
+TERM: "Sells well"
+DEF: "Having higher unit sales that other members of its cohort, optionally limited by time or outlet.
+The cohort might be grouped by range segment, subcategory, color, or other criteria."
+
+TERM: "Rate of Sale (ROS)"
+DEF: "A measure of how quickly an item sells."
+NOTE: "If a rate of sale or ros field is in the data source, use the field content rather than calculating rate of sale. "
+FORMULA: "units_sold / (weeks_available * number_of_stores)"
+
+TERM: "Store Depth"
+DEF: "The average number of units sold per store over a specific time period."
+FORMULA: "units_sold / number_of_stores"
+
+TERM: "Sales Depth"
+DEF: "The average number of units sold per style-color over a specific time period."
+
+TERM: "Stock Depth"
+DEF: "The average number of units in stock per style-color at a given point in time."
+
+TERM: "Weeks on Hand (WOH)"
+DEF: "A measure of inventory coverage."
+FORMULA: "units in stock / average_weekly_sales"
+WHERE average_weekly_sales IS "Sales Units / Weeks in Store"
+
+TERM: "Sell-Through Rate (STR)"
+DEF: "The percentage of total stock that has been sold."
+FORMULA: "(units_sold / (units_sold + units in stock)) * 100"
+
+TERM: "Turn"
+DEF: "A measure of how quickly inventory is sold and replaced over a specific time period."
+FORMULA: "cost_of_goods_sold / average_inventory"
+
+TERM: "Productivity"
+DEF: "A measure of sales performance relative to the number of style-colors and stores."
+FORMULA: "total_sales / (number_of_style_colors * number_of_stores)"
+
+TERM: "Profit Driver"
+DEF: "A style-color or set of style-colors with a high total margin in cash relative to its peers in the assortment."
+
+TERM: "Running Out Risk"
+DEF: "A situation where a style-color has a high ROS relative to other style-colors and its inventory is small relative to its ROS."
+
+TERM: "Stockout"
+DEF: "A situation where there is no inventory of an item, potentially leading to unfulfilled demand."
+NOTE: "Also referred to as 'out of stock'."
+
+TERM: "Inventory Risk"
+DEF: "A situation where a product's inventory is not appropriate for ROS."
+CONTEXT:
+IF "High inventory" THEN USE THIS MEANING "A situation where a style-color has a low ROS relative to other style-colors AND its inventory is large relative to ROS."
+IF "Low inventory" THEN USE THIS MEANING "A situation where a style-color has a high ROS AND a low inventory, risking a stockout"
+
+TERM: "High Inventory stock"
+DEF: "The 10 products with the highest ending inventory in the last period for which data is available"
+
+TERM: "What people want to buy in a given month"
+DEF: "A set of products that sold unusually well in the given month. Unless otherwise specified, the product sets to be compared are subgroups."
+NOTE: "Selling well means having the highest percentage increase in unit sales in the given month relative to the average of the prior months within the preceding year."
+FORMULA: "percentage_increase = ((units_sold_given_month - average_units_sold_prior_months) / average_units_sold_prior_months) * 100"
+WHERE units_sold_given_month IS "The number of units sold in the given month"
+WHERE average_units_sold_prior_months IS "The average number of units sold in prior months within the year preceding the given month"
+NOTE: "A user may specifically define the groups to be compared by other product attributes."
+
+TERM: "Rising Styles"
+DEF: "Styles ranked by the percentage increase in unit sales in the most recent period for which data is available relative to the average of up to 11 prior like periods within the preceding 12 months overall. The top 10 of these are considered rising styles."
+
+TERM: "Falling Styles"
+DEF: "Styles ranked by the percentage decrease in unit sales in the most recent period for which data is available relative to the average of up to 11 prior like periods within the preceding 12 months overall. The top 10 of these are considered rising styles."
+
+TERM: "Missing (Misses)"
+DEF: "Categories or subcategories in which other retailers offer products that the specified retailer does not."
+NOTE: "This indicates potential gaps in the assortment compared to competitors."
+
+TERM: "Heavy"
+DEF: "A situation where a retailer has a higher percentage of products in a subcategory compared to other retailers."
+NOTE: "This may indicate an area of focus or specialization."
+
+TERM: "Opportunity"
+DEF: "A situation where a retailer has a lower percentage of products in a subcategory compared to other retailers."
+NOTE: "This may indicate potential areas for expansion or improvement."
+
+TERM: "Gaps"
+DEF: "Subcategories where the retailer has a smaller percentage of products than other retailers."
+CONTEXT:
+IF "Competitor scope" THEN USE THIS MEANING "Subcategories where a competitor offers a product and the retailer does not"
+IF "Within a category" THEN USE THIS MEANING "Subcategories where the retailer does not offer any product"
+
+TERM: "Core Colors"
+DEF: "Basic, fundamental colors including black, brown, beige, tan, white, and gray."
+
+TERM: "Fashion Colors"
+DEF: "Colors that are not considered core colors, typically more trend-driven or seasonal."
+
+TERM: "Pricing Metrics"
+DEF: "A set of price-related measurements for a category or subcategory."
+NOTE: "Includes Entry Price (the lowest price), Average Price (the mean price), and Exit Price (the highest price) within the category or subcategory."
+
+TERM: "Competitor"
+DEF: "A term synonymous with the 'retailer' column, referring to other businesses in the same market."
+
+TERM: "Distribution"
+DEF: "A representation of data that counts and displays all different occurrences of a particular value."
+
+TERM: "Star"
+DEF: "A product with a class or pareto designation of A or A*."
+
+TERM: "Dog"
+DEF: "A product with a class or pareto designation of C or tail."
+
+TERM: "Gross Margin"
+DEF: "The difference between the Average Unit Retail (AUR) and the standard cost price, multiplied by Sales Units."
+FORMULA: "(AUR - standard_cost_price) * Sales Units"
+
+TERM: "Total Margin"
+DEF: "The sum of Gross Margin for all style-colors in a subgroup."
+FORMULA: "Sum(Gross Margin for all style-colors in the subgroup)"
+
+TERM: "Gross Margin Percentage"
+DEF: "The ratio of Total gross margin to total sales revenue, expressed as a percentage."
+FORMULA: "(Total gross margin / total sales revenue) * 100"
+
+TERM: "AUR (Average Unit Retail)"
+DEF: "The average price at which a product is sold."
+NOTE: "If the data source has an aur column, use the given data rather than the formula "
+FORMULA: "Total Sales (in currency) / Total Sales Units"
+
+TERM: "Inventory Turn"
+DEF: "A measure of how quickly inventory is sold and replaced."
+FORMULA: "Cost of Goods Sold (COGS, in currency) / Average Inventory Value (in currency)"
+WHERE Average Inventory Value IS "(Beginning Inventory + Ending Inventory) / 2"
+
+TERM: "Stock to Sales Ratio (SSR)"
+DEF: "The ratio of current inventory to sales."
+FORMULA: "Current Inventory Units / Sales Units"
+
+TERM: "Contribution"
+CONTEXT:
+IF "Not specified" THEN USE THIS MEANING "Calculated in terms of share of sales units, not revenue"
+FORMULA: "(Product or Category sales / Total sales) * 100
+
+TERM: "Standard_Selling_Price"
+DEF: "The standard selling price of the product, before any discounts are applied."
+
+TERM: "Discount"
+DEF: "The amount of discount taken for a product over a period."
+FORMULA: "(standard_selling_price - AUR) * unit_sales"
+WHERE standard_selling_price IS "The standard selling price of the product"
+WHERE AUR IS "The average unit retail price"
+WHERE unit_sales IS "The number of units sold"
+
+TERM: "Total Discount Value"
+DEF: "The total amount of discount taken for a collection of products over a period."
+FORMULA: "Sum((standard_selling_price - AUR) * units_sold)"
+WHERE standard_selling_price IS "The standard selling price of the product"
+WHERE AUR IS "The average unit retail price"
+WHERE units_sold IS "The number of units sold"
+
+TERM: "Total Stock"
+CONTEXT: "For a single period"
+DEF: "The sum of ending inventory and sales for the given period."
+FORMULA: "end_inv + sales"
+
+TERM: "Underperforming"
+DEF: "A subcategory with the highest percentage decrease between average sales units across all periods (except the last 3) vs. the last 3 periods' average sales."
+FORMULA: "(AVG_sales_rest - AVG_sales_last_3) / AVG_sales_rest * 100"
+WHERE AVG_sales_rest IS "Average sales units for all periods except the last 3"
+WHERE AVG_sales_last_3 IS "Average sales units for the last 3 periods"
+
+TERM: "Overperforming"
+DEF: "A subcategory with the highest percentage increase between average sales units across all periods (except the last 3) vs. the last 3 periods' average sales."
+FORMULA: "(AVG_sales_rest - AVG_sales_last_3) / AVG_sales_rest * 100"
+WHERE AVG_sales_rest IS "Average sales units for all periods except the last 3"
+WHERE AVG_sales_last_3 IS "Average sales units for the last 3 periods"
+
+TERM: "Inventory Carrying"
+DEF: "The total amount of inventory carried over a specific period."
+
+TERM: "Inventory Carried"
+DEF: "The total inventory held during a specific period."
+FORMULA: "final_inv + total_sales"
+WHERE final_inv IS "The end_inv ONLY for the final period in the range"
+WHERE total_sales IS "Total of sales for all periods in the range"
+
+TERM: "Best time to launch"
+DEF: "The best time to launch a product is the month when sales for its subcategory are highest"
+
+TERM: "Average standard selling price (SSP)"
+FORMULA: "Average of standard selling price (SSP) of products, omitting components with a standard selling price of 0"
+
+TERM: "Average standard cost price"
+FORMULA: "Average of standard cost price of products, omitting components with a standard cost price of 0"
+
+TERM: "Most expensive"
+DEF: "The product in a group, or the subset of products in a group of products, that has the highest average standard selling price (SSP) among its peers. When averaging SSP, omit group members with SSP values of 0."
