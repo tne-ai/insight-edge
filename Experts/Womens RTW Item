@@ -55,7 +55,7 @@ nodes:
     data:
       id: qIHgOQxy64ACQgxcD93bT
       title: Ruleset
-      fileName: tejv-domain-rules-2024-09-27.txt
+      fileName: tejv-domain-rules.txt
     width: 210
     height: 250
     selected: false
@@ -225,7 +225,7 @@ nodes:
     data:
       id: aFgU5QjpZ7M23LrRYOGHN
       title: Ruleset
-      fileName: tejv-domain-rules-2024-09-27.txt
+      fileName: tejv-domain-rules.txt
     width: 210
     height: 250
     selected: false
@@ -241,7 +241,7 @@ nodes:
     data:
       id: mDvGHC0bnJGbZfzKOEY3m
       title: Ruleset key
-      fileName: model-friendly-rule-syntax-key 2024-08-20.txt
+      fileName: model-friendly-rule-syntax-key.txt
     width: 210
     height: 274
     selected: false

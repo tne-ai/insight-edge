@@ -101,7 +101,7 @@ nodes:
     data:
       id: ftETm4EbqlrmLP5kQ4zyM
       title: General rules
-      fileName: general-rules_2024-08-22.txt
+      fileName: general-rules.txt
     width: 210
     height: 250
     selected: false
@@ -117,7 +117,7 @@ nodes:
     data:
       id: DAnjY7T61Xmqlg-0c5McO
       title: General Rules
-      fileName: general-rules_2024-08-22.txt
+      fileName: general-rules.txt
     width: 210
     height: 250
     selected: false
@@ -181,7 +181,7 @@ nodes:
     data:
       id: Fo9gIhUDw5VXWVkzryhr-
       title: Model-friendly rules key
-      fileName: model-friendly-rule-syntax-key 2024-08-20.txt
+      fileName: model-friendly-rule-syntax-key.txt
     width: 210
     height: 298
     selected: false
@@ -197,7 +197,7 @@ nodes:
     data:
       id: Cb2etq3z-PQucMzUX9LRC
       title: Rules
-      fileName: tejv-domain-rules-2024-09-27.txt
+      fileName: tejv-domain-rules.txt
     width: 210
     height: 250
     selected: false
@@ -251,7 +251,7 @@ nodes:
     data:
       id: CK1oGZ69ueZkIJKxOfrZA
       title: Syntax key
-      fileName: model-friendly-rule-syntax-key 2024-08-20.txt
+      fileName: model-friendly-rule-syntax-key.txt
     width: 210
     height: 274
     selected: false
@@ -267,7 +267,7 @@ nodes:
     data:
       id: nXvlcgrve5EuU9-3NBhn6
       title: Rules
-      fileName: tejv-domain-rules-2024-09-27.txt
+      fileName: tejv-domain-rules.txt
     width: 210
     height: 250
     selected: false
@@ -299,7 +299,7 @@ nodes:
     data:
       id: mZdhO-F5bxnOeZqIz1_Xv
       title: Key
-      fileName: model-friendly-rule-syntax-key 2024-08-20.txt
+      fileName: model-friendly-rule-syntax-key.txt
     width: 210
     height: 274
     selected: false
