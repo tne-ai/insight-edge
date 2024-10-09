@@ -30,7 +30,7 @@ nodes:
       id: RjNl6A5e5LMXx1xy85IWA
       title: Item generator
       input: ''
-      slashgptManifest: tne-ie_item_generator_2024-09-27.model
+      slashgptManifest: ie_item_generator.model
       toolJson: ''
       toolCode: ''
       outputType: overwrite
@@ -230,7 +230,7 @@ nodes:
       id: 1UsFBdBNpi5KvzqGksq3B
       title: Ruleset relevance filter
       input: ''
-      slashgptManifest: tne-ruleset-relevance-filter 2024-09-26.model
+      slashgptManifest: ruleset_relevance_filter.model
       toolJson: ''
       toolCode: ''
       outputType: overwrite

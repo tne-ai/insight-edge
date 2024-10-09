@@ -30,7 +30,7 @@ nodes:
       id: RjNl6A5e5LMXx1xy85IWA
       title: Chat
       input: ''
-      slashgptManifest: chat explain 2024-09-24.model
+      slashgptManifest: chat_explain.model
       toolJson: ''
       toolCode: ''
       outputType: overwrite
@@ -214,7 +214,7 @@ nodes:
       id: 1UsFBdBNpi5KvzqGksq3B
       title: Ruleset relevance filter
       input: ''
-      slashgptManifest: tne-ruleset-relevance-filter 2024-09-26.model
+      slashgptManifest: ruleset_relevance_filter.model
       toolJson: ''
       toolCode: ''
       outputType: overwrite
