@@ -9,12 +9,12 @@ nodes:
       title: Generate Code
       prompt: ''
       outputType: overwrite
-      outputToCanvas: true
+      outputToCanvas: false
       useUserQuery: true
       apiKey: OPENAI_API_KEY
       engineName: openai-gpt
       modelName: gpt-4o
-    width: 214
+    width: 212
     height: 466
     selected: false
     positionAbsolute:
@@ -36,7 +36,7 @@ nodes:
       outputType: overwrite
       outputToCanvas: false
       useUserQuery: true
-    width: 212
+    width: 210
     height: 490
     selected: false
     positionAbsolute:
@@ -53,10 +53,10 @@ nodes:
       title: DF to MD
       module: chat_markdown.py
       outputType: overwrite
-      outputToCanvas: true
-    width: 212
+      outputToCanvas: false
+    width: 210
     height: 348
-    selected: false
+    selected: true
     dragging: false
     positionAbsolute:
       x: 520.8404308114866
@@ -302,7 +302,7 @@ nodes:
       outputName: generated_code.txt
     width: 210
     height: 190
-    selected: true
+    selected: false
     positionAbsolute:
       x: 160.1791532484607
       'y': 1161.7489916553377
