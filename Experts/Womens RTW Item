@@ -41,7 +41,7 @@ nodes:
       outputToCanvas: false
       useUserQuery: true
     width: 210
-    height: 514
+    height: 490
     selected: false
     positionAbsolute:
       x: 1293.2031223259348
@@ -57,7 +57,7 @@ nodes:
       title: Ruleset
       fileName: tejv-domain-rules.txt
     width: 210
-    height: 250
+    height: 226
     selected: false
     positionAbsolute:
       x: 1389.8188507632578
@@ -89,10 +89,10 @@ nodes:
       title: DF to MD
       module: chat_markdown.py
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
     width: 210
     height: 348
-    selected: false
+    selected: true
     dragging: false
     positionAbsolute:
       x: 583.6148028588891
@@ -140,7 +140,7 @@ nodes:
       title: General rules
       fileName: general-rules.txt
     width: 210
-    height: 250
+    height: 226
     selected: false
     positionAbsolute:
       x: 356.9883511242847
@@ -154,9 +154,9 @@ nodes:
     data:
       id: VQCjBEibZL1iR6Hxilpy0
       title: Ruleset key
-      fileName: model-friendly-rule-syntax-key 2024-08-20.txt
+      fileName: model-friendly-rule-syntax-key.txt
     width: 210
-    height: 274
+    height: 250
     selected: false
     positionAbsolute:
       x: 1167.8778427859484
@@ -170,9 +170,9 @@ nodes:
     data:
       id: zao7baSNdlWH5li6QoALA
       title: Ruleset key
-      fileName: model-friendly-rule-syntax-key 2024-08-20.txt
+      fileName: model-friendly-rule-syntax-key.txt
     width: 210
-    height: 274
+    height: 250
     selected: false
     positionAbsolute:
       x: 791.2867732487767
@@ -194,7 +194,7 @@ nodes:
       outputToCanvas: false
       useUserQuery: false
     width: 210
-    height: 514
+    height: 490
     selected: false
     positionAbsolute:
       x: -445.56264683903134
@@ -227,7 +227,7 @@ nodes:
       title: Ruleset
       fileName: tejv-domain-rules.txt
     width: 210
-    height: 250
+    height: 226
     selected: false
     dragging: false
     positionAbsolute:
@@ -243,7 +243,7 @@ nodes:
       title: Ruleset key
       fileName: model-friendly-rule-syntax-key.txt
     width: 210
-    height: 274
+    height: 250
     selected: false
     positionAbsolute:
       x: -247.89436206706182
@@ -309,7 +309,7 @@ nodes:
       title: General rules
       fileName: general-rules.txt
     width: 210
-    height: 250
+    height: 226
     selected: false
     dragging: false
     positionAbsolute:

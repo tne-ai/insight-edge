@@ -37,7 +37,7 @@ nodes:
       outputToCanvas: false
       useUserQuery: true
     width: 210
-    height: 490
+    height: 466
     selected: false
     positionAbsolute:
       x: 1007.7204057233687
@@ -53,7 +53,7 @@ nodes:
       title: DF to MD
       module: chat_markdown.py
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
     width: 210
     height: 348
     selected: true
@@ -87,7 +87,7 @@ nodes:
       title: General rules
       fileName: general-rules.txt
     width: 210
-    height: 250
+    height: 226
     selected: false
     positionAbsolute:
       x: 1558.7147707445822
@@ -103,7 +103,7 @@ nodes:
       title: General Rules
       fileName: general-rules.txt
     width: 210
-    height: 250
+    height: 226
     selected: false
     dragging: false
     positionAbsolute:
@@ -167,7 +167,7 @@ nodes:
       title: Model-friendly rules key
       fileName: model-friendly-rule-syntax-key.txt
     width: 210
-    height: 298
+    height: 274
     selected: false
     positionAbsolute:
       x: -139.13726087762484
@@ -183,7 +183,7 @@ nodes:
       title: Domain rules
       fileName: tejv-domain-rules.txt
     width: 210
-    height: 250
+    height: 226
     selected: false
     positionAbsolute:
       x: 1121.6111320107464
@@ -221,7 +221,7 @@ nodes:
       outputToCanvas: false
       useUserQuery: false
     width: 210
-    height: 514
+    height: 490
     selected: false
     positionAbsolute:
       x: -376.3139357301229
@@ -237,7 +237,7 @@ nodes:
       title: Syntax key
       fileName: model-friendly-rule-syntax-key.txt
     width: 210
-    height: 274
+    height: 250
     selected: false
     positionAbsolute:
       x: -142.69334683687623
@@ -253,7 +253,7 @@ nodes:
       title: Domain rules
       fileName: tejv-domain-rules.txt
     width: 210
-    height: 250
+    height: 226
     selected: false
     positionAbsolute:
       x: -381.97221270855596
@@ -285,7 +285,7 @@ nodes:
       title: Key
       fileName: model-friendly-rule-syntax-key.txt
     width: 210
-    height: 274
+    height: 250
     selected: false
     positionAbsolute:
       x: 897.0082486970811
