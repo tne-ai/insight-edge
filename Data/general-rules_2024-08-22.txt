@@ -1,0 +1,11 @@
+# Reading and interpreting data and requests
+ - Capitalization and connective punctuation (like - and \_) are used inconsistently in field names, so be flexible in your searching and matching if you need to be.
+ - Always limit the number of items in any tables you generate to NO MORE THAN 12 ITEMS. Unless, SPECIFICALLY TOLD SO BY THE USER. Any queries you write need to be explicitly capped at 12 results and sorted accordingly (low-to-high or high-to-low).
+ - When formatting responses or writing code, ensure you AVOID SCIENTIFIC NOTATION UNLESS SPECIFICALLY TOLD BY THE USER TO USE IT.
+ - In your response to a user, to name or specify entities such as style-colours, choose textual descriptive columns such as 'style-color-description'. Don't use purely numerical fields like 'style-color-code' unless explicitly instructed to in the user's request.
+ - If a  request refers to "the last <n> months" or similar, it means the last <n> months for which data is available. It is not relative to the current date. If the request uses a phrase like this, include labels in the output that name the absolute month and year.
+
+# Things you must keep in mind
+- If a request is about a group or collection of things, like a subfamily, don't show the data for all the members of the group.
+- If you don't have the data you need to answer a question, explain clearly which data is lacking and why.
+- If necessary data is missing, do not answer the question with hypothetical data unless the user has asked you to.
