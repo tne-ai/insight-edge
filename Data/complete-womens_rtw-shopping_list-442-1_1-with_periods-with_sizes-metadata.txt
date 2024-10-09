@@ -1,0 +1,424 @@
+Original columns: demand_plan_description, product_hier_feature_1_desc, product_group_description, product_subgroup_desc, gender, sku_id, size_code, style_color_description, style_color_id, period, client_id, region_id, range_segment, material, product_launch_date, colour_description, price_metric, sales, end_inv, total_stock, dc_inv, weeks_selling, standard_selling_price, standard_cost_price, aur, margin  v, sales v, discount v, discount %, margin %, distinct_store_count, pareto, season
+Number of rows: 2117
+
+# Schema notes for womens_rtw-shopping_list-442-1_1-with_periods-with_sizes
+
+## Descriptions of column meaning in the  data:
+period: Month of reported sales and inventory for the row. The format is YYYYMM, so 202202 is February of 2022.
+sales: Unit sales for the specified product during the month specified in 'period'
+product_launch_date: Date when the product was first launched in DD/MM/YYYY format
+
+
+## Important information about calculating using the data schema:
+### Product hierarchy and identity
+- All the products in the data are women's clothing
+- The top level grouping column is "product_hier_feature_1_desc", then 'product_group_description', then 'product_subgroup_desc', then style_colour as either 'style_colour_description' or 'style_colour_id'
+- A 'sku_id' is determined by a 'style_colour_id' combined with a specific 'size_code'
+- When asked about a product using a seven-digit number, like "5226727", it is a 'sku_id'.
+- There is a 1:1 mapping between 'style_colour_description' and 'style_colour_id'. Those are two equivalent identifiers for a style_color.
+
+- One style_colour can appear in multiple rows. Among those rows, the size, period, and sales information will vary.
+- Each row presents sales information for its 'sku_id' in the month noted in the row's 'period' column.
+
+- Discount is ('standard selling price' - 'aur') * sales . Discount can be totale for a group of style_colours, a product over time, or both. Do NOT use 'msrp' to calculate discount.
+
+### Sales
+- To get total sales for a style_colour or sku_id, total the 'sales' in all the rows for that style_color or sku_id.
+- To detect and describe trends in unit sales for a style_color or sku, analyse its 'sales' growing or shrinking over time.
+- To answer simple, direct questions about sales for a style_colour or sku_id that don't specify a specific period, aggregation or comparison among periods, sum 'sales' over all periods available.
+- To get total sales for a style_color or sku, total the 'sales' in all the rows for various 'period's for that style_color.
+- To detect and describe trends in unit sales for a style_color, analyse its 'sales' growing or shrinking over time.
+- To answer simple, direct questions about a product's sales that don't specify aggregation or comparison
+among periods, use 'sales' for the most recent period available for the product.
+
+### Other notes about presentation and calculation
+- In this data set, no terms refer to a specific brand. Requests for this data set are more likely to refer to categories or subcategories.
+- Unless explicitly directed by the user, don't use the numerical column 'style_colour_code' in a response without additional context. Instead, return textual columns such as 'style_colour_description' or 'product_subgroup_desc'
+- Because of the data format, you cannot extract information from the 'period' column with the method df['period'].str.endswith(). Instead, use pd.to_datetime() to extract this information.
+- REMEMBER: 'sells well', 'top', 'what want people want to buy' are referring to the 'sales' column, NOT ROS. DO NOT calculate ROS in response to these types of questions.
+
+{
+  "summary_structure": {
+    "title": "Women's Ready-to-Wear Sales and Inventory Summary",
+    "description": "This summary provides insights into the sales, inventory, and pricing data for women's ready-to-wear clothing across different categories, sizes, colors, and time periods.",
+    "sections": [
+      {
+        "title": "Data Structure",
+        "content": "The data is structured in a CSV file. Each row represents sales and inventory data for a specific SKU (Stock Keeping Unit) within a certain time period (month). A single SKU can have multiple rows representing its performance across different months."
+      },
+      {
+        "title": "Key Columns",
+        "content": [
+          {
+            "column_name": "product_hier_feature_1_desc",
+            "description": "Broadest product category (e.g., 'WOMENS BOTTOMS', 'WOMENS OUTERWEAR', 'WOMENS TOPS')"
+          },
+          {
+            "column_name": "product_group_description",
+            "description": "More specific product group within the broad category (e.g., 'WOMENS PANTS', 'WOMENS SHORTS/SKIRTS', 'WOMENS OUTERWEAR')"
+          },
+          {
+            "column_name": "product_subgroup_desc",
+            "description": "Most specific product category (e.g., 'WOMENS PANTS', 'WOMENS SHORTS', 'WOMENS SKIRTS', 'WOMENS HEAVY', 'WOMENS LIGHT', 'WOMENS VESTS', 'WOMENS ZIP-UPS', 'WOMENS LS TOPS', 'WOMENS SS TOPS')"
+          },
+          {
+            "column_name": "sku_id",
+            "description": "Unique identifier for each individual product SKU"
+          },
+          {
+            "column_name": "size_code",
+            "description": "Numeric code representing the size of the clothing item (e.g., 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20)"
+          },
+          {
+            "column_name": "style_color_description",
+            "description": "Unique identifier for a specific style and color combination of the product"
+          },
+          {
+            "column_name": "style_color_id",
+            "description": "Numeric identifier for a specific style and color combination of the product"
+          },
+          {
+            "column_name": "period",
+            "description": "Month of the data in YYYYMM format (e.g., 202111, 202112, 202201)"
+          },
+          {
+            "column_name": "range_segment",
+            "description": "Categorization of the product based on its lifecycle stage (e.g., 'Seasonal', 'Carryover', 'Carryover EOL', 'Newness')"
+          },
+          {
+            "column_name": "material",
+            "description": "Main material composition of the garment (e.g., 'Nylon', 'Nylon Blend', 'Polyester Blend', 'Other', 'Downproof Woven', 'French Terry', 'Pima cotton')"
+          },
+          {
+            "column_name": "product_launch_date",
+            "description": "Date when the product was first launched in DD/MM/YYYY format"
+          },
+          {
+            "column_name": "colour_description",
+            "description": "Description of the color of the garment (e.g., 'starlight', 'White', 'Multi', 'Black', 'Green', 'Taupe', 'Poolside', 'Red', 'Opal', 'Teal', 'Parachute', 'Espresso', 'Psychic', 'Grey', 'Pink', 'Orange', 'Mint', 'Bone', 'Pomegranate', 'Zap', 'Lemon', 'Navy', 'Ivory', 'Frappe', 'Purple', 'Plum', 'Cherry', 'Ice')"
+          },
+          {
+            "column_name": "price_metric",
+            "description": "Indicates the price tier of the product (e.g., 'ENTRY', 'EXIT', 'MIDDLE')"
+          },
+          {
+            "column_name": "sales",
+            "description": "Number of units sold in the given period"
+          },
+          {
+            "column_name": "end_inv",
+            "description": "Ending inventory for the given period"
+          },
+          {
+            "column_name": "total_stock",
+            "description": "Total stock available for the given period"
+          },
+          {
+            "column_name": "weeks_selling",
+            "description": "Number of weeks the product has been actively selling in the given period"
+          },
+          {
+            "column_name": "standard_selling_price",
+            "description": "Regular selling price of the product"
+          },
+          {
+            "column_name": "standard_cost_price",
+            "description": "Cost price of the product"
+          },
+          {
+            "column_name": "aur",
+            "description": "Average unit retail price (actual selling price achieved)"
+          },
+          {
+            "column_name": "margin  v",
+            "description": "Profit margin in value terms"
+          },
+          {
+            "column_name": "sales v",
+            "description": "Sales revenue in value terms"
+          },
+          {
+            "column_name": "discount v",
+            "description": "Discount given in value terms"
+          },
+          {
+            "column_name": "discount %",
+            "description": "Discount percentage applied to the product"
+          },
+          {
+            "column_name": "margin %",
+            "description": "Profit margin percentage"
+          },
+          {
+            "column_name": "distinct_store_count",
+            "description": "Number of distinct stores where the product was sold in the given period"
+          },
+          {
+            "column_name": "pareto",
+            "description": "Product categorization based on its sales performance (e.g., 'A', 'A*', 'B', 'C', 'Tail')"
+          },
+          {
+            "column_name": "season",
+            "description": "Season the product is intended for (e.g., 'Fall/Winter', 'Spring/Summer')"
+          }
+        ]
+      },
+      {
+        "title": "Data Types",
+        "content": [
+          {
+            "data_type": "Numeric Columns",
+            "columns": [
+              "sku_id",
+              "size_code",
+              "style_color_id",
+              "period",
+              "sales",
+              "end_inv",
+              "total_stock",
+              "weeks_selling",
+              "standard_selling_price",
+              "standard_cost_price",
+              "aur",
+              "margin  v",
+              "sales v",
+              "discount v",
+              "discount %",
+              "margin %",
+              "distinct_store_count"
+            ]
+          },
+          {
+            "data_type": "Categorical Columns",
+            "columns": [
+              "product_hier_feature_1_desc",
+              "product_group_description",
+              "product_subgroup_desc",
+              "style_color_description",
+              "range_segment",
+              "material",
+              "colour_description",
+              "price_metric",
+              "pareto",
+              "season"
+            ]
+          },
+          {
+            "data_type": "Date-like Column",
+            "columns": [
+              "product_launch_date (although stored as text)"
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Potential Analyses",
+        "content": [
+          "Sales and inventory performance analysis by various product categories (hierarchy, group, subgroup)",
+          "Analysis of sales trends and seasonality across different time periods",
+          "Performance evaluation of different range segments (Newness, Carryover, etc.)",
+          "Pricing and discount analysis based on 'price_metric', 'standard_selling_price', 'aur', and 'discount %'",
+          "Profit margin analysis using 'margin  v' and 'margin %'",
+          "SKU performance evaluation based on sales, inventory, and AUR",
+          "Impact of material and color on sales and pricing",
+          "Analysis of product performance based on 'pareto' tagging",
+          "Identification of best-selling sizes and colors within specific product categories"
+        ]
+      },
+      {
+        "title": "Common Aggregations",
+        "content": [
+          "Sum of 'sales', 'end_inv', 'total_stock', 'sales v', 'discount v'",
+          "Average of 'aur', 'standard_selling_price', 'standard_cost_price', 'discount %', 'margin %'",
+          "Count of distinct 'sku_id', 'style_color_description', 'style_color_id'"
+        ]
+      },
+      {
+        "title": "Typical Groupings",
+        "content": [
+          "By 'product_hier_feature_1_desc', 'product_group_description', 'product_subgroup_desc'",
+          "By 'size_code', 'style_color_description', 'style_color_id'",
+          "By 'period', 'range_segment', 'material', 'colour_description', 'price_metric', 'pareto', 'season'"
+        ]
+      },
+      {
+        "title": "Useful Filters",
+        "content": [
+          "'range_segment' for focusing on specific lifecycle stages",
+          "'period' for time-based analysis",
+          "'product_hier_feature_1_desc', 'product_group_description', 'product_subgroup_desc' for category-specific analysis",
+          "'size_code', 'colour_description' for analyzing performance of particular sizes and colors",
+          "'pareto' for segmenting products based on performance"
+        ]
+      }
+    ]
+  }
+}
+
+# Data simplification and compression
+- Columns with all NULL values in the original data have been removed.
+- Columns with a single, uniform value in the original data have been removed, and their value is noted below.
+
+## Deleted Null Columns
+
+-None-
+
+## Deleted Uniform Columns
+demand_plan_description: Testing Sales Value Tiering
+gender: Womens
+client_id: 9
+region_id: 3
+dc_inv: 0
+
+# Indices for Request Analysis
+## Forward Index - maps columns to their set of values
+### Format
+    <column>: <values>
+    **Examples:**
+    range_segment: [Carryover, Carryover EOL, Seasonal]
+    product_subgroup_desc: [City, Shopping, Tote bag]
+### Forward index data
+  material:
+  - Nylon
+  - Nylon Blend
+  - Polyester Blend
+  - Other
+  - Downproof Woven
+  - French Terry
+  - Pima cotton
+  pareto:
+  - A
+  - Tail
+  - A*
+  - B
+  - C
+  price_metric:
+  - ENTRY
+  - EXIT
+  - MIDDLE
+  product_group_description:
+  - WOMENS PANTS
+  - WOMENS SHORTS/SKIRTS
+  - WOMENS OUTERWEAR
+  - WOMENS 2ND LAYERS
+  - WOMENS SS-LS TOPS
+  product_hier_feature_1_desc:
+  - WOMENS BOTTOMS
+  - WOMENS OUTERWEAR
+  - WOMENS TOPS
+  product_subgroup_desc:
+  - WOMENS PANTS
+  - WOMENS SHORTS
+  - WOMENS SKIRTS
+  - WOMENS HEAVY
+  - WOMENS LIGHT
+  - WOMENS VESTS
+  - WOMENS ZIP-UPS
+  - WOMENS LS TOPS
+  - WOMENS SS TOPS
+  range_segment:
+  - Seasonal
+  - Carryover EOL
+  - Carryover
+  - Newness
+  season:
+  - Fall/Winter
+  - Spring/Summer
+
+## Inverted Index - maps values to columns where they occur.
+### Format
+    <value>: <columns>
+    **Examples:**
+    Carryover EOL: range_segment
+    City: product_subgroup_desc
+## Inverted index data
+  A:
+  - pareto
+  A*:
+  - pareto
+  B:
+  - pareto
+  C:
+  - pareto
+  Carryover:
+  - range_segment
+  Carryover EOL:
+  - range_segment
+  Downproof Woven:
+  - material
+  ENTRY:
+  - price_metric
+  EXIT:
+  - price_metric
+  Fall/Winter:
+  - season
+  French Terry:
+  - material
+  MIDDLE:
+  - price_metric
+  Newness:
+  - range_segment
+  Nylon:
+  - material
+  Nylon Blend:
+  - material
+  Other:
+  - material
+  Pima cotton:
+  - material
+  Polyester Blend:
+  - material
+  Seasonal:
+  - range_segment
+  Spring/Summer:
+  - season
+  Tail:
+  - pareto
+  WOMENS 2ND LAYERS:
+  - product_group_description
+  WOMENS BOTTOMS:
+  - product_hier_feature_1_desc
+  WOMENS HEAVY:
+  - product_subgroup_desc
+  WOMENS LIGHT:
+  - product_subgroup_desc
+  WOMENS LS TOPS:
+  - product_subgroup_desc
+  WOMENS OUTERWEAR:
+  - product_hier_feature_1_desc
+  - product_group_description
+  WOMENS PANTS:
+  - product_group_description
+  - product_subgroup_desc
+  WOMENS SHORTS:
+  - product_subgroup_desc
+  WOMENS SHORTS/SKIRTS:
+  - product_group_description
+  WOMENS SKIRTS:
+  - product_subgroup_desc
+  WOMENS SS TOPS:
+  - product_subgroup_desc
+  WOMENS SS-LS TOPS:
+  - product_group_description
+  WOMENS TOPS:
+  - product_hier_feature_1_desc
+  WOMENS VESTS:
+  - product_subgroup_desc
+  WOMENS ZIP-UPS:
+  - product_subgroup_desc
+
+# Representative Samples
+
+The following CSV table includes several complete rows from the original data source, including null and uniform columns. It shows a range of values in both categorical and numerical columns to represent the full scope of the data.
+
+demand_plan_description,product_hier_feature_1_desc,product_group_description,product_subgroup_desc,gender,sku_id,size_code,style_color_description,style_color_id,period,client_id,region_id,range_segment,material,product_launch_date,colour_description,price_metric,sales,end_inv,total_stock,dc_inv,weeks_selling,standard_selling_price,standard_cost_price,aur,margin  v,sales v,discount v,discount %,margin %,distinct_store_count,pareto,season
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS PANTS,WOMENS PANTS,Womens,5220125,4,Style Option 13782,23244,202112,9,3,Carryover,Polyester Blend,25/02/2019,Poolside,ENTRY,1738,0,1738,0,3,0.0,0.0,88.255743,153388.4813,153388.4813,-153388.4813,-100.00%,100.00%,387,A*,Fall/Winter
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS SHORTS/SKIRTS,WOMENS SHORTS,Womens,5197932,8,Style Option 19921,29383,202205,9,3,Carryover,Other,28/01/2019,Psychic,ENTRY,546,16,562,0,2,0.0,0.0,59.512865,32494.02429,32494.02429,-32494.02429,-100.00%,100.00%,382,A,Spring/Summer
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS PANTS,WOMENS PANTS,Womens,5220129,6,Style Option 13782,23244,202111,9,3,Carryover,Polyester Blend,25/02/2019,Poolside,EXIT,2418,40,2458,0,4,98.0,18.38,86.202363,163994.4737,208437.3137,28526.68627,14.00%,79.00%,387,A*,Fall/Winter
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS SHORTS/SKIRTS,WOMENS SHORTS,Womens,5324811,4,Style Option 21641,31103,202204,9,3,Newness,Polyester Blend,21/03/2022,Multi,ENTRY,3273,123,3396,0,3,0.0,0.0,53.512654999999995,173317.1763,173317.1763,-173317.1763,-100.00%,100.00%,382,A,Spring/Summer
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS SHORTS/SKIRTS,WOMENS SKIRTS,Womens,5224469,6,Style Option 23129,32591,202206,9,3,Carryover,Polyester Blend,06/05/2019,Pomegranate,MIDDLE,743,2,745,0,3,0.0,0.0,69.654737,51842.75413,51842.75413,-51842.75413,-100.00%,100.00%,376,A,Spring/Summer
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS SHORTS/SKIRTS,WOMENS SHORTS,Womens,5324816,6,Style Option 21641,31103,202204,9,3,Newness,Polyester Blend,21/03/2022,Multi,ENTRY,3584,137,3721,0,3,0.0,0.0,53.032746,188510.6844,188510.6844,-188510.6844,-100.00%,100.00%,383,A,Spring/Summer
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS SHORTS/SKIRTS,WOMENS SHORTS,Womens,5324816,6,Style Option 21641,31103,202206,9,3,Newness,Polyester Blend,21/03/2022,Multi,ENTRY,2015,2,2017,0,3,0.0,0.0,54.612183,109606.2076,109606.2076,-109606.2076,-100.00%,100.00%,383,A,Spring/Summer
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS PANTS,WOMENS PANTS,Womens,5220107,10,Style Option 13782,23244,202112,9,3,Carryover,Polyester Blend,25/02/2019,Poolside,ENTRY,657,0,657,0,2,0.0,0.0,86.558646,56869.03042,56869.03042,-56869.03042,-100.00%,100.00%,377,A*,Fall/Winter
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS SHORTS/SKIRTS,WOMENS SHORTS,Womens,5218635,4,Style Option 20101,29563,202205,9,3,Carryover,Other,28/01/2019,Pink,MIDDLE,2186,53,2239,0,4,0.0,0.0,60.859861,133039.6561,133039.6561,-133039.6561,-100.00%,100.00%,388,A,Spring/Summer
+Testing Sales Value Tiering,WOMENS OUTERWEAR,WOMENS OUTERWEAR,WOMENS LIGHT,Womens,5281488,4,Style Option 9881,19343,202201,9,3,Carryover,Nylon Blend,02/08/2021,Olive,EXIT,193,3,196,0,1,198.0,51.19,169.868127,22904.87851,32784.54851,5429.451489,17.00%,70.00%,292,A,Fall/Winter
