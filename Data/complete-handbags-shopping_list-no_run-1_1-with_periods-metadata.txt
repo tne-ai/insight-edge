@@ -1,0 +1,432 @@
+Original columns: demand_plan_description, product_hier_feature_1_desc, product_group_description, product_subgroup_desc, style_colour_desc, gender, style_colour_code, period, client_id, region_id, range_segment, material, product_launch_date, colour_description, channel_cid, distinct_store_count, pareto, month, season, sales, beg_inv, end_inv, total_stock, dc_inv, weeks_selling, standard_selling_price, standard_cost_price, aur, margin  v, margin %, sales v, discount v, discount %, price_metric
+Number of rows: 970
+
+# IMPORTANT
+-When calculating total discount value, you MUST not use 'msrp'. Instead, use AUR.
+-When filtering data within a specified timeframe (e.g., "the last 3 months"), ensure the filtering operation applies directly to the entire dataset before any other conditional filtering (like product category). This prevents losing relevant date information and captures the true global maximum.
+-Avoid filtering by category or subgroup before determining the relevant date range.
+
+# The meanings of columns in the  data:
+period: Month of reported sales and inventory for the row. The format is YYYYMM, so 202202 is February of 2022.
+sales: Unit sales for the specified product during the month specified in 'period'
+total_stock: end_inv + sales, ONLY FOR A SINGLE PERIOD.
+end_inv: the ending inventory for the style-color for the period. This is the default field to use for questions regarding "inventory" for a product and period
+
+# Important information about the data schema:
+- There is a 1:1 mapping between 'style_colour_description' and 'style_colour_code'. Those two are two equivalent identifiers for a style_color.
+- One 'style_colour_code' can appear in multiple rows. Among those rows, the period, sales, and inventory information is likely to vary.
+- Each row presents sales and inventory information for its 'style_colour_code' in the month noted in the row's 'period' column.
+- To get total sales for a style_color, total the 'sales' in all the rows for various 'periods' for that style_color.
+- To detect and describe trends in unit sales and inventory for a style_color, analyse its 'sales' growing or shrinking over time, as time passes (the 'period' increases).
+- To answer simple, direct questions about a product's sales or inventory that don't specify aggregation or comparison
+among periods, use the total sales, ROS, and inventory for the most recent period available for the product.
+- In this data set, no terms refer to a specific brand. Requests for this data set are more likely to refer to categories or subcategories.
+- When asked about a product using a five-digit number, like "Style 36697", search for the numeric part (36697) in the style_colour_desc column using an approximate match like "in", "contains", or "like".
+- The column 'style_colour_code' is not useful to return to the user without additional context. Instead, return columns such as 'style_colour_desc' or 'product_subgroup_desc' UNLESS EXPLICITLY TOLD BY THE USER.
+- discount is (standard_selling_price - aur) * sales. Discount can be summed for a group of products or for a product over time. Do NOT use MSRP to calculate discount.
+- All the data in this data source is about handbags. The product_subgroup_desc is the style_colour's subcategory within handbags
+IMPORTANT: When you see 'Handbag', this term encompasses ALL DATA IN THE CORPUS. ALL THE PRODUCTS are 'Handbag'. DO NOT QUERY OR FILTER USING 'Handbag'
+
+# Summary structure of the data
+{
+  "summary_structure": {
+    "title": "Handbag Sales and Inventory Data",
+    "description": "This summary provides a detailed overview of sales and inventory data for various handbag styles over a 12-month period.",
+    "sections": [
+      {
+        "title": "Data Structure",
+        "content": "The data is structured in a CSV file where each row represents the sales and inventory data for a specific handbag style and color for a specific month. Multiple rows exist for the same style and color across different months, allowing for trend analysis."
+      },
+      {
+        "title": "Key Columns",
+        "content": [
+          {
+            "column_name": "product_subgroup_desc",
+            "description": "Category of the handbag (e.g., 'Backpack', 'Clutch', 'Crossbody bag', 'Shopping', 'Tote bag')"
+          },
+          {
+            "column_name": "style_colour_desc",
+            "description": "Description of the handbag style and color (e.g., 'Handbag Baby bag Style 37682', 'Handbag Backpack Style 39068')"
+          },
+          {
+            "column_name": "gender",
+            "description": "Target gender for the handbag (e.g., 'Women', 'Men')"
+          },
+          {
+            "column_name": "style_colour_code",
+            "description": "Unique numerical code for each handbag style and color combination"
+          },
+          {
+            "column_name": "period",
+            "description": "Month of data in YYYYMM format (e.g., 202202 for February 2022)"
+          },
+          {
+            "column_name": "range_segment",
+            "description": "Product lifecycle stage of the handbag (e.g., 'Newness', 'Seasonal', 'Carryover', 'Carryover EOL')"
+          },
+          {
+            "column_name": "material",
+            "description": "Main material of the handbag (e.g., 'Leather', 'Nylon', 'Synthetic suede')"
+          },
+          {
+            "column_name": "product_launch_date",
+            "description": "Date when the handbag style was launched in DD/MM/YYYY format"
+          },
+          {
+            "column_name": "colour_description",
+            "description": "Color of the handbag (e.g., 'Yellow', 'Brown', 'Pink')"
+          },
+          {
+            "column_name": "distinct_store_count",
+            "description": "Number of distinct stores where the handbag style and color was sold"
+          },
+          {
+            "column_name": "pareto",
+            "description": "Pareto category indicating the sales performance of the handbag style and color (e.g., 'A', 'B', 'C', 'Tail')"
+          },
+          {
+            "column_name": "month",
+            "description": "Month of data (e.g., 'February', 'March', 'April')"
+          },
+          {
+            "column_name": "season",
+            "description": "Season the handbag is designed for (e.g., 'Spring/Summer', 'Fall/Winter')"
+          },
+          {
+            "column_name": "sales",
+            "description": "Number of units sold in the given month"
+          },
+          {
+            "column_name": "beg_inv",
+            "description": "Beginning inventory for the month"
+          },
+          {
+            "column_name": "end_inv",
+            "description": "Ending inventory for the month"
+          },
+          {
+            "column_name": "total_stock",
+            "description": "Total stock available during the month (Beginning Inventory + Sales)"
+          },
+          {
+            "column_name": "weeks_selling",
+            "description": "Number of weeks the handbag style and color was available for sale during the month"
+          },
+          {
+            "column_name": "standard_selling_price",
+            "description": "Regular selling price of the handbag"
+          },
+          {
+            "column_name": "standard_cost_price",
+            "description": "Cost price of the handbag"
+          },
+          {
+            "column_name": "aur",
+            "description": "Average Unit Retail price (actual selling price) of the handbag during the month"
+          },
+          {
+            "column_name": "margin  v",
+            "description": "Margin value calculated as (AUR - Standard Cost Price) * Sales"
+          },
+          {
+            "column_name": "margin %",
+            "description": "Margin percentage calculated as (Margin Value / (AUR * Sales)) * 100"
+          },
+          {
+            "column_name": "sales v",
+            "description": "Sales value calculated as AUR * Sales"
+          },
+          {
+            "column_name": "discount v",
+            "description": "Discount value calculated as (Standard Selling Price - AUR) * Sales"
+          },
+          {
+            "column_name": "discount %",
+            "description": "Discount percentage calculated as (Discount Value / (Standard Selling Price * Sales)) * 100"
+          },
+          {
+            "column_name": "price_metric",
+            "description": "Price metric indicating the pricing strategy for the handbag (e.g., 'ENTRY', 'MIDDLE', 'EXIT')"
+          }
+        ]
+      },
+      {
+        "title": "Data Types",
+        "content": [
+          {
+            "data_type": "Numeric Columns",
+            "columns": [
+              "style_colour_code",
+              "period",
+              "distinct_store_count",
+              "sales",
+              "beg_inv",
+              "end_inv",
+              "total_stock",
+              "weeks_selling",
+              "standard_selling_price",
+              "standard_cost_price",
+              "aur",
+              "margin  v",
+              "margin %",
+              "sales v",
+              "discount v",
+              "discount %"
+            ]
+          },
+          {
+            "data_type": "Categorical Columns",
+            "columns": [
+              "product_subgroup_desc",
+              "style_colour_desc",
+              "gender",
+              "range_segment",
+              "material",
+              "colour_description",
+              "pareto",
+              "month",
+              "season",
+              "price_metric"
+            ]
+          },
+          {
+            "data_type": "Date Columns",
+            "columns": ["product_launch_date"]
+          }
+        ]
+      },
+      {
+        "title": "Potential Analyses",
+        "content": [
+          "Sales performance by handbag category, season, color, material, range segment, or price metric",
+          "Inventory turnover rates by handbag category, range segment, or season",
+          "Profitability analysis using cost and selling prices, margin value and margin percentage",
+          "Performance of new products vs. carryover products based on range segment",
+          "Seasonal trends in sales, pricing, and inventory",
+          "Discount analysis based on discount value and discount percentage",
+          "Pareto analysis based on sales performance categories",
+          "Analysis of average unit retail price (AUR) fluctuations over time"
+        ]
+      },
+      {
+        "title": "Common Aggregations",
+        "content": [
+          "Sum of sales, beginning inventory, ending inventory, total stock, weeks selling, margin value, sales value, and discount value",
+          "Average of AUR, standard selling price, standard cost price, margin percentage, and discount percentage",
+          "Count of distinct style color codes and descriptions"
+        ]
+      },
+      {
+        "title": "Typical Groupings",
+        "content": [
+          "By product_subgroup_desc",
+          "By style_colour_desc",
+          "By gender",
+          "By range_segment",
+          "By material",
+          "By colour_description",
+          "By pareto",
+          "By month",
+          "By season",
+          "By price_metric"
+        ]
+      },
+      {
+        "title": "Useful Filters",
+        "content": [
+          "range_segment for analyzing specific product lifecycle stages",
+          "gender for gender-specific analyses",
+          "season for seasonal performance",
+          "colour_description for color-specific insights",
+          "material for analyzing sales by handbag material",
+          "pareto for focusing on specific sales performance categories",
+          "price_metric for understanding pricing strategies",
+          "month for analyzing monthly trends"
+        ]
+      }
+    ]
+  }
+
+# Data simplification and compression
+- Columns with all NULL values in the original data have been removed.
+- Columns with a single, uniform value in the original data have been removed, and their value is noted below.
+
+## Deleted Null Columns
+
+-None-
+
+## Deleted Uniform Columns
+demand_plan_description: Handbag basic demo
+product_hier_feature_1_desc: Accessories
+product_group_description: Handbag
+client_id: 7
+region_id: 1
+channel_cid: CH0005
+dc_inv: 0
+
+# Indices for Request Analysis
+## Forward Index - maps columns to their set of values
+### Format
+    <column>: <values>
+    **Examples:**
+    range_segment: [Carryover, Carryover EOL, Seasonal]
+    product_subgroup_desc: [City, Shopping, Tote bag]
+### Forward index data
+  gender:
+  - Women
+  - Men
+  material:
+  - Leather
+  - Velvet
+  - Vinyl
+  - Synthetic suede
+  - Nylon
+  - Jute
+  - Synthetic Leather
+  month:
+  - February
+  - March
+  - April
+  - May
+  - June
+  - July
+  - August
+  - September
+  - October
+  - November
+  - December
+  pareto:
+  - A
+  - B
+  - Tail
+  - C
+  - A*
+  price_metric:
+  - ENTRY
+  - MIDDLE
+  - EXIT
+  product_subgroup_desc:
+  - Baby bag
+  - Backpack
+  - City
+  - Clutch
+  - Crossbody bag
+  - Shopping
+  - Shoulder bag
+  - Tote bag
+  range_segment:
+  - Newness
+  - Carryover EOL
+  - Seasonal
+  - Carryover
+  season:
+  - Spring/Summer
+  - Fall/Winter
+
+## Inverted Index - maps values to columns where they occur.
+### Format
+    <value>: <columns>
+    **Examples:**
+    Carryover EOL: range_segment
+    City: product_subgroup_desc
+## Inverted index data
+  A:
+  - pareto
+  A*:
+  - pareto
+  April:
+  - month
+  August:
+  - month
+  B:
+  - pareto
+  Baby bag:
+  - product_subgroup_desc
+  Backpack:
+  - product_subgroup_desc
+  C:
+  - pareto
+  Carryover:
+  - range_segment
+  Carryover EOL:
+  - range_segment
+  City:
+  - product_subgroup_desc
+  Clutch:
+  - product_subgroup_desc
+  Crossbody bag:
+  - product_subgroup_desc
+  December:
+  - month
+  ENTRY:
+  - price_metric
+  EXIT:
+  - price_metric
+  Fall/Winter:
+  - season
+  February:
+  - month
+  July:
+  - month
+  June:
+  - month
+  Jute:
+  - material
+  Leather:
+  - material
+  MIDDLE:
+  - price_metric
+  March:
+  - month
+  May:
+  - month
+  Men:
+  - gender
+  Newness:
+  - range_segment
+  November:
+  - month
+  Nylon:
+  - material
+  October:
+  - month
+  Seasonal:
+  - range_segment
+  September:
+  - month
+  Shopping:
+  - product_subgroup_desc
+  Shoulder bag:
+  - product_subgroup_desc
+  Spring/Summer:
+  - season
+  Synthetic Leather:
+  - material
+  Synthetic suede:
+  - material
+  Tail:
+  - pareto
+  Tote bag:
+  - product_subgroup_desc
+  Velvet:
+  - material
+  Vinyl:
+  - material
+  Women:
+  - gender
+
+# Representative Samples
+
+The following CSV table includes several complete rows from the original data source, including null and uniform columns. It shows a range of values in both categorical and numerical columns to represent the full scope of the data.
+
+demand_plan_description,product_hier_feature_1_desc,product_group_description,product_subgroup_desc,style_colour_desc,gender,style_colour_code,period,client_id,region_id,range_segment,material,product_launch_date,colour_description,channel_cid,distinct_store_count,pareto,month,season,sales,beg_inv,end_inv,total_stock,dc_inv,weeks_selling,standard_selling_price,standard_cost_price,aur,margin  v,margin %,sales v,discount v,discount %,price_metric
+Handbag basic demo,Accessories,Handbag,Crossbody bag,Handbag Crossbody bag Style 51799,Women,2001784051,202211,7,1,Carryover,Nylon,4/5/22,Black Metal,CH0005,277,A,November,Fall/Winter,168,263,364,532,0,18,180,33.12,77.502809,7875.944008,0.57,13440.10401,16799.896,125%,MIDDLE
+Handbag basic demo,Accessories,Handbag,Crossbody bag,Handbag Crossbody bag Style 51977,Women,2001787547,202208,7,1,Newness,Vinyl,14/02/2018,Emerald,CH0005,284,A,August,Fall/Winter,142,262,338,481,0,27,215,99.95,139.422946,5605.158332,0.28,19798.05833,10731.94167,54%,EXIT
+Handbag basic demo,Accessories,Handbag,Crossbody bag,Handbag Crossbody bag Style 46672,Women,2001576951,202212,7,1,Newness,Nylon,12/1/21,Ruby,CH0005,270,A*,December,Fall/Winter,243,349,474,718,0,44,190,64.59,124.977012,14674.04392,0.48,30369.41392,15800.58608,52%,MIDDLE
+Handbag basic demo,Accessories,Handbag,Tote bag,Handbag Tote bag Style 46834,Women,2001581151,202211,7,1,Newness,Vinyl,3/5/20,Cream,CH0005,262,A,November,Fall/Winter,234,375,658,896,0,44,150,54.22,102.524173,10141.63288,0.47,22829.11289,12270.88711,54%,MIDDLE
+Handbag basic demo,Accessories,Handbag,Crossbody bag,Handbag Crossbody bag Style 49757,Women,2001704729,202207,7,1,Carryover EOL,Nylon,3/9/21,White,CH0005,251,A,July,Spring/Summer,150,204,302,452,0,36,145,21.52,70.674711,7373.20665,0.7,10601.20665,11148.79335,105%,ENTRY
+Handbag basic demo,Accessories,Handbag,Crossbody bag,Handbag Crossbody bag Style 48811,Women,2001666729,202206,7,1,Carryover,Synthetic suede,25/09/2022,Black Metal,CH0005,262,A,June,Spring/Summer,88,164,175,263,0,36,230,39.58,111.542692,6332.716896,0.65,9815.756896,10424.2431,106%,EXIT
+Handbag basic demo,Accessories,Handbag,Tote bag,Handbag Tote bag Style 48730,Women,2001663229,202204,7,1,Carryover,Jute,19/12/2020,Yellow,CH0005,267,A,April,Spring/Summer,148,486,369,523,0,40,170,63.18,126.085954,9310.081192,0.5,18660.72119,6499.278808,35%,EXIT
+Handbag basic demo,Accessories,Handbag,Shopping,Handbag Shopping Style 48618,Women,2001660253,202212,7,1,Carryover,,7/1/18,Ruby,CH0005,282,A,December,Fall/Winter,168,194,277,445,0,9,180,39.5,132.188757,15571.71118,0.7,22207.71118,8032.288824,36%,MIDDLE
+Handbag basic demo,Accessories,Handbag,Crossbody bag,Handbag Crossbody bag Style 46648,Women,2001576243,202212,7,1,Newness,Velvet,8/2/22,Orange,CH0005,271,A*,December,Fall/Winter,309,367,536,847,0,44,215,136.48,138.262566,550.812894,0.01,42723.13289,23711.86711,56%,EXIT
+Handbag basic demo,Accessories,Handbag,Crossbody bag,Handbag Crossbody bag Style 52144,Women,2001790151,202211,7,1,Newness,Vinyl,1/1/00,Green,CH0005,268,A,November,Fall/Winter,235,313,438,673,0,9,195,33.44,95.1541785,14726.29751,0.65,22584.69751,23240.30249,103%,MIDDLE
