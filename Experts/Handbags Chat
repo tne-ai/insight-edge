@@ -53,7 +53,7 @@ nodes:
       title: DF to MD
       module: chat_markdown.py
       outputType: overwrite
-      outputToCanvas: true
+      outputToCanvas: false
     width: 210
     height: 348
     selected: true
@@ -230,8 +230,8 @@ nodes:
   - id: CK1oGZ69ueZkIJKxOfrZA
     type: file
     position:
-      x: -142.69334683687623
-      'y': 381.92052090223405
+      x: -144.66908109860162
+      'y': 395.7506607343122
     data:
       id: CK1oGZ69ueZkIJKxOfrZA
       title: Syntax key
@@ -240,8 +240,8 @@ nodes:
     height: 250
     selected: false
     positionAbsolute:
-      x: -142.69334683687623
-      'y': 381.92052090223405
+      x: -144.66908109860162
+      'y': 395.7506607343122
     dragging: false
   - id: nXvlcgrve5EuU9-3NBhn6
     type: file
