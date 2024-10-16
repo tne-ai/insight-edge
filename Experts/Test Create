@@ -1,0 +1,75 @@
+nodes:
+  - id: vj1oI_v_XZazv0LqpohGz
+    type: llm
+    position:
+      x: 670.7196563688856
+      'y': 457.4550297683345
+    data:
+      id: vj1oI_v_XZazv0LqpohGz
+      title: New Model
+      input: ''
+      slashgptManifest: ie_item_generator.model
+      toolJson: ''
+      toolCode: ''
+      outputType: overwrite
+      outputToCanvas: false
+      useUserQuery: false
+    width: 210
+    height: 490
+    selected: false
+    positionAbsolute:
+      x: 670.7196563688856
+      'y': 457.4550297683345
+    dragging: false
+  - id: Q3_JjF6zgVX6Q-JI0lFvI
+    type: code_generation
+    position:
+      x: 955.4295927999436
+      'y': 474.4828343719909
+    data:
+      id: Q3_JjF6zgVX6Q-JI0lFvI
+      title: Generate Code
+      prompt: ''
+      outputType: overwrite
+      outputToCanvas: false
+      useUserQuery: false
+      apiKey: OPENAI_API_KEY
+      engineName: openai-gpt
+      modelName: gpt-4o
+    width: 212
+    height: 466
+    selected: false
+    positionAbsolute:
+      x: 955.4295927999436
+      'y': 474.4828343719909
+    dragging: false
+  - id: iMp_mACn06UOKSdtsrBs8
+    type: proc
+    position:
+      x: 1383.138466001703
+      'y': 548.7269068341773
+    data:
+      id: iMp_mACn06UOKSdtsrBs8
+      title: New Expert
+      proc: ''
+      outputType: overwrite
+      outputToCanvas: false
+    width: 241
+    height: 346
+    selected: false
+    positionAbsolute:
+      x: 1383.138466001703
+      'y': 548.7269068341773
+    dragging: false
+edges:
+  - source: Q3_JjF6zgVX6Q-JI0lFvI
+    sourceHandle: r
+    target: iMp_mACn06UOKSdtsrBs8
+    targetHandle: l
+    id: B0wZbH
+  - source: vj1oI_v_XZazv0LqpohGz
+    sourceHandle: r
+    target: Q3_JjF6zgVX6Q-JI0lFvI
+    targetHandle: l
+    id: KsMbBn
+description: null
