@@ -72,7 +72,7 @@ nodes:
       outputName: generated_code.txt
     width: 210
     height: 190
-    selected: true
+    selected: false
     positionAbsolute:
       x: 166.81673614345743
       'y': 1178.3505610179513
@@ -103,7 +103,7 @@ nodes:
       title: General rules
       fileName: general-rules.txt
     width: 210
-    height: 250
+    height: 226
     selected: false
     positionAbsolute:
       x: 1558.7147707445822
@@ -119,7 +119,7 @@ nodes:
       title: General Rules
       fileName: general-rules.txt
     width: 210
-    height: 250
+    height: 226
     selected: false
     dragging: false
     positionAbsolute:
@@ -183,7 +183,7 @@ nodes:
       title: Model-friendly rules key
       fileName: model-friendly-rule-syntax-key.txt
     width: 210
-    height: 298
+    height: 274
     selected: false
     positionAbsolute:
       x: -139.13726087762484
@@ -199,7 +199,7 @@ nodes:
       title: Rules
       fileName: tejv-domain-rules.txt
     width: 210
-    height: 250
+    height: 226
     selected: false
     positionAbsolute:
       x: 1121.6111320107464
@@ -225,7 +225,7 @@ nodes:
     type: llm
     position:
       x: -376.3139357301229
-      'y': 775.8456790277868
+      'y': 777.8456790277868
     data:
       id: 1UsFBdBNpi5KvzqGksq3B
       title: Ruleset relevance filter
@@ -234,14 +234,14 @@ nodes:
       toolJson: ''
       toolCode: ''
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
       useUserQuery: false
     width: 210
-    height: 514
-    selected: false
+    height: 490
+    selected: true
     positionAbsolute:
       x: -376.3139357301229
-      'y': 775.8456790277868
+      'y': 777.8456790277868
     dragging: false
   - id: CK1oGZ69ueZkIJKxOfrZA
     type: file
@@ -253,7 +253,7 @@ nodes:
       title: Syntax key
       fileName: model-friendly-rule-syntax-key.txt
     width: 210
-    height: 274
+    height: 250
     selected: false
     positionAbsolute:
       x: -142.69334683687623
@@ -269,7 +269,7 @@ nodes:
       title: Rules
       fileName: tejv-domain-rules.txt
     width: 210
-    height: 250
+    height: 226
     selected: false
     positionAbsolute:
       x: -381.97221270855596
@@ -301,7 +301,7 @@ nodes:
       title: Key
       fileName: model-friendly-rule-syntax-key.txt
     width: 210
-    height: 274
+    height: 250
     selected: false
     positionAbsolute:
       x: 897.0082486970811
