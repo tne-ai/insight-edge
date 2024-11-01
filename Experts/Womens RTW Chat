@@ -7,11 +7,7 @@ nodes:
     data:
       id: 1zqsKoT3qlUrEBZZ3aGqg
       title: Generate Code
-      prompt: >-
-        For the given question, you must generate a pd.DataFrame. Do NOT use the
-        matplotlib library. Even when asked to generate a certain type of chart,
-        like a bar or line, you must simply generate a pd.DataFrame that will be
-        amenable to downstream charting.
+      prompt: ''
       outputType: overwrite
       outputToCanvas: true
       useUserQuery: true
@@ -20,7 +16,7 @@ nodes:
       modelName: gpt-4o
     width: 212
     height: 706
-    selected: true
+    selected: false
     positionAbsolute:
       x: 133.57453380072855
       'y': 294.5502713448407
@@ -92,7 +88,7 @@ nodes:
       outputToCanvas: true
     width: 210
     height: 348
-    selected: false
+    selected: true
     dragging: false
     positionAbsolute:
       x: 583.6148028588891
