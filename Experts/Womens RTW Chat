@@ -13,14 +13,14 @@ nodes:
         like a bar or line, you must simply generate a pd.DataFrame that will be
         amenable to downstream charting.
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
       useUserQuery: true
       apiKey: OPENAI_API_KEY
       engineName: openai-gpt
       modelName: gpt-4o
     width: 212
     height: 706
-    selected: false
+    selected: true
     positionAbsolute:
       x: 133.57453380072855
       'y': 294.5502713448407
@@ -92,7 +92,7 @@ nodes:
       outputToCanvas: true
     width: 210
     height: 348
-    selected: true
+    selected: false
     dragging: false
     positionAbsolute:
       x: 583.6148028588891
@@ -191,7 +191,7 @@ nodes:
       toolJson: ''
       toolCode: ''
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
       useUserQuery: false
     width: 210
     height: 490
