@@ -13,14 +13,14 @@ nodes:
         like a bar or line, you must simply generate a pd.DataFrame that will be
         amenable to downstream charting.
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
       useUserQuery: true
       apiKey: OPENAI_API_KEY
       engineName: openai-gpt
       modelName: gpt-4o
     width: 212
     height: 706
-    selected: false
+    selected: true
     positionAbsolute:
       x: 133.57453380072855
       'y': 294.5502713448407
@@ -92,7 +92,7 @@ nodes:
       outputToCanvas: true
     width: 210
     height: 348
-    selected: true
+    selected: false
     dragging: false
     positionAbsolute:
       x: 583.6148028588891
@@ -181,8 +181,8 @@ nodes:
   - id: s5fx94tHxKeIofMvHG5L9
     type: llm
     position:
-      x: -445.56264683903134
-      'y': 498.1313156555055
+      x: -443.56264683903134
+      'y': 502.1313156555055
     data:
       id: s5fx94tHxKeIofMvHG5L9
       title: Ruleset relevance filter
@@ -191,14 +191,14 @@ nodes:
       toolJson: ''
       toolCode: ''
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
       useUserQuery: false
     width: 210
     height: 490
     selected: false
     positionAbsolute:
-      x: -445.56264683903134
-      'y': 498.1313156555055
+      x: -443.56264683903134
+      'y': 502.1313156555055
     dragging: false
   - id: oqMth1hfHd-5ImJMPCgSB
     type: file
