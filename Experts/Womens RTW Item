@@ -20,7 +20,7 @@ nodes:
       modelName: gpt-4o
     width: 212
     height: 706
-    selected: true
+    selected: false
     positionAbsolute:
       x: 133.57453380072855
       'y': 294.5502713448407
@@ -165,18 +165,18 @@ nodes:
   - id: zao7baSNdlWH5li6QoALA
     type: file
     position:
-      x: 791.2867732487767
-      'y': -335.2036568749437
+      x: 889.2867732487766
+      'y': -341.2036568749437
     data:
       id: zao7baSNdlWH5li6QoALA
       title: Ruleset key
       fileName: model-friendly-rule-syntax-key.txt
     width: 210
     height: 250
-    selected: false
+    selected: true
     positionAbsolute:
-      x: 791.2867732487767
-      'y': -335.2036568749437
+      x: 889.2867732487766
+      'y': -341.2036568749437
     dragging: false
   - id: s5fx94tHxKeIofMvHG5L9
     type: llm
