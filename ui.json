@@ -1,20 +1,15 @@
 {
-  "version": {
-    "id": "VUSkYyM99iRmjXjOHLj4NPWkO81YcKmk",
-    "project_id": "f1gwq7yjDx6Vb0HEpsLUWwTRbigxEDlA",
-    "version": "insightedge--95f234ce-20241101221627",
-    "created_at": "2024-11-01T22:16:27.321488Z"
-  },
+  "version": "GOBBUvXwmKDlJnXd8gLj7CxJbaxICWs9",
   "data": [
     {
-      "id": "e5029097-8744-4a9f-aad0-6ddb07660014",
+      "id": "057ab6eb-d271-4daa-aa61-8ebbb550e794",
       "data_source": "",
       "item_expert_name": "Handbags Item",
       "chat_expert_name": "Handbags Chat",
       "title": "Handbags"
     },
     {
-      "id": "42b3cc34-ba09-4cca-8828-ff6c5c5d7a90",
+      "id": "9dadc649-404b-4a3d-9746-5ad15964ff22",
       "data_source": "",
       "item_expert_name": "Womens RTW Item",
       "chat_expert_name": "Womens RTW Chat",
