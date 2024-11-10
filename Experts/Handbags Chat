@@ -13,14 +13,14 @@ nodes:
         like a bar or line, you must simply generate a pd.DataFrame that will be
         amenable to downstream charting.
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
       useUserQuery: true
       apiKey: OPENAI_API_KEY
       engineName: tne
       modelName: Llama-3.1-405B-Instruct
     width: 214
     height: 730
-    selected: true
+    selected: false
     positionAbsolute:
       x: 165.24437216834724
       'y': 371.3288590421148
@@ -222,11 +222,11 @@ nodes:
       toolJson: ''
       toolCode: ''
       outputType: overwrite
-      outputToCanvas: true
+      outputToCanvas: false
       useUserQuery: false
     width: 212
     height: 490
-    selected: false
+    selected: true
     positionAbsolute:
       x: -374.5619812852502
       'y': 779.3495879175322
