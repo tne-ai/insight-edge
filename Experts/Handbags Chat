@@ -12,6 +12,9 @@ nodes:
         matplotlib library. Even when asked to generate a certain type of chart,
         like a bar or line, you must simply generate a pd.DataFrame that will be
         amenable to downstream charting.
+
+
+        You MUST use df = session.get_object() to access the dataframe.
       outputType: overwrite
       outputToCanvas: false
       useUserQuery: true
@@ -19,7 +22,7 @@ nodes:
       engineName: tne
       modelName: Llama-3.1-405B-Instruct
     width: 214
-    height: 730
+    height: 826
     selected: false
     positionAbsolute:
       x: 165.24437216834724
@@ -50,8 +53,8 @@ nodes:
   - id: JeKsgcbsvmI_P55qW5mwZ
     type: python_code
     position:
-      x: 520.8404308114866
-      'y': 613.5015344708191
+      x: 510.8404308114866
+      'y': 617.5015344708191
     data:
       id: JeKsgcbsvmI_P55qW5mwZ
       title: DF to MD
@@ -63,8 +66,8 @@ nodes:
     selected: true
     dragging: false
     positionAbsolute:
-      x: 520.8404308114866
-      'y': 613.5015344708191
+      x: 510.8404308114866
+      'y': 617.5015344708191
   - id: zONjfr0eMtJtEqt_tRjW5
     type: file
     position:
