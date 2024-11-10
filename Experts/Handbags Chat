@@ -13,7 +13,7 @@ nodes:
         like a bar or line, you must simply generate a pd.DataFrame that will be
         amenable to downstream charting.
       outputType: overwrite
-      outputToCanvas: true
+      outputToCanvas: false
       useUserQuery: true
       apiKey: OPENAI_API_KEY
       engineName: tne
@@ -57,10 +57,10 @@ nodes:
       title: DF to MD
       module: chat_markdown.py
       outputType: overwrite
-      outputToCanvas: true
+      outputToCanvas: false
     width: 212
     height: 348
-    selected: false
+    selected: true
     dragging: false
     positionAbsolute:
       x: 520.8404308114866
@@ -226,7 +226,7 @@ nodes:
       useUserQuery: false
     width: 212
     height: 490
-    selected: true
+    selected: false
     positionAbsolute:
       x: -374.5619812852502
       'y': 779.3495879175322
