@@ -30,3 +30,9 @@ If the request specifies a specific count of items, show the requested number of
 - When calculating relative dates, you must use the pd.DateOffset() method to be safe. 
 - When filtering data within a specified timeframe (e.g., "the last 3 months"), ensure the filtering operation applies directly to the entire dataset before any other conditional filtering (like product category). This prevents losing relevant date information and captures the true global maximum. 
 - Avoid filtering by category or subgroup before determining the relevant date range.
+
+Do NOT forget to use the TNE SDK as described to access data:
+
+  from tne.TNE import TNE
+  session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
+  df = session.get_object("FILENAME")
