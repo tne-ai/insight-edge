@@ -13,14 +13,14 @@ nodes:
         like a bar or line, you must simply generate a pd.DataFrame that will be
         amenable to downstream charting.
       outputType: overwrite
-      outputToCanvas: true
+      outputToCanvas: false
       useUserQuery: true
       apiKey: OPENAI_API_KEY
-      engineName: openai-gpt
-      modelName: gpt-4o
+      engineName: tne
+      modelName: Llama-3.1-405B-Instruct
     width: 214
-    height: 706
-    selected: true
+    height: 730
+    selected: false
     positionAbsolute:
       x: 157.24437216834724
       'y': 329.3288590421148
@@ -57,7 +57,7 @@ nodes:
       title: DF to MD
       module: chat_markdown.py
       outputType: overwrite
-      outputToCanvas: true
+      outputToCanvas: false
     width: 212
     height: 348
     selected: false
@@ -222,7 +222,7 @@ nodes:
       toolJson: ''
       toolCode: ''
       outputType: overwrite
-      outputToCanvas: true
+      outputToCanvas: false
       useUserQuery: false
     width: 212
     height: 490
@@ -304,9 +304,9 @@ nodes:
       id: T_W7NcD6rTVVtbmY7wbKp
       title: Save File
       outputName: generated_code.txt
-    width: 212
+    width: 210
     height: 190
-    selected: false
+    selected: true
     positionAbsolute:
       x: 152.1791532484607
       'y': 1199.7489916553377
