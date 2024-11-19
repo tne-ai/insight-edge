@@ -209,28 +209,6 @@ nodes:
       x: -355.72609233578453
       'y': -85.53340118633167
     dragging: false
-  - id: 1UsFBdBNpi5KvzqGksq3B
-    type: llm
-    position:
-      x: -374.5619812852502
-      'y': 779.3495879175322
-    data:
-      id: 1UsFBdBNpi5KvzqGksq3B
-      title: Ruleset relevance filter
-      input: ''
-      slashgptManifest: ruleset_relevance_filter.model
-      toolJson: ''
-      toolCode: ''
-      outputType: overwrite
-      outputToCanvas: true
-      useUserQuery: false
-    width: 210
-    height: 490
-    selected: true
-    positionAbsolute:
-      x: -374.5619812852502
-      'y': 779.3495879175322
-    dragging: false
   - id: CK1oGZ69ueZkIJKxOfrZA
     type: file
     position:
@@ -311,7 +289,73 @@ nodes:
       x: 152.1791532484607
       'y': 1199.7489916553377
     dragging: false
+  - id: xaI9VeYwmCHLgMZkuteN0
+    type: llm
+    position:
+      x: -538.2435083329268
+      'y': 885.8577952345031
+    data:
+      id: xaI9VeYwmCHLgMZkuteN0
+      title: Ruleset relevance filter
+      input: ''
+      slashgptManifest: ruleset_relevance_filter_70.model
+      toolJson: ''
+      toolCode: ''
+      outputType: overwrite
+      outputToCanvas: false
+      useUserQuery: false
+      flowState:
+        backend: git
+        repo: insight-edge
+        content:
+          name: Handbags Chat 70
+          path: Experts/Handbags Chat 70
+          sha: 195747fadf9646d6558199c724a6ee0c894a0602
+          size: 9884
+          url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Handbags%20Chat%2070?ref=main
+          html_url: >-
+            https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070
+          git_url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/git/blobs/195747fadf9646d6558199c724a6ee0c894a0602
+          download_url: >-
+            https://raw.githubusercontent.com/tne-ai/insight-edge/main/Experts/Handbags%20Chat%2070
+          type: file
+          _links:
+            self: >-
+              https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Handbags%20Chat%2070?ref=main
+            git: >-
+              https://api.github.com/repos/tne-ai/insight-edge/git/blobs/195747fadf9646d6558199c724a6ee0c894a0602
+            html: >-
+              https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070
+    width: 210
+    height: 490
+    selected: false
+    dragging: false
+    positionAbsolute:
+      x: -538.2435083329268
+      'y': 885.8577952345031
 edges:
+  - source: xaI9VeYwmCHLgMZkuteN0
+    sourceHandle: r
+    target: 1zqsKoT3qlUrEBZZ3aGqg
+    targetHandle: l
+    id: dISZv3
+  - source: CK1oGZ69ueZkIJKxOfrZA
+    sourceHandle: b
+    target: xaI9VeYwmCHLgMZkuteN0
+    targetHandle: t
+    id: aPm0nu
+  - source: nXvlcgrve5EuU9-3NBhn6
+    sourceHandle: b
+    target: xaI9VeYwmCHLgMZkuteN0
+    targetHandle: t
+    id: Cd_ABq
+  - source: x4Mi7xYMuKwdejGNkWtde
+    sourceHandle: b
+    target: xaI9VeYwmCHLgMZkuteN0
+    targetHandle: t
+    id: 7I-vw6
   - source: 1zqsKoT3qlUrEBZZ3aGqg
     sourceHandle: b
     target: T_W7NcD6rTVVtbmY7wbKp
@@ -322,32 +366,12 @@ edges:
     target: RjNl6A5e5LMXx1xy85IWA
     targetHandle: t
     id: 3Un9Ku
-  - source: x4Mi7xYMuKwdejGNkWtde
-    sourceHandle: b
-    target: 1UsFBdBNpi5KvzqGksq3B
-    targetHandle: t
-    id: WZYVZ5
-  - source: nXvlcgrve5EuU9-3NBhn6
-    sourceHandle: b
-    target: 1UsFBdBNpi5KvzqGksq3B
-    targetHandle: t
-    id: M47-Z1
-  - source: CK1oGZ69ueZkIJKxOfrZA
-    sourceHandle: b
-    target: 1UsFBdBNpi5KvzqGksq3B
-    targetHandle: t
-    id: TXNTjP
   - source: zj5hKVM0U5WhmM1XhUDC0
     sourceHandle: b
     target: 1zqsKoT3qlUrEBZZ3aGqg
     targetHandle: t
     id: KUs62U
     selected: false
-  - source: 1UsFBdBNpi5KvzqGksq3B
-    sourceHandle: r
-    target: 1zqsKoT3qlUrEBZZ3aGqg
-    targetHandle: l
-    id: G-_n23
   - source: Cb2etq3z-PQucMzUX9LRC
     sourceHandle: b
     target: RjNl6A5e5LMXx1xy85IWA
