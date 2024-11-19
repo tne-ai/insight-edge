@@ -1,0 +1,449 @@
+nodes:
+  - id: 1zqsKoT3qlUrEBZZ3aGqg
+    type: code_generation
+    position:
+      x: 157.24437216834724
+      'y': 329.3288590421148
+    data:
+      id: 1zqsKoT3qlUrEBZZ3aGqg
+      title: Code generator
+      prompt: >-
+        For the given question, you must generate a pd.DataFrame. Do NOT use the
+        matplotlib library. Even when asked to generate a certain type of chart,
+        like a bar or line, you must simply generate a pd.DataFrame that will be
+        amenable to downstream charting.
+      outputType: overwrite
+      outputToCanvas: false
+      useUserQuery: true
+      apiKey: OPENAI_API_KEY
+      engineName: tne
+      modelName: Llama-3.1-405B-Instruct
+    width: 212
+    height: 730
+    selected: false
+    positionAbsolute:
+      x: 157.24437216834724
+      'y': 329.3288590421148
+    dragging: false
+  - id: JeKsgcbsvmI_P55qW5mwZ
+    type: python_code
+    position:
+      x: 574.8404308114866
+      'y': 607.5015344708191
+    data:
+      id: JeKsgcbsvmI_P55qW5mwZ
+      title: DF to MD
+      module: chat_markdown.py
+      outputType: overwrite
+      outputToCanvas: false
+    width: 210
+    height: 348
+    selected: false
+    dragging: false
+    positionAbsolute:
+      x: 574.8404308114866
+      'y': 607.5015344708191
+  - id: zONjfr0eMtJtEqt_tRjW5
+    type: file
+    position:
+      x: 681.2182848045979
+      'y': 254.93821825262603
+    data:
+      id: zONjfr0eMtJtEqt_tRjW5
+      title: File
+      fileName: generated_code.txt
+    width: 210
+    height: 226
+    selected: false
+    positionAbsolute:
+      x: 681.2182848045979
+      'y': 254.93821825262603
+    dragging: false
+  - id: ftETm4EbqlrmLP5kQ4zyM
+    type: file
+    position:
+      x: 1558.7147707445822
+      'y': 265.457242165904
+    data:
+      id: ftETm4EbqlrmLP5kQ4zyM
+      title: General rules
+      fileName: general-rules.txt
+    width: 210
+    height: 226
+    selected: false
+    positionAbsolute:
+      x: 1558.7147707445822
+      'y': 265.457242165904
+    dragging: false
+  - id: DAnjY7T61Xmqlg-0c5McO
+    type: file
+    position:
+      x: 75.65242209732048
+      'y': -81.27353579939471
+    data:
+      id: DAnjY7T61Xmqlg-0c5McO
+      title: General Rules
+      fileName: general-rules.txt
+    width: 210
+    height: 226
+    selected: false
+    dragging: false
+    positionAbsolute:
+      x: 75.65242209732048
+      'y': -81.27353579939471
+  - id: ZNznVxIpP-M5GxFVpn8ka
+    type: file
+    position:
+      x: 291.06965697418286
+      'y': -80.89015772849991
+    data:
+      id: ZNznVxIpP-M5GxFVpn8ka
+      title: Metadata
+      fileName: complete-handbags-shopping_list-no_run-1_1-with_periods-metadata.txt
+    width: 210
+    height: 298
+    selected: false
+    positionAbsolute:
+      x: 291.06965697418286
+      'y': -80.89015772849991
+    dragging: false
+  - id: Kct9wMiDsihKdptXUEJLK
+    type: file
+    position:
+      x: 504.2063102712282
+      'y': -80.5858107560802
+    data:
+      id: Kct9wMiDsihKdptXUEJLK
+      title: Data
+      fileName: handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv
+    width: 210
+    height: 322
+    selected: false
+    dragging: false
+    positionAbsolute:
+      x: 504.2063102712282
+      'y': -80.5858107560802
+  - id: oAzmdpEkBV2LGUSikmOED
+    type: file
+    position:
+      x: 1353.3519546217512
+      'y': 248.26120224814832
+    data:
+      id: oAzmdpEkBV2LGUSikmOED
+      title: Metadata
+      fileName: complete-handbags-shopping_list-no_run-1_1-with_periods-metadata.txt
+    width: 210
+    height: 298
+    selected: false
+    dragging: false
+    positionAbsolute:
+      x: 1353.3519546217512
+      'y': 248.26120224814832
+  - id: Fo9gIhUDw5VXWVkzryhr-
+    type: file
+    position:
+      x: -139.13726087762484
+      'y': -83.41805072215718
+    data:
+      id: Fo9gIhUDw5VXWVkzryhr-
+      title: Model-friendly rules key
+      fileName: model-friendly-rule-syntax-key.txt
+    width: 210
+    height: 274
+    selected: false
+    positionAbsolute:
+      x: -139.13726087762484
+      'y': -83.41805072215718
+    dragging: false
+  - id: Cb2etq3z-PQucMzUX9LRC
+    type: file
+    position:
+      x: 1121.6111320107464
+      'y': 257.1628435458642
+    data:
+      id: Cb2etq3z-PQucMzUX9LRC
+      title: Domain rules
+      fileName: tejv-domain-rules.txt
+    width: 210
+    height: 226
+    selected: false
+    positionAbsolute:
+      x: 1121.6111320107464
+      'y': 257.1628435458642
+    dragging: false
+  - id: zj5hKVM0U5WhmM1XhUDC0
+    type: file
+    position:
+      x: -355.72609233578453
+      'y': -85.53340118633167
+    data:
+      id: zj5hKVM0U5WhmM1XhUDC0
+      title: Code generator instructions
+      fileName: codegen-instructions-handbags-shopping_list-no_run-1_1-with_periods.txt
+    width: 210
+    height: 322
+    selected: false
+    positionAbsolute:
+      x: -355.72609233578453
+      'y': -85.53340118633167
+    dragging: false
+  - id: CK1oGZ69ueZkIJKxOfrZA
+    type: file
+    position:
+      x: -144.66908109860162
+      'y': 395.7506607343122
+    data:
+      id: CK1oGZ69ueZkIJKxOfrZA
+      title: Syntax key
+      fileName: model-friendly-rule-syntax-key.txt
+    width: 210
+    height: 250
+    selected: false
+    positionAbsolute:
+      x: -144.66908109860162
+      'y': 395.7506607343122
+    dragging: false
+  - id: nXvlcgrve5EuU9-3NBhn6
+    type: file
+    position:
+      x: -381.97221270855596
+      'y': 391.26586440279084
+    data:
+      id: nXvlcgrve5EuU9-3NBhn6
+      title: Domain rules
+      fileName: tejv-domain-rules.txt
+    width: 210
+    height: 226
+    selected: false
+    positionAbsolute:
+      x: -381.97221270855596
+      'y': 391.26586440279084
+    dragging: false
+  - id: x4Mi7xYMuKwdejGNkWtde
+    type: file
+    position:
+      x: -601.2017874104359
+      'y': 393.9615241544526
+    data:
+      id: x4Mi7xYMuKwdejGNkWtde
+      title: Metadata
+      fileName: complete-handbags-shopping_list-no_run-1_1-with_periods-metadata.txt
+    width: 210
+    height: 298
+    selected: false
+    positionAbsolute:
+      x: -601.2017874104359
+      'y': 393.9615241544526
+    dragging: false
+  - id: mZdhO-F5bxnOeZqIz1_Xv
+    type: file
+    position:
+      x: 897.0082486970811
+      'y': 255.90613892072759
+    data:
+      id: mZdhO-F5bxnOeZqIz1_Xv
+      title: Key
+      fileName: model-friendly-rule-syntax-key.txt
+    width: 210
+    height: 250
+    selected: false
+    positionAbsolute:
+      x: 897.0082486970811
+      'y': 255.90613892072759
+    dragging: false
+  - id: T_W7NcD6rTVVtbmY7wbKp
+    type: out
+    position:
+      x: 152.1791532484607
+      'y': 1199.7489916553377
+    data:
+      id: T_W7NcD6rTVVtbmY7wbKp
+      title: Save File
+      outputName: generated_code.txt
+    width: 210
+    height: 190
+    selected: false
+    positionAbsolute:
+      x: 152.1791532484607
+      'y': 1199.7489916553377
+    dragging: false
+  - id: xaI9VeYwmCHLgMZkuteN0
+    type: llm
+    position:
+      x: -538.2435083329268
+      'y': 885.8577952345031
+    data:
+      id: xaI9VeYwmCHLgMZkuteN0
+      title: Ruleset relevance filter70
+      input: ''
+      slashgptManifest: ruleset_relevance_filter_70.model
+      toolJson: ''
+      toolCode: ''
+      outputType: overwrite
+      outputToCanvas: true
+      useUserQuery: false
+      flowState:
+        backend: git
+        repo: insight-edge
+        content:
+          name: Handbags Chat 70
+          path: Experts/Handbags Chat 70
+          sha: 195747fadf9646d6558199c724a6ee0c894a0602
+          size: 9884
+          url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Handbags%20Chat%2070?ref=main
+          html_url: >-
+            https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070
+          git_url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/git/blobs/195747fadf9646d6558199c724a6ee0c894a0602
+          download_url: >-
+            https://raw.githubusercontent.com/tne-ai/insight-edge/main/Experts/Handbags%20Chat%2070
+          type: file
+          _links:
+            self: >-
+              https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Handbags%20Chat%2070?ref=main
+            git: >-
+              https://api.github.com/repos/tne-ai/insight-edge/git/blobs/195747fadf9646d6558199c724a6ee0c894a0602
+            html: >-
+              https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070
+    width: 210
+    height: 514
+    selected: true
+    dragging: false
+    positionAbsolute:
+      x: -538.2435083329268
+      'y': 885.8577952345031
+  - id: UAMXXxRmB7mrfj_ySxhSo
+    type: llm
+    position:
+      x: 1077.756491667073
+      'y': 689.8577952345031
+    data:
+      id: UAMXXxRmB7mrfj_ySxhSo
+      title: Chat explain 70
+      input: ''
+      slashgptManifest: chat_explain_70.model
+      toolJson: ''
+      toolCode: ''
+      outputType: overwrite
+      outputToCanvas: false
+      useUserQuery: true
+      flowState:
+        backend: git
+        repo: insight-edge
+        content:
+          name: Handbags Chat 70
+          path: Experts/Handbags Chat 70
+          sha: d175dbb3c6bd014e5068d2bc8457aa0e0379ef7a
+          size: 11039
+          url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Handbags%20Chat%2070?ref=main
+          html_url: >-
+            https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070
+          git_url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/git/blobs/d175dbb3c6bd014e5068d2bc8457aa0e0379ef7a
+          download_url: >-
+            https://raw.githubusercontent.com/tne-ai/insight-edge/main/Experts/Handbags%20Chat%2070
+          type: file
+          _links:
+            self: >-
+              https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Handbags%20Chat%2070?ref=main
+            git: >-
+              https://api.github.com/repos/tne-ai/insight-edge/git/blobs/d175dbb3c6bd014e5068d2bc8457aa0e0379ef7a
+            html: >-
+              https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070
+    width: 210
+    height: 466
+    selected: false
+    positionAbsolute:
+      x: 1077.756491667073
+      'y': 689.8577952345031
+    dragging: false
+edges:
+  - source: JeKsgcbsvmI_P55qW5mwZ
+    sourceHandle: r
+    target: UAMXXxRmB7mrfj_ySxhSo
+    targetHandle: l
+    id: dlHBBi
+  - source: ftETm4EbqlrmLP5kQ4zyM
+    sourceHandle: b
+    target: UAMXXxRmB7mrfj_ySxhSo
+    targetHandle: t
+    id: 1dv0sI
+  - source: oAzmdpEkBV2LGUSikmOED
+    sourceHandle: b
+    target: UAMXXxRmB7mrfj_ySxhSo
+    targetHandle: t
+    id: CTQnJB
+  - source: Cb2etq3z-PQucMzUX9LRC
+    sourceHandle: b
+    target: UAMXXxRmB7mrfj_ySxhSo
+    targetHandle: t
+    id: 3DJ5s3
+  - source: mZdhO-F5bxnOeZqIz1_Xv
+    sourceHandle: b
+    target: UAMXXxRmB7mrfj_ySxhSo
+    targetHandle: t
+    id: IGqErO
+  - source: zONjfr0eMtJtEqt_tRjW5
+    sourceHandle: b
+    target: UAMXXxRmB7mrfj_ySxhSo
+    targetHandle: t
+    id: Su8rml
+  - source: xaI9VeYwmCHLgMZkuteN0
+    sourceHandle: r
+    target: 1zqsKoT3qlUrEBZZ3aGqg
+    targetHandle: l
+    id: dISZv3
+  - source: CK1oGZ69ueZkIJKxOfrZA
+    sourceHandle: b
+    target: xaI9VeYwmCHLgMZkuteN0
+    targetHandle: t
+    id: aPm0nu
+  - source: nXvlcgrve5EuU9-3NBhn6
+    sourceHandle: b
+    target: xaI9VeYwmCHLgMZkuteN0
+    targetHandle: t
+    id: Cd_ABq
+  - source: x4Mi7xYMuKwdejGNkWtde
+    sourceHandle: b
+    target: xaI9VeYwmCHLgMZkuteN0
+    targetHandle: t
+    id: 7I-vw6
+  - source: 1zqsKoT3qlUrEBZZ3aGqg
+    sourceHandle: b
+    target: T_W7NcD6rTVVtbmY7wbKp
+    targetHandle: t
+    id: MiV3Ld
+  - source: zj5hKVM0U5WhmM1XhUDC0
+    sourceHandle: b
+    target: 1zqsKoT3qlUrEBZZ3aGqg
+    targetHandle: t
+    id: KUs62U
+    selected: false
+  - source: Fo9gIhUDw5VXWVkzryhr-
+    sourceHandle: b
+    target: 1zqsKoT3qlUrEBZZ3aGqg
+    targetHandle: t
+    id: ptk_lu
+  - source: Kct9wMiDsihKdptXUEJLK
+    sourceHandle: b
+    target: 1zqsKoT3qlUrEBZZ3aGqg
+    targetHandle: t
+    id: DmjxfO
+  - source: ZNznVxIpP-M5GxFVpn8ka
+    sourceHandle: b
+    target: 1zqsKoT3qlUrEBZZ3aGqg
+    targetHandle: t
+    id: EKb0ka
+  - source: DAnjY7T61Xmqlg-0c5McO
+    sourceHandle: b
+    target: 1zqsKoT3qlUrEBZZ3aGqg
+    targetHandle: t
+    id: IhQn-u
+  - id: Io48SD
+    source: 1zqsKoT3qlUrEBZZ3aGqg
+    sourceHandle: r
+    target: JeKsgcbsvmI_P55qW5mwZ
+    targetHandle: l
+description: null
