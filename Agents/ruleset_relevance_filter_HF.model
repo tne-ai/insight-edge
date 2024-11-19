@@ -1,8 +1,8 @@
-title: TNE ruleset relevance filter
+title: TNE ruleset relevance filter HF Nemotron
 model:
-  engine_name: tne
-  model_name: Llama-3.1-405B-Instruct
-  api_key: OPENAI_API_KEY
+  engine_name: hf
+  model_name: bartowski/Llama-3.1-Nemotron-70B-Instruct-HF-GGUF
+  api_key: HF_API_KEY
 temperature: 0
 max_tokens: 500
 database: ''
