@@ -1,7 +1,7 @@
-title: TNE ruleset relevance filter HF Nemotron
+title: TNE ruleset relevance filter HF Qwen2.5-coder
 model:
   engine_name: hf
-  model_name: bartowski/Llama-3.1-Nemotron-70B-Instruct-HF-GGUF
+  model_name: qwen2.5-coder
   api_key: HF_API_KEY
 temperature: 0
 max_tokens: 500
