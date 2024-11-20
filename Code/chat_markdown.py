@@ -7,7 +7,10 @@ if type(PROCESS_INPUT) is pd.DataFrame:
     if PROCESS_INPUT.empty:
         result = "<EMPTY DATAFRAME>"
     else:
-        result = tabulate(PROCESS_INPUT, headers="keys", tablefmt="pipe", showindex=False)
+        result = tabulate(PROCESS_INPUT, 
+                          headers="keys", 
+                          tablefmt="pipe", 
+                          showindex=False) + "\n"
 elif type(PROCESS_INPUT) is str:
     result = PROCESS_INPUT 
 else:
