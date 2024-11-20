@@ -1,8 +1,8 @@
-title: TNE ruleset relevance filter ollama mistral-nemo
+title: TNE ruleset relevance filter gpt4 turbo
 model:
-  engine_name: hf
-  model_name: mistral-nemo
-  api_key: HF_API_KEY
+  engine_name: openai-gpt
+  model_name: gpt-4-turbo
+  api_key: OPENAI_API_KEY
 temperature: 0
 max_tokens: 500
 database: ''
