@@ -10,7 +10,7 @@ if type(PROCESS_INPUT) is pd.DataFrame:
         result = tabulate(PROCESS_INPUT, 
                           headers="keys", 
                           tablefmt="pipe", 
-                          showindex=False) + "\n"
+                          showindex=False)
 elif type(PROCESS_INPUT) is str:
     result = PROCESS_INPUT 
 else:
