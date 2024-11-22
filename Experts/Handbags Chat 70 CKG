@@ -20,7 +20,7 @@ nodes:
       modelName: Llama-3.1-405B-Instruct
     width: 214
     height: 730
-    selected: true
+    selected: false
     positionAbsolute:
       x: 157.24437216834724
       'y': 329.3288590421148
@@ -367,7 +367,28 @@ nodes:
       x: -367.5622059346159
       'y': 375.79211732160934
     dragging: false
+  - id: LVT8jNfMNmOL7Jo1Ak5KG
+    type: debug
+    position:
+      x: -553.2435083329268
+      'y': 1518.107795234503
+    data:
+      id: LVT8jNfMNmOL7Jo1Ak5KG
+      title: Prompt Debugger
+      outputName: ruleset_relevance_filter_prompt.txt
+    width: 212
+    height: 214
+    selected: true
+    positionAbsolute:
+      x: -553.2435083329268
+      'y': 1518.107795234503
+    dragging: false
 edges:
+  - source: xaI9VeYwmCHLgMZkuteN0
+    sourceHandle: b
+    target: LVT8jNfMNmOL7Jo1Ak5KG
+    targetHandle: t
+    id: rzqyF7
   - source: lJjZTHndVttIGszGSIpxT
     sourceHandle: b
     target: xaI9VeYwmCHLgMZkuteN0
