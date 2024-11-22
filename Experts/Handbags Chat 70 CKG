@@ -171,22 +171,6 @@ nodes:
       x: -355.72609233578453
       'y': -85.53340118633167
     dragging: false
-  - id: CK1oGZ69ueZkIJKxOfrZA
-    type: file
-    position:
-      x: -144.66908109860162
-      'y': 395.7506607343122
-    data:
-      id: CK1oGZ69ueZkIJKxOfrZA
-      title: Syntax key
-      fileName: model-friendly-rule-syntax-key.txt
-    width: 212
-    height: 250
-    selected: false
-    positionAbsolute:
-      x: -144.66908109860162
-      'y': 395.7506607343122
-    dragging: false
   - id: x4Mi7xYMuKwdejGNkWtde
     type: file
     position:
@@ -367,28 +351,7 @@ nodes:
       x: -367.5622059346159
       'y': 375.79211732160934
     dragging: false
-  - id: LVT8jNfMNmOL7Jo1Ak5KG
-    type: debug
-    position:
-      x: -553.2435083329268
-      'y': 1518.107795234503
-    data:
-      id: LVT8jNfMNmOL7Jo1Ak5KG
-      title: Prompt Debugger
-      outputName: prompt.txt
-    width: 212
-    height: 190
-    selected: true
-    positionAbsolute:
-      x: -553.2435083329268
-      'y': 1518.107795234503
-    dragging: false
 edges:
-  - source: xaI9VeYwmCHLgMZkuteN0
-    sourceHandle: b
-    target: LVT8jNfMNmOL7Jo1Ak5KG
-    targetHandle: t
-    id: rzqyF7
   - source: lJjZTHndVttIGszGSIpxT
     sourceHandle: b
     target: xaI9VeYwmCHLgMZkuteN0
@@ -429,11 +392,6 @@ edges:
     target: 1zqsKoT3qlUrEBZZ3aGqg
     targetHandle: l
     id: dISZv3
-  - source: CK1oGZ69ueZkIJKxOfrZA
-    sourceHandle: b
-    target: xaI9VeYwmCHLgMZkuteN0
-    targetHandle: t
-    id: aPm0nu
   - source: x4Mi7xYMuKwdejGNkWtde
     sourceHandle: b
     target: xaI9VeYwmCHLgMZkuteN0
