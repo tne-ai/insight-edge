@@ -1,4 +1,4 @@
-title: TNE ruleset relevance filter gpt4 turbo
+title: 'TNE ruleset relevance filter '
 model:
   engine_name: openai-gpt
   model_name: mistralai/mistral-7b-instruct:free
