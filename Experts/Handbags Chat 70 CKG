@@ -375,9 +375,9 @@ nodes:
     data:
       id: LVT8jNfMNmOL7Jo1Ak5KG
       title: Prompt Debugger
-      outputName: ruleset_relevance_filter_prompt.txt
+      outputName: prompt.txt
     width: 212
-    height: 214
+    height: 190
     selected: true
     positionAbsolute:
       x: -553.2435083329268
