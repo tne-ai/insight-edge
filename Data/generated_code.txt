@@ -1,27 +1,16 @@
 from tne.TNE import TNE
 import pandas as pd
 
-# Initialize TNE session
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
-
-# Load data
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter for November data
-nov_data = df[df['month'] == 'November']
+# Filter data for November
+november_df = df[df['month'] == 'November']
 
-# Group by subgroup and style, get sales
-grouped = nov_data.groupby(['product_subgroup_desc', 'style_colour_desc'])['sales'].sum().reset_index()
+# Group by product_subgroup_desc and find the best selling style_colour_desc in each subcategory
+best_selling_df = november_df.groupby('product_subgroup_desc').apply(
+    lambda x: x.loc[x['sales'].idxmax()]
+).reset_index(drop=True)
 
-# Get max sales style for each subgroup
-result = grouped.loc[grouped.groupby('product_subgroup_desc')['sales'].idxmax()]
-
-# Sort by sales descending
-result = result.sort_values('sales', ascending=False)
-
-# Rename columns for clarity
-result = result.rename(columns={
-    'product_subgroup_desc': 'Product Subgroup',
-    'style_colour_desc': 'Style',
-    'sales': 'Total Sales'
-})
+# Select the required columns
+result = best_selling_df[['product_subgroup_desc', 'style_colour_desc', 'sales']]
