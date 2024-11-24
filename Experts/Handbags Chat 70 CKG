@@ -15,12 +15,12 @@ nodes:
       outputType: overwrite
       outputToCanvas: true
       useUserQuery: true
-      apiKey: OPENAI_API_KEY
-      engineName: tne
-      modelName: Llama-3.1-405B-Instruct
+      apiKey: OPENROUTER_API_KEY
+      engineName: openrouter
+      modelName: anthropic/claude-3.5-sonnet
     width: 214
     height: 730
-    selected: false
+    selected: true
     positionAbsolute:
       x: 157.24437216834724
       'y': 329.3288590421148
@@ -354,7 +354,7 @@ nodes:
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070%20CKG
     width: 212
     height: 250
-    selected: true
+    selected: false
     positionAbsolute:
       x: 978.7564916670732
       'y': 273.6077952345031
