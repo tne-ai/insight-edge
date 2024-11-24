@@ -4,11 +4,11 @@ import pandas as pd
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Calculate total margin for each subcategory
-total_margin = df.groupby('product_subgroup_desc')['margin  v'].sum().reset_index()
-total_margin.columns = ['product_subgroup_desc', 'total_margin']
+# Calculate average margin for each subcategory
+average_margin_df = df.groupby('product_subgroup_desc')['margin  v'].mean().reset_index()
+average_margin_df.columns = ['product_subgroup_desc', 'average_margin']
 
-# Sort the subcategories by total margin in descending order
-total_margin_sorted = total_margin.sort_values(by='total_margin', ascending=False).head(12)
+# Sort by average margin in descending order
+average_margin_df = average_margin_df.sort_values(by='average_margin', ascending=False).head(12)
 
-result = total_margin_sorted
+result = average_margin_df
