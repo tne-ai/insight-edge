@@ -1,17 +1,18 @@
-from tne.TNE import TNE
 import pandas as pd
+from tne.TNE import TNE
 
+# Initialize the TNE session
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
+
+# Load the data
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter for crossbody bags
-crossbody_bags = df[df['product_subgroup_desc'] == 'Crossbody bag']
+# Calculate the total margin for each style_colour_desc
+df['margin_v'] = (df['aur'] - df['standard_cost_price']) * df['sales']
+total_margin = df.groupby('style_colour_desc')['margin_v'].sum().reset_index()
 
-# Group by style_colour_desc and calculate the average margin percentage
-crossbody_bags_margin = crossbody_bags.groupby('style_colour_desc')['margin %'].mean().reset_index()
+# Find the style with the highest total margin
+highest_margin_style = total_margin.sort_values(by='margin_v', ascending=False).head(1)
 
-# Sort by margin percentage in descending order
-crossbody_bags_margin_sorted = crossbody_bags_margin.sort_values(by='margin %', ascending=False)
-
-# Select the top 12 items
-result = crossbody_bags_margin_sorted.head(12)
+# Store the result
+result = highest_margin_style
