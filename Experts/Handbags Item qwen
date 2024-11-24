@@ -2,8 +2,8 @@ nodes:
   - id: 1zqsKoT3qlUrEBZZ3aGqg
     type: code_generation
     position:
-      x: 165.24437216834724
-      'y': 371.3288590421148
+      x: 103.24437216834724
+      'y': 365.3288590421148
     data:
       id: 1zqsKoT3qlUrEBZZ3aGqg
       title: Generate Code
@@ -16,10 +16,10 @@ nodes:
       modelName: gpt-4o
     width: 214
     height: 466
-    selected: false
+    selected: true
     positionAbsolute:
-      x: 165.24437216834724
-      'y': 371.3288590421148
+      x: 103.24437216834724
+      'y': 365.3288590421148
     dragging: false
   - id: RjNl6A5e5LMXx1xy85IWA
     type: llm
@@ -317,6 +317,16 @@ nodes:
       'y': 258.9085799158099
     dragging: false
 edges:
+  - source: 0YheAYRAFwVLOzLf5dyeH
+    sourceHandle: b
+    target: RjNl6A5e5LMXx1xy85IWA
+    targetHandle: t
+    id: 5yx-rm
+  - source: Rk04-dc0H8Wf3HOMYrj3A
+    sourceHandle: b
+    target: 1UsFBdBNpi5KvzqGksq3B
+    targetHandle: t
+    id: R4iMq0
   - source: M1S7cEYzJU--FcF4WMXl0
     sourceHandle: b
     target: RjNl6A5e5LMXx1xy85IWA
