@@ -139,22 +139,6 @@ nodes:
     positionAbsolute:
       x: 1353.3519546217512
       'y': 248.26120224814832
-  - id: Cb2etq3z-PQucMzUX9LRC
-    type: file
-    position:
-      x: 1121.6111320107464
-      'y': 257.1628435458642
-    data:
-      id: Cb2etq3z-PQucMzUX9LRC
-      title: Domain rules
-      fileName: tejv-domain-rules.txt
-    width: 212
-    height: 226
-    selected: false
-    positionAbsolute:
-      x: 1121.6111320107464
-      'y': 257.1628435458642
-    dragging: false
   - id: zj5hKVM0U5WhmM1XhUDC0
     type: file
     position:
@@ -186,22 +170,6 @@ nodes:
     positionAbsolute:
       x: -601.2017874104359
       'y': 393.9615241544526
-    dragging: false
-  - id: mZdhO-F5bxnOeZqIz1_Xv
-    type: file
-    position:
-      x: 897.0082486970811
-      'y': 255.90613892072759
-    data:
-      id: mZdhO-F5bxnOeZqIz1_Xv
-      title: Key
-      fileName: model-friendly-rule-syntax-key.txt
-    width: 212
-    height: 250
-    selected: false
-    positionAbsolute:
-      x: 897.0082486970811
-      'y': 255.90613892072759
     dragging: false
   - id: T_W7NcD6rTVVtbmY7wbKp
     type: out
@@ -260,7 +228,7 @@ nodes:
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070
     width: 212
     height: 514
-    selected: true
+    selected: false
     dragging: false
     positionAbsolute:
       x: -538.2435083329268
@@ -351,7 +319,52 @@ nodes:
       x: -367.5622059346159
       'y': 375.79211732160934
     dragging: false
+  - id: I2GHiHZTFsAV0lZV1GU1K
+    type: file
+    position:
+      x: 978.7564916670732
+      'y': 273.6077952345031
+    data:
+      id: I2GHiHZTFsAV0lZV1GU1K
+      title: KG ruleset and ey
+      fileName: tne-kg-ruleset-with-key.txt
+      flowState:
+        backend: git
+        repo: insight-edge
+        content:
+          name: Handbags Chat 70 CKG
+          path: Experts/Handbags Chat 70 CKG
+          sha: 78b35efac7d1fac7f4a615414f7e19add0a0021b
+          size: 12381
+          url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Handbags%20Chat%2070%20CKG?ref=main
+          html_url: >-
+            https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070%20CKG
+          git_url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/git/blobs/78b35efac7d1fac7f4a615414f7e19add0a0021b
+          download_url: >-
+            https://raw.githubusercontent.com/tne-ai/insight-edge/main/Experts/Handbags%20Chat%2070%20CKG
+          type: file
+          _links:
+            self: >-
+              https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Handbags%20Chat%2070%20CKG?ref=main
+            git: >-
+              https://api.github.com/repos/tne-ai/insight-edge/git/blobs/78b35efac7d1fac7f4a615414f7e19add0a0021b
+            html: >-
+              https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070%20CKG
+    width: 212
+    height: 250
+    selected: true
+    positionAbsolute:
+      x: 978.7564916670732
+      'y': 273.6077952345031
+    dragging: false
 edges:
+  - source: I2GHiHZTFsAV0lZV1GU1K
+    sourceHandle: b
+    target: UAMXXxRmB7mrfj_ySxhSo
+    targetHandle: t
+    id: AVlte5
   - source: lJjZTHndVttIGszGSIpxT
     sourceHandle: b
     target: xaI9VeYwmCHLgMZkuteN0
@@ -372,16 +385,6 @@ edges:
     target: UAMXXxRmB7mrfj_ySxhSo
     targetHandle: t
     id: CTQnJB
-  - source: Cb2etq3z-PQucMzUX9LRC
-    sourceHandle: b
-    target: UAMXXxRmB7mrfj_ySxhSo
-    targetHandle: t
-    id: 3DJ5s3
-  - source: mZdhO-F5bxnOeZqIz1_Xv
-    sourceHandle: b
-    target: UAMXXxRmB7mrfj_ySxhSo
-    targetHandle: t
-    id: IGqErO
   - source: zONjfr0eMtJtEqt_tRjW5
     sourceHandle: b
     target: UAMXXxRmB7mrfj_ySxhSo
