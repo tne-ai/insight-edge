@@ -14,7 +14,7 @@ nodes:
       apiKey: OPENAI_API_KEY
       engineName: openai-gpt
       modelName: gpt-4o
-    width: 212
+    width: 214
     height: 466
     selected: false
     positionAbsolute:
@@ -36,7 +36,7 @@ nodes:
       outputType: overwrite
       outputToCanvas: false
       useUserQuery: true
-    width: 210
+    width: 212
     height: 490
     selected: false
     positionAbsolute:
@@ -54,9 +54,9 @@ nodes:
       module: chat_markdown.py
       outputType: overwrite
       outputToCanvas: true
-    width: 210
+    width: 212
     height: 348
-    selected: true
+    selected: false
     dragging: false
     positionAbsolute:
       x: 520.8404308114866
@@ -70,7 +70,7 @@ nodes:
       id: WrvWlKo5cLLGx6Nxg93Sl
       title: Save File
       outputName: generated_code.txt
-    width: 210
+    width: 212
     height: 190
     selected: false
     positionAbsolute:
@@ -86,7 +86,7 @@ nodes:
       id: zONjfr0eMtJtEqt_tRjW5
       title: File
       fileName: generated_code.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     positionAbsolute:
@@ -96,18 +96,18 @@ nodes:
   - id: ftETm4EbqlrmLP5kQ4zyM
     type: file
     position:
-      x: 1558.7147707445822
-      'y': 265.457242165904
+      x: 1524.7147707445822
+      'y': 243.457242165904
     data:
       id: ftETm4EbqlrmLP5kQ4zyM
       title: General rules
       fileName: general-rules.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     positionAbsolute:
-      x: 1558.7147707445822
-      'y': 265.457242165904
+      x: 1524.7147707445822
+      'y': 243.457242165904
     dragging: false
   - id: DAnjY7T61Xmqlg-0c5McO
     type: file
@@ -118,7 +118,7 @@ nodes:
       id: DAnjY7T61Xmqlg-0c5McO
       title: General Rules
       fileName: general-rules.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     dragging: false
@@ -134,7 +134,7 @@ nodes:
       id: ZNznVxIpP-M5GxFVpn8ka
       title: Metadata
       fileName: complete-handbags-shopping_list-no_run-1_1-with_periods-metadata.txt
-    width: 210
+    width: 212
     height: 298
     selected: false
     positionAbsolute:
@@ -150,7 +150,7 @@ nodes:
       id: Kct9wMiDsihKdptXUEJLK
       title: Data
       fileName: handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv
-    width: 210
+    width: 212
     height: 322
     selected: false
     dragging: false
@@ -160,19 +160,19 @@ nodes:
   - id: oAzmdpEkBV2LGUSikmOED
     type: file
     position:
-      x: 1339.3519546217512
-      'y': 260.2612022481483
+      x: 1253.3519546217512
+      'y': 230.26120224814832
     data:
       id: oAzmdpEkBV2LGUSikmOED
       title: Metadata
       fileName: complete-handbags-shopping_list-no_run-1_1-with_periods-metadata.txt
-    width: 210
+    width: 212
     height: 298
     selected: false
     dragging: false
     positionAbsolute:
-      x: 1339.3519546217512
-      'y': 260.2612022481483
+      x: 1253.3519546217512
+      'y': 230.26120224814832
   - id: Fo9gIhUDw5VXWVkzryhr-
     type: file
     position:
@@ -182,28 +182,12 @@ nodes:
       id: Fo9gIhUDw5VXWVkzryhr-
       title: Model-friendly rules key
       fileName: model-friendly-rule-syntax-key.txt
-    width: 210
+    width: 212
     height: 274
     selected: false
     positionAbsolute:
       x: -139.13726087762484
       'y': -83.41805072215718
-    dragging: false
-  - id: Cb2etq3z-PQucMzUX9LRC
-    type: file
-    position:
-      x: 1121.6111320107464
-      'y': 257.1628435458642
-    data:
-      id: Cb2etq3z-PQucMzUX9LRC
-      title: Rules
-      fileName: tejv-domain-rules.txt
-    width: 210
-    height: 226
-    selected: false
-    positionAbsolute:
-      x: 1121.6111320107464
-      'y': 257.1628435458642
     dragging: false
   - id: zj5hKVM0U5WhmM1XhUDC0
     type: file
@@ -214,7 +198,7 @@ nodes:
       id: zj5hKVM0U5WhmM1XhUDC0
       title: Code generator instructions
       fileName: codegen-instructions-handbags-shopping_list-no_run-1_1-with_periods.txt
-    width: 210
+    width: 212
     height: 322
     selected: false
     positionAbsolute:
@@ -236,44 +220,12 @@ nodes:
       outputType: overwrite
       outputToCanvas: true
       useUserQuery: false
-    width: 210
+    width: 212
     height: 490
     selected: false
     positionAbsolute:
       x: -376.3139357301229
       'y': 777.8456790277868
-    dragging: false
-  - id: CK1oGZ69ueZkIJKxOfrZA
-    type: file
-    position:
-      x: -142.69334683687623
-      'y': 381.92052090223405
-    data:
-      id: CK1oGZ69ueZkIJKxOfrZA
-      title: Syntax key
-      fileName: model-friendly-rule-syntax-key.txt
-    width: 210
-    height: 250
-    selected: false
-    positionAbsolute:
-      x: -142.69334683687623
-      'y': 381.92052090223405
-    dragging: false
-  - id: nXvlcgrve5EuU9-3NBhn6
-    type: file
-    position:
-      x: -381.97221270855596
-      'y': 391.26586440279084
-    data:
-      id: nXvlcgrve5EuU9-3NBhn6
-      title: Rules
-      fileName: tejv-domain-rules.txt
-    width: 210
-    height: 226
-    selected: false
-    positionAbsolute:
-      x: -381.97221270855596
-      'y': 391.26586440279084
     dragging: false
   - id: x4Mi7xYMuKwdejGNkWtde
     type: file
@@ -284,44 +236,85 @@ nodes:
       id: x4Mi7xYMuKwdejGNkWtde
       title: Metadata
       fileName: complete-handbags-shopping_list-no_run-1_1-with_periods-metadata.txt
-    width: 210
+    width: 212
     height: 298
     selected: false
     positionAbsolute:
       x: -601.2017874104359
       'y': 393.9615241544526
     dragging: false
-  - id: mZdhO-F5bxnOeZqIz1_Xv
-    type: file
-    position:
-      x: 897.0082486970811
-      'y': 255.90613892072759
-    data:
-      id: mZdhO-F5bxnOeZqIz1_Xv
-      title: Key
-      fileName: model-friendly-rule-syntax-key.txt
-    width: 210
-    height: 250
-    selected: false
-    positionAbsolute:
-      x: 897.0082486970811
-      'y': 255.90613892072759
-    dragging: false
   - id: M1S7cEYzJU--FcF4WMXl0
     type: file
     position:
-      x: 1810.7186267545621
-      'y': 279.72155159230044
+      x: 1806.7186267545621
+      'y': 265.72155159230044
     data:
       id: M1S7cEYzJU--FcF4WMXl0
       title: Item template
       fileName: ie_item_template.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     positionAbsolute:
-      x: 1810.7186267545621
-      'y': 279.72155159230044
+      x: 1806.7186267545621
+      'y': 265.72155159230044
+    dragging: false
+  - id: Rk04-dc0H8Wf3HOMYrj3A
+    type: file
+    position:
+      x: -283.24158032793696
+      'y': 374.9085799158099
+    data:
+      id: Rk04-dc0H8Wf3HOMYrj3A
+      title: Data
+      fileName: tne-kg-ruleset-with-key.txt
+      flowState: &ref_0
+        backend: git
+        repo: insight-edge
+        content:
+          name: Handbags Item qwen
+          path: Experts/Handbags Item qwen
+          sha: 7f3df8ec1b61412a4a6fdafcee2add6b10b0b161
+          size: 10089
+          url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Handbags%20Item%20qwen?ref=main
+          html_url: >-
+            https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Item%20qwen
+          git_url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/git/blobs/7f3df8ec1b61412a4a6fdafcee2add6b10b0b161
+          download_url: >-
+            https://raw.githubusercontent.com/tne-ai/insight-edge/main/Experts/Handbags%20Item%20qwen
+          type: file
+          _links:
+            self: >-
+              https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Handbags%20Item%20qwen?ref=main
+            git: >-
+              https://api.github.com/repos/tne-ai/insight-edge/git/blobs/7f3df8ec1b61412a4a6fdafcee2add6b10b0b161
+            html: >-
+              https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Item%20qwen
+    width: 212
+    height: 250
+    selected: false
+    positionAbsolute:
+      x: -283.24158032793696
+      'y': 374.9085799158099
+    dragging: false
+  - id: 0YheAYRAFwVLOzLf5dyeH
+    type: file
+    position:
+      x: 992.7584196720632
+      'y': 258.9085799158099
+    data:
+      id: 0YheAYRAFwVLOzLf5dyeH
+      title: Data
+      fileName: tne-kg-ruleset-with-key.txt
+      flowState: *ref_0
+    width: 212
+    height: 250
+    selected: false
+    positionAbsolute:
+      x: 992.7584196720632
+      'y': 258.9085799158099
     dragging: false
 edges:
   - source: M1S7cEYzJU--FcF4WMXl0
@@ -329,26 +322,11 @@ edges:
     target: RjNl6A5e5LMXx1xy85IWA
     targetHandle: t
     id: NDxnKz
-  - source: mZdhO-F5bxnOeZqIz1_Xv
-    sourceHandle: b
-    target: RjNl6A5e5LMXx1xy85IWA
-    targetHandle: t
-    id: 3Un9Ku
   - source: x4Mi7xYMuKwdejGNkWtde
     sourceHandle: b
     target: 1UsFBdBNpi5KvzqGksq3B
     targetHandle: t
     id: WZYVZ5
-  - source: nXvlcgrve5EuU9-3NBhn6
-    sourceHandle: b
-    target: 1UsFBdBNpi5KvzqGksq3B
-    targetHandle: t
-    id: M47-Z1
-  - source: CK1oGZ69ueZkIJKxOfrZA
-    sourceHandle: b
-    target: 1UsFBdBNpi5KvzqGksq3B
-    targetHandle: t
-    id: TXNTjP
   - source: zj5hKVM0U5WhmM1XhUDC0
     sourceHandle: b
     target: 1zqsKoT3qlUrEBZZ3aGqg
@@ -360,11 +338,6 @@ edges:
     target: 1zqsKoT3qlUrEBZZ3aGqg
     targetHandle: l
     id: G-_n23
-  - source: Cb2etq3z-PQucMzUX9LRC
-    sourceHandle: b
-    target: RjNl6A5e5LMXx1xy85IWA
-    targetHandle: t
-    id: iYLrxE
   - source: Fo9gIhUDw5VXWVkzryhr-
     sourceHandle: b
     target: 1zqsKoT3qlUrEBZZ3aGqg
