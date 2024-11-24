@@ -4,13 +4,11 @@ import pandas as pd
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Group by color and calculate the average AUR
-color_aur_avg = df.groupby('colour_description')['aur'].mean().reset_index()
+# Calculate total margin for each subcategory
+total_margin = df.groupby('product_subgroup_desc')['margin  v'].sum().reset_index()
+total_margin.columns = ['product_subgroup_desc', 'total_margin']
 
-# Sort the colors by average AUR in descending order
-color_aur_avg_sorted = color_aur_avg.sort_values(by='aur', ascending=False).head(12)
+# Sort the subcategories by total margin in descending order
+total_margin_sorted = total_margin.sort_values(by='total_margin', ascending=False).head(12)
 
-# Rename columns for clarity
-color_aur_avg_sorted.columns = ['Color', 'Average AUR']
-
-result = color_aur_avg_sorted
+result = total_margin_sorted
