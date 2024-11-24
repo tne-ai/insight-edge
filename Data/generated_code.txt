@@ -7,12 +7,14 @@ session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 # Load the data
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Calculate the total margin for each style_colour_desc
-df['margin_v'] = (df['aur'] - df['standard_cost_price']) * df['sales']
-total_margin = df.groupby('style_colour_desc')['margin_v'].sum().reset_index()
+# Filter for crossbody bags
+crossbody_bags = df[df['product_subgroup_desc'] == 'Crossbody bag']
 
-# Find the style with the highest total margin
-highest_margin_style = total_margin.sort_values(by='margin_v', ascending=False).head(1)
+# Group by colour description and sum the sales
+sales_by_colour = crossbody_bags.groupby('colour_description')['sales'].sum().reset_index()
 
-# Store the result
-result = highest_margin_style
+# Sort by total sales in descending order
+sales_by_colour_sorted = sales_by_colour.sort_values(by='sales', ascending=False)
+
+# Limit to the top 12 results
+result = sales_by_colour_sorted.head(12)
