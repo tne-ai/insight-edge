@@ -17,10 +17,10 @@ nodes:
       useUserQuery: true
       apiKey: OPENROUTER_API_KEY
       engineName: openrouter
-      modelName: anthropic/claude-3.5-sonnet
+      modelName: qwen/qwen-2.5-coder-32b-instruct
     width: 214
     height: 730
-    selected: false
+    selected: true
     positionAbsolute:
       x: 157.24437216834724
       'y': 329.3288590421148
@@ -228,7 +228,7 @@ nodes:
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070
     width: 212
     height: 514
-    selected: true
+    selected: false
     dragging: false
     positionAbsolute:
       x: -538.2435083329268
