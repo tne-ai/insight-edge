@@ -20,7 +20,7 @@ nodes:
       modelName: anthropic/claude-3.5-sonnet
     width: 214
     height: 730
-    selected: true
+    selected: false
     positionAbsolute:
       x: 157.24437216834724
       'y': 329.3288590421148
@@ -196,7 +196,7 @@ nodes:
       id: xaI9VeYwmCHLgMZkuteN0
       title: Ruleset relevance filter70
       input: ''
-      slashgptManifest: Ruleset relevance filter small tester - Nemo
+      slashgptManifest: ruleset_relevance_filter_70.model
       toolJson: ''
       toolCode: ''
       outputType: overwrite
@@ -228,7 +228,7 @@ nodes:
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070
     width: 212
     height: 514
-    selected: false
+    selected: true
     dragging: false
     positionAbsolute:
       x: -538.2435083329268
