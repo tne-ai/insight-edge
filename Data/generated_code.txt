@@ -1,0 +1,26 @@
+from tne.TNE import TNE
+import pandas as pd
+
+# Initialize TNE object
+session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
+
+# Load data
+df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
+
+# Filter data for November
+df_november = df[df['month'] == 'November']
+
+# Group by product subgroup and style, calculate total sales
+df_grouped = df_november.groupby(['product_subgroup_desc', 'style_colour_desc'])['sales'].sum().reset_index()
+
+# Sort by total sales in descending order
+df_sorted = df_grouped.sort_values(by='sales', ascending=False)
+
+# Select top selling style for each subgroup
+df_result = df_sorted.loc[df_sorted.groupby('product_subgroup_desc')['sales'].idxmax()]
+
+# Rename columns
+df_result = df_result.rename(columns={'sales': 'total_sales'})
+
+# Store result in variable
+result = df_result
