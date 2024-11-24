@@ -4,23 +4,14 @@ import pandas as pd
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter for Crossbody bag products
-crossbody_df = df[df['product_subgroup_desc'] == 'Crossbody bag']
+# Filter for crossbody bags
+crossbody_bags = df[df['product_subgroup_desc'] == 'Crossbody bag']
 
-# Calculate the margin for each row
-crossbody_df['margin'] = (crossbody_df['aur'] - crossbody_df['standard_cost_price']) * crossbody_df['sales']
+# Group by style_colour_desc and calculate the average margin percentage
+crossbody_bags_margin = crossbody_bags.groupby('style_colour_desc')['margin %'].mean().reset_index()
 
-# Calculate the average margin
-average_margin = crossbody_df['margin'].mean()
+# Sort by margin percentage in descending order
+crossbody_bags_margin_sorted = crossbody_bags_margin.sort_values(by='margin %', ascending=False)
 
-# Select a sample of 12 products for detailed components
-sample_df = crossbody_df.head(12)[['style_colour_desc', 'aur', 'standard_cost_price', 'sales', 'margin']]
-
-# Add the average margin to the sample DataFrame
-sample_df['average_margin'] = average_margin
-
-# Prepare the result DataFrame
-result = pd.DataFrame({
-    'Average Margin': [average_margin],
-    'Sample Products': [sample_df.to_dict(orient='records')]
-})
+# Select the top 12 items
+result = crossbody_bags_margin_sorted.head(12)
