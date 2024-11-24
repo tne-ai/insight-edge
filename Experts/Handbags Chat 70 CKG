@@ -228,7 +228,7 @@ nodes:
       id: xaI9VeYwmCHLgMZkuteN0
       title: Ruleset relevance filter70
       input: ''
-      slashgptManifest: ruleset_relevance_filter_70.model
+      slashgptManifest: Ruleset relevance filter small tester - Nemo
       toolJson: ''
       toolCode: ''
       outputType: overwrite
@@ -260,7 +260,7 @@ nodes:
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070
     width: 212
     height: 514
-    selected: false
+    selected: true
     dragging: false
     positionAbsolute:
       x: -538.2435083329268
