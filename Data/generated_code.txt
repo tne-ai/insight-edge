@@ -4,13 +4,23 @@ import pandas as pd
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for November
-november_df = df[df['month'] == 'November']
+# Convert period to datetime for easier manipulation
+df['period'] = pd.to_datetime(df['period'], format='%Y%m')
 
-# Group by product_subgroup_desc and find the best selling style_colour_desc in each subcategory
-best_selling_df = november_df.groupby('product_subgroup_desc').apply(
-    lambda x: x.loc[x['sales'].idxmax()]
-).reset_index(drop=True)
+# Filter data for October
+october_data = df[df['month'] == 'October']
 
-# Select the required columns
-result = best_selling_df[['product_subgroup_desc', 'style_colour_desc', 'sales']]
+# Get the last 11 periods before October
+last_11_periods = df[df['period'] < pd.to_datetime('2022-10-01')].groupby('style_colour_desc')['sales'].mean().reset_index()
+
+# Merge October data with the average sales of the last 11 periods
+merged_data = october_data.merge(last_11_periods, on='style_colour_desc', suffixes=('_oct', '_avg'))
+
+# Calculate percentage increase
+merged_data['percentage_increase'] = ((merged_data['sales_oct'] - merged_data['sales_avg']) / merged_data['sales_avg']) * 100
+
+# Sort by percentage increase in descending order and get top 10
+rising_styles = merged_data.sort_values(by='percentage_increase', ascending=False).head(10)
+
+# Select relevant columns for the result
+result = rising_styles[['style_colour_desc', 'sales_oct', 'sales_avg', 'percentage_increase']]
