@@ -16,7 +16,7 @@ nodes:
       modelName: gpt-4o
     width: 214
     height: 466
-    selected: true
+    selected: false
     positionAbsolute:
       x: 103.24437216834724
       'y': 365.3288590421148
@@ -205,28 +205,6 @@ nodes:
       x: -355.72609233578453
       'y': -85.53340118633167
     dragging: false
-  - id: 1UsFBdBNpi5KvzqGksq3B
-    type: llm
-    position:
-      x: -376.3139357301229
-      'y': 777.8456790277868
-    data:
-      id: 1UsFBdBNpi5KvzqGksq3B
-      title: Ruleset relevance filter
-      input: ''
-      slashgptManifest: ruleset_relevance_filter.model
-      toolJson: ''
-      toolCode: ''
-      outputType: overwrite
-      outputToCanvas: false
-      useUserQuery: false
-    width: 212
-    height: 490
-    selected: false
-    positionAbsolute:
-      x: -376.3139357301229
-      'y': 777.8456790277868
-    dragging: false
   - id: x4Mi7xYMuKwdejGNkWtde
     type: file
     position:
@@ -316,38 +294,84 @@ nodes:
       x: 992.7584196720632
       'y': 258.9085799158099
     dragging: false
+  - id: GeyI-RzbTRsfIMZgym5Lp
+    type: llm
+    position:
+      x: -317.24158032793696
+      'y': 747.1585799158099
+    data:
+      id: GeyI-RzbTRsfIMZgym5Lp
+      title: Ruleset relevance filter
+      input: ''
+      slashgptManifest: ruleset_relevance_filter_70.model
+      toolJson: ''
+      toolCode: ''
+      outputType: overwrite
+      outputToCanvas: false
+      useUserQuery: false
+      flowState:
+        backend: git
+        repo: insight-edge
+        content:
+          name: Handbags Item qwen
+          path: Experts/Handbags Item qwen
+          sha: 026dc11a06dcf2ccbaf2c66b46bb41160421a720
+          size: 10286
+          url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Handbags%20Item%20qwen?ref=main
+          html_url: >-
+            https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Item%20qwen
+          git_url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/git/blobs/026dc11a06dcf2ccbaf2c66b46bb41160421a720
+          download_url: >-
+            https://raw.githubusercontent.com/tne-ai/insight-edge/main/Experts/Handbags%20Item%20qwen
+          type: file
+          _links:
+            self: >-
+              https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Handbags%20Item%20qwen?ref=main
+            git: >-
+              https://api.github.com/repos/tne-ai/insight-edge/git/blobs/026dc11a06dcf2ccbaf2c66b46bb41160421a720
+            html: >-
+              https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Item%20qwen
+    width: 212
+    height: 490
+    selected: true
+    positionAbsolute:
+      x: -317.24158032793696
+      'y': 747.1585799158099
+    dragging: false
 edges:
+  - source: GeyI-RzbTRsfIMZgym5Lp
+    sourceHandle: r
+    target: 1zqsKoT3qlUrEBZZ3aGqg
+    targetHandle: l
+    id: H7aDOX
+  - source: Rk04-dc0H8Wf3HOMYrj3A
+    sourceHandle: b
+    target: GeyI-RzbTRsfIMZgym5Lp
+    targetHandle: t
+    id: nIv95P
+  - source: x4Mi7xYMuKwdejGNkWtde
+    sourceHandle: b
+    target: GeyI-RzbTRsfIMZgym5Lp
+    targetHandle: t
+    id: dN98jf
   - source: 0YheAYRAFwVLOzLf5dyeH
     sourceHandle: b
     target: RjNl6A5e5LMXx1xy85IWA
     targetHandle: t
     id: 5yx-rm
-  - source: Rk04-dc0H8Wf3HOMYrj3A
-    sourceHandle: b
-    target: 1UsFBdBNpi5KvzqGksq3B
-    targetHandle: t
-    id: R4iMq0
   - source: M1S7cEYzJU--FcF4WMXl0
     sourceHandle: b
     target: RjNl6A5e5LMXx1xy85IWA
     targetHandle: t
     id: NDxnKz
-  - source: x4Mi7xYMuKwdejGNkWtde
-    sourceHandle: b
-    target: 1UsFBdBNpi5KvzqGksq3B
-    targetHandle: t
-    id: WZYVZ5
   - source: zj5hKVM0U5WhmM1XhUDC0
     sourceHandle: b
     target: 1zqsKoT3qlUrEBZZ3aGqg
     targetHandle: t
     id: KUs62U
     selected: false
-  - source: 1UsFBdBNpi5KvzqGksq3B
-    sourceHandle: r
-    target: 1zqsKoT3qlUrEBZZ3aGqg
-    targetHandle: l
-    id: G-_n23
   - source: Fo9gIhUDw5VXWVkzryhr-
     sourceHandle: b
     target: 1zqsKoT3qlUrEBZZ3aGqg
