@@ -10,11 +10,11 @@ df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.
 # Filter for crossbody bags
 crossbody_bags = df[df['product_subgroup_desc'] == 'Crossbody bag']
 
-# Group by colour description and sum the sales
-sales_by_colour = crossbody_bags.groupby('colour_description')['sales'].sum().reset_index()
+# Group by colour description and calculate total sales value
+sales_value_by_colour = crossbody_bags.groupby('colour_description')['sales v'].sum().reset_index()
 
-# Sort by total sales in descending order
-sales_by_colour_sorted = sales_by_colour.sort_values(by='sales', ascending=False)
+# Sort by total sales value in descending order
+sales_value_by_colour_sorted = sales_value_by_colour.sort_values(by='sales v', ascending=False)
 
 # Limit to the top 12 results
-result = sales_by_colour_sorted.head(12)
+result = sales_value_by_colour_sorted.head(12)
