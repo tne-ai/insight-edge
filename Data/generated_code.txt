@@ -5,14 +5,14 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Group by size_code and colour_description, then sum the sales
-size_color_sales = df.groupby(['size_code', 'colour_description'])['sales'].sum().reset_index()
+# Group by colour_description and size_code, then sum the sales
+size_sales = df.groupby(['colour_description', 'size_code'])['sales'].sum().reset_index()
 
-# Find the most popular color for each size
-most_popular_colors = size_color_sales.loc[size_color_sales.groupby('size_code')['sales'].idxmax()]
+# Find the most popular size for each color
+most_popular_sizes = size_sales.loc[size_sales.groupby('colour_description')['sales'].idxmax()]
 
-# Sort by size_code for better readability
-most_popular_colors = most_popular_colors.sort_values(by='size_code').head(12)
+# Sort by sales in descending order and limit to 12 items
+most_popular_sizes = most_popular_sizes.sort_values(by='sales', ascending=False).head(12)
 
 # Select relevant columns
-result = most_popular_colors[['size_code', 'colour_description', 'sales']]
+result = most_popular_sizes[['colour_description', 'size_code', 'sales']]
