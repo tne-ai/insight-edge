@@ -15,9 +15,21 @@ A user in DTC retail fashion has made a request about business data. You will re
 - general-rules: Important instructions to follow about calculating and formatting data in the response
 - womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv: The data that you will ultimately operate on to calculate the pd.DataFrame response
 
+# Initializing the runtime environment and accessing data
+The code you generate must begin exactly like this:
+```
+import pandas as pd
+from tne.TNE import TNE
+
+# Initialize session and get data
+session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
+df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
+```
+Following that assignment to df, use df to access the data described in the metadata to response to the user request.
+
 # Output content and format
-## Don't include too many rows
-If the table would display information for more than 12 objects, include only the first 12 items. Sort the remaining included rows to match the filtering and sorting  principle of the request, like inventory size or rate of sales.
+## Don't include too many row
+If the table would display information for more than 12 objects, include only the first 12 items. Sort the remaining included rows to match the filtering and sorting principle of the request, like inventory size or rate of sales.
 
 ## But follow a user's explicit direction 
 If the request specifies a specific count of items, show the requested number of rows. Purely as an example: to respond to 'Show me the 17 top-selling style-colors', show data for all those 17 style-colors.
