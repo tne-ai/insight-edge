@@ -21,7 +21,7 @@ nodes:
       modelName: nvidia/llama-3.1-nemotron-70b-instruct
     width: 212
     height: 730
-    selected: true
+    selected: false
     positionAbsolute:
       x: 129.85939485958374
       'y': 242.14549327442978
@@ -63,18 +63,18 @@ nodes:
   - id: WrvWlKo5cLLGx6Nxg93Sl
     type: out
     position:
-      x: 140.82578071344972
-      'y': 850.5171262360096
+      x: 131.87639693508106
+      'y': 1030.9963657664453
     data:
       id: WrvWlKo5cLLGx6Nxg93Sl
       title: Generated code
       outputName: generated_code.txt
     width: 210
     height: 190
-    selected: false
+    selected: true
     positionAbsolute:
-      x: 140.82578071344972
-      'y': 850.5171262360096
+      x: 131.87639693508106
+      'y': 1030.9963657664453
     dragging: false
   - id: B2gbDTRyyPB6-h7fPIe0p
     type: file
@@ -263,7 +263,7 @@ nodes:
       toolCode: ''
       outputType: overwrite
       outputToCanvas: false
-      useUserQuery: false
+      useUserQuery: true
       flowState: *ref_0
     width: 210
     height: 490
