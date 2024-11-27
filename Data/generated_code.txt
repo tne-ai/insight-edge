@@ -5,10 +5,11 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter the dataframe for Women Skirts, Newness, and Tail
-filtered_df = df[(df['product_subgroup_desc'] == 'WOMENS SKIRTS') & 
-                 (df['range_segment'] == 'Newness') & 
-                 (df['pareto'] == 'Tail')]
+# Filter for Newness range segment
+df_newness = df[df['range_segment'] == 'Newness']
 
-# Select the relevant columns and sort by size_code
-result = filtered_df[['size_code', 'style_color_description', 'sales', 'end_inv', 'total_stock']].sort_values(by='size_code').head(12)
+# Group by material and colour_description, summing sales
+df_material_colour_sales = df_newness.groupby(['material', 'colour_description'])['sales'].sum().reset_index()
+
+# Sort by sales in descending order and get the top 12 combinations
+result = df_material_colour_sales.sort_values(by='sales', ascending=False).head(12)
