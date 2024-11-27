@@ -14,67 +14,29 @@ nodes:
       apiKey: OPENAI_API_KEY
       engineName: openai-gpt
       modelName: gpt-4o
-    width: 214
+    width: 212
     height: 466
-    selected: true
+    selected: false
     positionAbsolute:
       x: 139.57453380072855
       'y': 296.5502713448407
     dragging: false
-  - id: RjNl6A5e5LMXx1xy85IWA
-    type: llm
-    position:
-      x: 1293.2031223259348
-      'y': 571.510137704638
-    data:
-      id: RjNl6A5e5LMXx1xy85IWA
-      title: Chat
-      input: ''
-      slashgptManifest: chat_explain_brief.model
-      toolJson: ''
-      toolCode: ''
-      outputType: overwrite
-      outputToCanvas: false
-      useUserQuery: true
-    width: 212
-    height: 490
-    selected: false
-    positionAbsolute:
-      x: 1293.2031223259348
-      'y': 571.510137704638
-    dragging: false
-  - id: qIHgOQxy64ACQgxcD93bT
-    type: file
-    position:
-      x: 1389.8188507632578
-      'y': 12.938065989387155
-    data:
-      id: qIHgOQxy64ACQgxcD93bT
-      title: Ruleset
-      fileName: tejv-domain-rules.txt
-    width: 212
-    height: 226
-    selected: false
-    positionAbsolute:
-      x: 1389.8188507632578
-      'y': 12.938065989387155
-    dragging: false
   - id: uhEulH9Z49LWGA7KpOQTA
     type: file
     position:
-      x: 574.0505462411182
-      'y': -337.1364271950788
+      x: 523.0940549628016
+      'y': -365.4455890163659
     data:
       id: uhEulH9Z49LWGA7KpOQTA
       title: 442 Data
       fileName: womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv
-    width: 212
+    width: 210
     height: 322
     selected: false
     dragging: false
     positionAbsolute:
-      x: 574.0505462411182
-      'y': -337.1364271950788
+      x: 523.0940549628016
+      'y': -365.4455890163659
   - id: JeKsgcbsvmI_P55qW5mwZ
     type: python_code
     position:
@@ -86,7 +48,7 @@ nodes:
       module: chat_markdown.py
       outputType: overwrite
       outputToCanvas: true
-    width: 212
+    width: 210
     height: 348
     selected: false
     dragging: false
@@ -102,7 +64,7 @@ nodes:
       id: WrvWlKo5cLLGx6Nxg93Sl
       title: Generated code
       outputName: generated_code.txt
-    width: 212
+    width: 210
     height: 190
     selected: false
     positionAbsolute:
@@ -119,7 +81,7 @@ nodes:
       title: 442 Metadata
       fileName: >-
         complete-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes-metadata.txt
-    width: 212
+    width: 210
     height: 346
     selected: false
     positionAbsolute:
@@ -129,56 +91,24 @@ nodes:
   - id: 2Zb_TunbGkLyNPt-l6pGb
     type: file
     position:
-      x: 356.9883511242847
-      'y': -337.83720885398156
+      x: 273.94814311517587
+      'y': -364.2590932205162
     data:
       id: 2Zb_TunbGkLyNPt-l6pGb
       title: General rules
       fileName: general-rules.txt
-    width: 212
+    width: 210
     height: 226
     selected: false
     positionAbsolute:
-      x: 356.9883511242847
-      'y': -337.83720885398156
-    dragging: false
-  - id: VQCjBEibZL1iR6Hxilpy0
-    type: file
-    position:
-      x: 1167.8778427859484
-      'y': 8.170739125324161
-    data:
-      id: VQCjBEibZL1iR6Hxilpy0
-      title: Ruleset key
-      fileName: model-friendly-rule-syntax-key.txt
-    width: 212
-    height: 250
-    selected: false
-    positionAbsolute:
-      x: 1167.8778427859484
-      'y': 8.170739125324161
-    dragging: false
-  - id: zao7baSNdlWH5li6QoALA
-    type: file
-    position:
-      x: 791.2867732487767
-      'y': -335.2036568749437
-    data:
-      id: zao7baSNdlWH5li6QoALA
-      title: Ruleset key
-      fileName: model-friendly-rule-syntax-key.txt
-    width: 212
-    height: 250
-    selected: false
-    positionAbsolute:
-      x: 791.2867732487767
-      'y': -335.2036568749437
+      x: 273.94814311517587
+      'y': -364.2590932205162
     dragging: false
   - id: s5fx94tHxKeIofMvHG5L9
     type: llm
     position:
-      x: -481.5026684540652
-      'y': 479.2155148054877
+      x: -302.6684488471982
+      'y': 447.85691446615846
     data:
       id: s5fx94tHxKeIofMvHG5L9
       title: Ruleset relevance filter
@@ -189,179 +119,222 @@ nodes:
       outputType: overwrite
       outputToCanvas: true
       useUserQuery: false
-    width: 212
+    width: 210
     height: 490
     selected: false
     positionAbsolute:
-      x: -481.5026684540652
-      'y': 479.2155148054877
+      x: -302.6684488471982
+      'y': 447.85691446615846
     dragging: false
   - id: oqMth1hfHd-5ImJMPCgSB
     type: file
     position:
-      x: -698.5668871129703
-      'y': 84.50442585855797
+      x: -579.6684074635646
+      'y': 27.886102215983833
     data:
       id: oqMth1hfHd-5ImJMPCgSB
       title: 442 Metadata
       fileName: >-
         complete-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes-metadata.txt
-    width: 212
+    width: 210
     height: 346
     selected: false
     positionAbsolute:
-      x: -698.5668871129703
-      'y': 84.50442585855797
-    dragging: false
-  - id: aFgU5QjpZ7M23LrRYOGHN
-    type: file
-    position:
-      x: -474.0434156936036
-      'y': 90.08051076894536
-    data:
-      id: aFgU5QjpZ7M23LrRYOGHN
-      title: Ruleset
-      fileName: tejv-domain-rules.txt
-    width: 212
-    height: 226
-    selected: false
-    dragging: false
-    positionAbsolute:
-      x: -474.0434156936036
-      'y': 90.08051076894536
-  - id: mDvGHC0bnJGbZfzKOEY3m
-    type: file
-    position:
-      x: -247.89436206706182
-      'y': 93.46698026115894
-    data:
-      id: mDvGHC0bnJGbZfzKOEY3m
-      title: Ruleset key
-      fileName: model-friendly-rule-syntax-key.txt
-    width: 212
-    height: 250
-    selected: false
-    positionAbsolute:
-      x: -247.89436206706182
-      'y': 93.46698026115894
+      x: -579.6684074635646
+      'y': 27.886102215983833
     dragging: false
   - id: TJaGF0oikP06zzYYin79c
     type: file
     position:
-      x: 1864.0152645961139
-      'y': 0.13930660380810878
+      x: 1599.7634853969744
+      'y': 19.56958448609773
     data:
       id: TJaGF0oikP06zzYYin79c
       title: 442 Metadata
       fileName: >-
         complete-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes-metadata.txt
-    width: 212
+    width: 210
     height: 346
     selected: false
     positionAbsolute:
-      x: 1864.0152645961139
-      'y': 0.13930660380810878
+      x: 1599.7634853969744
+      'y': 19.56958448609773
     dragging: false
   - id: d3WFVmFAznrjq8G1zZvHB
     type: file
     position:
-      x: 950.5840033024842
-      'y': 7.801283337692894
+      x: 732.9648910208405
+      'y': 35.00367237289836
     data:
       id: d3WFVmFAznrjq8G1zZvHB
       title: Generated code
       fileName: generated_code.txt
-    width: 212
+    width: 210
     height: 226
     selected: false
     positionAbsolute:
-      x: 950.5840033024842
-      'y': 7.801283337692894
+      x: 732.9648910208405
+      'y': 35.00367237289836
     dragging: false
   - id: vGQFdUjUJDxVInsUpL6pq
     type: file
     position:
-      x: -291.44945907890394
-      'y': -336.2631216894398
+      x: -248.04207761959714
+      'y': -364.5722835107269
     data:
       id: vGQFdUjUJDxVInsUpL6pq
       title: 442 codegen instructions
       fileName: >-
         codegen_instructions-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes.txt
-    width: 212
+    width: 210
     height: 346
     selected: false
     dragging: false
     positionAbsolute:
-      x: -291.44945907890394
-      'y': -336.2631216894398
+      x: -248.04207761959714
+      'y': -364.5722835107269
   - id: 0zdc5dhVer0Q5aCtYSTDW
     type: file
     position:
-      x: 1613.3588397579133
-      'y': 14.221830593983043
+      x: 1303.2120545031091
+      'y': 26.040721097104857
     data:
       id: 0zdc5dhVer0Q5aCtYSTDW
       title: General rules
       fileName: general-rules.txt
-    width: 212
+    width: 210
     height: 226
     selected: false
     dragging: false
     positionAbsolute:
-      x: 1613.3588397579133
-      'y': 14.221830593983043
+      x: 1303.2120545031091
+      'y': 26.040721097104857
+  - id: 0lps7xhausZFztXeHh1gT
+    type: file
+    position:
+      x: -342.7293015532772
+      'y': 38.64700141478646
+    data:
+      id: 0lps7xhausZFztXeHh1gT
+      title: Rules
+      fileName: tne-kg-ruleset-with-key.txt
+      flowState: &ref_0
+        backend: git
+        repo: insight-edge
+        content:
+          name: Womens RTW Chat qwen
+          path: Experts/Womens RTW Chat qwen
+          sha: 3d3829ab3696735d2406cdec030446a4c968618a
+          size: 9687
+          url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Womens%20RTW%20Chat%20qwen?ref=main
+          html_url: >-
+            https://github.com/tne-ai/insight-edge/blob/main/Experts/Womens%20RTW%20Chat%20qwen
+          git_url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/git/blobs/3d3829ab3696735d2406cdec030446a4c968618a
+          download_url: >-
+            https://raw.githubusercontent.com/tne-ai/insight-edge/main/Experts/Womens%20RTW%20Chat%20qwen
+          type: file
+          _links:
+            self: >-
+              https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Womens%20RTW%20Chat%20qwen?ref=main
+            git: >-
+              https://api.github.com/repos/tne-ai/insight-edge/git/blobs/3d3829ab3696735d2406cdec030446a4c968618a
+            html: >-
+              https://github.com/tne-ai/insight-edge/blob/main/Experts/Womens%20RTW%20Chat%20qwen
+    width: 210
+    height: 250
+    selected: false
+    positionAbsolute:
+      x: -342.7293015532772
+      'y': 38.64700141478646
+    dragging: false
+  - id: lPhviHOUeF9TsRnhM4gHu
+    type: file
+    position:
+      x: 1012.6057361892449
+      'y': 25.549923615727682
+    data:
+      id: lPhviHOUeF9TsRnhM4gHu
+      title: Rules
+      fileName: tne-kg-ruleset-with-key.txt
+      flowState: *ref_0
+    width: 210
+    height: 250
+    selected: false
+    positionAbsolute:
+      x: 1012.6057361892449
+      'y': 25.549923615727682
+    dragging: false
+  - id: pEsdkDoeqW15M_TYssGSV
+    type: llm
+    position:
+      x: 1123.1300074303465
+      'y': 438.9642350616654
+    data:
+      id: pEsdkDoeqW15M_TYssGSV
+      title: Chat explain
+      input: ''
+      slashgptManifest: chat_explain_qwen.model
+      toolJson: ''
+      toolCode: ''
+      outputType: overwrite
+      outputToCanvas: false
+      useUserQuery: false
+      flowState: *ref_0
+    width: 210
+    height: 490
+    selected: true
+    positionAbsolute:
+      x: 1123.1300074303465
+      'y': 438.9642350616654
+    dragging: false
 edges:
+  - source: JeKsgcbsvmI_P55qW5mwZ
+    sourceHandle: r
+    target: pEsdkDoeqW15M_TYssGSV
+    targetHandle: l
+    id: 8QHRzB
+  - source: d3WFVmFAznrjq8G1zZvHB
+    sourceHandle: b
+    target: pEsdkDoeqW15M_TYssGSV
+    targetHandle: t
+    id: oBaMVB
+  - source: lPhviHOUeF9TsRnhM4gHu
+    sourceHandle: b
+    target: pEsdkDoeqW15M_TYssGSV
+    targetHandle: t
+    id: Mh5FJW
+  - source: 0zdc5dhVer0Q5aCtYSTDW
+    sourceHandle: b
+    target: pEsdkDoeqW15M_TYssGSV
+    targetHandle: t
+    id: lRSN3P
+  - source: TJaGF0oikP06zzYYin79c
+    sourceHandle: b
+    target: pEsdkDoeqW15M_TYssGSV
+    targetHandle: t
+    id: vIh5b5
+  - source: 0lps7xhausZFztXeHh1gT
+    sourceHandle: b
+    target: s5fx94tHxKeIofMvHG5L9
+    targetHandle: t
+    id: fEO21n
   - source: oqMth1hfHd-5ImJMPCgSB
     sourceHandle: b
     target: s5fx94tHxKeIofMvHG5L9
     targetHandle: t
     id: DZWLAH
-  - source: d3WFVmFAznrjq8G1zZvHB
-    sourceHandle: b
-    target: RjNl6A5e5LMXx1xy85IWA
-    targetHandle: t
-    id: RI_3no
-  - source: 0zdc5dhVer0Q5aCtYSTDW
-    sourceHandle: b
-    target: RjNl6A5e5LMXx1xy85IWA
-    targetHandle: t
-    id: 7WeLk1
   - source: vGQFdUjUJDxVInsUpL6pq
     sourceHandle: b
     target: 1zqsKoT3qlUrEBZZ3aGqg
     targetHandle: t
     id: _vfMYr
-  - source: TJaGF0oikP06zzYYin79c
-    sourceHandle: b
-    target: RjNl6A5e5LMXx1xy85IWA
-    targetHandle: t
-    id: QPUl0l
-  - source: mDvGHC0bnJGbZfzKOEY3m
-    sourceHandle: b
-    target: s5fx94tHxKeIofMvHG5L9
-    targetHandle: t
-    id: BAmVcc
-  - source: aFgU5QjpZ7M23LrRYOGHN
-    sourceHandle: b
-    target: s5fx94tHxKeIofMvHG5L9
-    targetHandle: t
-    id: pAjhWF
   - source: s5fx94tHxKeIofMvHG5L9
     sourceHandle: r
     target: 1zqsKoT3qlUrEBZZ3aGqg
     targetHandle: l
     id: cD1GDm
-  - source: zao7baSNdlWH5li6QoALA
-    sourceHandle: b
-    target: 1zqsKoT3qlUrEBZZ3aGqg
-    targetHandle: t
-    id: 0WEn-R
-  - source: VQCjBEibZL1iR6Hxilpy0
-    sourceHandle: b
-    target: RjNl6A5e5LMXx1xy85IWA
-    targetHandle: t
-    id: Ij2V6O
   - source: 2Zb_TunbGkLyNPt-l6pGb
     sourceHandle: b
     target: 1zqsKoT3qlUrEBZZ3aGqg
@@ -377,11 +350,6 @@ edges:
     sourceHandle: b
     target: WrvWlKo5cLLGx6Nxg93Sl
     targetHandle: t
-  - id: 2Ieiav
-    source: JeKsgcbsvmI_P55qW5mwZ
-    sourceHandle: r
-    target: RjNl6A5e5LMXx1xy85IWA
-    targetHandle: l
   - id: Io48SD
     source: 1zqsKoT3qlUrEBZZ3aGqg
     sourceHandle: r
@@ -391,10 +359,5 @@ edges:
     source: uhEulH9Z49LWGA7KpOQTA
     sourceHandle: b
     target: 1zqsKoT3qlUrEBZZ3aGqg
-    targetHandle: t
-  - id: LKiRV9
-    source: qIHgOQxy64ACQgxcD93bT
-    sourceHandle: b
-    target: RjNl6A5e5LMXx1xy85IWA
     targetHandle: t
 description: null
