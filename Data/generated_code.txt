@@ -1,14 +1,18 @@
 import pandas as pd
 from tne.TNE import TNE
 
-# Initialize the TNE session
+# Initialize session and get data
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
+df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Load the data
-df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
+# Calculate total sales and unique styles by subgroup
+result = df.groupby('product_subgroup_desc').agg({
+    'sales': 'sum',
+    'style_color_description': 'nunique'
+}).reset_index()
 
-# Group by 'product_subgroup_desc' and calculate total sales and number of styles
-result = df.groupby('product_subgroup_desc').agg(
-    total_sales=('sales', 'sum'),
-    number_of_styles=('style_colour_desc', 'nunique')
-).reset_index()
+# Rename columns
+result.columns = ['Product Subgroup', 'Total Sales', 'Number of Styles']
+
+# Sort by total sales descending
+result = result.sort_values('Total Sales', ascending=False)
