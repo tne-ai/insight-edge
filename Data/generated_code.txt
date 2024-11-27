@@ -5,20 +5,18 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter for Womens Pants
-womens_pants_df = df[df['product_subgroup_desc'] == 'WOMENS PANTS']
+# Filter for Women Skirts
+skirts_df = df[df['product_subgroup_desc'] == 'WOMENS SKIRTS']
 
-# Group by period and sum sales to find the best time to launch
-monthly_sales = womens_pants_df.groupby('period')['sales'].sum().reset_index()
+# Calculate total sales and sales units for each size
+size_sales = skirts_df.groupby('size_code')['sales v'].sum().reset_index(name='total_sales')
+size_units = skirts_df.groupby('size_code')['sales'].sum().reset_index(name='sales_units')
 
-# Sort by sales in descending order to find the best month
-best_month = monthly_sales.sort_values(by='sales', ascending=False).head(12)
+# Merge the total sales and sales units dataframes
+size_sales_units = pd.merge(size_sales, size_units, on='size_code')
 
-# Convert period to a more readable format
-best_month['period'] = pd.to_datetime(best_month['period'], format='%Y%m').dt.strftime('%B %Y')
+# Calculate average unit retail (average standard selling price) for each size
+size_sales_units['average_unit_retail'] = size_sales_units['total_sales'] / size_sales_units['sales_units']
 
-# Rename columns for clarity
-best_month = best_month.rename(columns={'period': 'Best Time to Launch', 'sales': 'Units Sold'})
-
-# Select the top month
-result = best_month.head(1)
+# Sort by average unit retail in descending order and get the top 12 sizes
+result = size_sales_units.sort_values(by='average_unit_retail', ascending=False).head(12)[['size_code', 'average_unit_retail']]
