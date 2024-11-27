@@ -5,8 +5,8 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter for newness range segment
-df_newness = df[df['range_segment'] == 'Newness']
+# Filter for products in the 'Newness' range segment
+newness_df = df[df['range_segment'] == 'Newness']
 
-# Group by pareto and sum sales
-result = df_newness.groupby('pareto')['sales'].sum().reset_index().head(12)
+# Group by material and colour_description, and sum the sales
+result = newness_df.groupby(['material', 'colour_description'])['sales'].sum().reset_index().head(12)
