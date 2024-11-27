@@ -2,8 +2,8 @@ nodes:
   - id: 1zqsKoT3qlUrEBZZ3aGqg
     type: code_generation
     position:
-      x: 139.57453380072855
-      'y': 296.5502713448407
+      x: 129.85939485958374
+      'y': 242.14549327442978
     data:
       id: 1zqsKoT3qlUrEBZZ3aGqg
       title: Generate Code
@@ -11,15 +11,15 @@ nodes:
       outputType: overwrite
       outputToCanvas: true
       useUserQuery: true
-      apiKey: OPENAI_API_KEY
-      engineName: openai-gpt
-      modelName: gpt-4o
+      apiKey: OPENROUTER_API_KEY
+      engineName: openrouter
+      modelName: nvidia/llama-3.1-nemotron-70b-instruct
     width: 212
-    height: 466
-    selected: false
+    height: 490
+    selected: true
     positionAbsolute:
-      x: 139.57453380072855
-      'y': 296.5502713448407
+      x: 129.85939485958374
+      'y': 242.14549327442978
     dragging: false
   - id: uhEulH9Z49LWGA7KpOQTA
     type: file
@@ -58,8 +58,8 @@ nodes:
   - id: WrvWlKo5cLLGx6Nxg93Sl
     type: out
     position:
-      x: 131.11064177230492
-      'y': 1077.8513774587982
+      x: 140.82578071344972
+      'y': 850.5171262360096
     data:
       id: WrvWlKo5cLLGx6Nxg93Sl
       title: Generated code
@@ -68,8 +68,8 @@ nodes:
     height: 190
     selected: false
     positionAbsolute:
-      x: 131.11064177230492
-      'y': 1077.8513774587982
+      x: 140.82578071344972
+      'y': 850.5171262360096
     dragging: false
   - id: B2gbDTRyyPB6-h7fPIe0p
     type: file
@@ -104,28 +104,6 @@ nodes:
       x: 273.94814311517587
       'y': -364.2590932205162
     dragging: false
-  - id: s5fx94tHxKeIofMvHG5L9
-    type: llm
-    position:
-      x: -302.6684488471982
-      'y': 447.85691446615846
-    data:
-      id: s5fx94tHxKeIofMvHG5L9
-      title: Ruleset relevance filter
-      input: ''
-      slashgptManifest: ruleset_relevance_filter.model
-      toolJson: ''
-      toolCode: ''
-      outputType: overwrite
-      outputToCanvas: true
-      useUserQuery: false
-    width: 210
-    height: 490
-    selected: false
-    positionAbsolute:
-      x: -302.6684488471982
-      'y': 447.85691446615846
-    dragging: false
   - id: oqMth1hfHd-5ImJMPCgSB
     type: file
     position:
@@ -146,8 +124,8 @@ nodes:
   - id: TJaGF0oikP06zzYYin79c
     type: file
     position:
-      x: 1599.7634853969744
-      'y': 19.56958448609773
+      x: 1401.5746509976204
+      'y': 27.34169563901358
     data:
       id: TJaGF0oikP06zzYYin79c
       title: 442 Metadata
@@ -157,14 +135,14 @@ nodes:
     height: 346
     selected: false
     positionAbsolute:
-      x: 1599.7634853969744
-      'y': 19.56958448609773
+      x: 1401.5746509976204
+      'y': 27.34169563901358
     dragging: false
   - id: d3WFVmFAznrjq8G1zZvHB
     type: file
     position:
-      x: 732.9648910208405
-      'y': 35.00367237289836
+      x: 569.7505568096076
+      'y': 120.49689505497267
     data:
       id: d3WFVmFAznrjq8G1zZvHB
       title: Generated code
@@ -173,8 +151,8 @@ nodes:
     height: 226
     selected: false
     positionAbsolute:
-      x: 732.9648910208405
-      'y': 35.00367237289836
+      x: 569.7505568096076
+      'y': 120.49689505497267
     dragging: false
   - id: vGQFdUjUJDxVInsUpL6pq
     type: file
@@ -196,8 +174,8 @@ nodes:
   - id: 0zdc5dhVer0Q5aCtYSTDW
     type: file
     position:
-      x: 1303.2120545031091
-      'y': 26.040721097104857
+      x: 1143.8837758683342
+      'y': 35.75586003824967
     data:
       id: 0zdc5dhVer0Q5aCtYSTDW
       title: General rules
@@ -207,8 +185,8 @@ nodes:
     selected: false
     dragging: false
     positionAbsolute:
-      x: 1303.2120545031091
-      'y': 26.040721097104857
+      x: 1143.8837758683342
+      'y': 35.75586003824967
   - id: 0lps7xhausZFztXeHh1gT
     type: file
     position:
@@ -252,8 +230,8 @@ nodes:
   - id: lPhviHOUeF9TsRnhM4gHu
     type: file
     position:
-      x: 1012.6057361892449
-      'y': 25.549923615727682
+      x: 851.3344297662411
+      'y': 62.467451592077964
     data:
       id: lPhviHOUeF9TsRnhM4gHu
       title: Rules
@@ -263,14 +241,14 @@ nodes:
     height: 250
     selected: false
     positionAbsolute:
-      x: 1012.6057361892449
-      'y': 25.549923615727682
+      x: 851.3344297662411
+      'y': 62.467451592077964
     dragging: false
   - id: pEsdkDoeqW15M_TYssGSV
     type: llm
     position:
-      x: 1123.1300074303465
-      'y': 438.9642350616654
+      x: 1039.579812536501
+      'y': 456.45148515572606
     data:
       id: pEsdkDoeqW15M_TYssGSV
       title: Chat explain
@@ -284,12 +262,50 @@ nodes:
       flowState: *ref_0
     width: 210
     height: 490
-    selected: true
+    selected: false
     positionAbsolute:
-      x: 1123.1300074303465
-      'y': 438.9642350616654
+      x: 1039.579812536501
+      'y': 456.45148515572606
+    dragging: false
+  - id: 27_17fKQ67iqqZPZppij-
+    type: llm
+    position:
+      x: -374.9444172941834
+      'y': 491.4259853438474
+    data:
+      id: 27_17fKQ67iqqZPZppij-
+      title: Ruleset relevance filter
+      input: ''
+      slashgptManifest: ruleset_relevance_filter_qwen.model
+      toolJson: ''
+      toolCode: ''
+      outputType: overwrite
+      outputToCanvas: false
+      useUserQuery: false
+      flowState: *ref_0
+    width: 210
+    height: 490
+    selected: false
+    positionAbsolute:
+      x: -374.9444172941834
+      'y': 491.4259853438474
     dragging: false
 edges:
+  - source: 27_17fKQ67iqqZPZppij-
+    sourceHandle: r
+    target: 1zqsKoT3qlUrEBZZ3aGqg
+    targetHandle: l
+    id: BNCn5J
+  - source: oqMth1hfHd-5ImJMPCgSB
+    sourceHandle: b
+    target: 27_17fKQ67iqqZPZppij-
+    targetHandle: t
+    id: mHob2K
+  - source: 0lps7xhausZFztXeHh1gT
+    sourceHandle: b
+    target: 27_17fKQ67iqqZPZppij-
+    targetHandle: t
+    id: SstYr4
   - source: JeKsgcbsvmI_P55qW5mwZ
     sourceHandle: r
     target: pEsdkDoeqW15M_TYssGSV
@@ -315,26 +331,11 @@ edges:
     target: pEsdkDoeqW15M_TYssGSV
     targetHandle: t
     id: vIh5b5
-  - source: 0lps7xhausZFztXeHh1gT
-    sourceHandle: b
-    target: s5fx94tHxKeIofMvHG5L9
-    targetHandle: t
-    id: fEO21n
-  - source: oqMth1hfHd-5ImJMPCgSB
-    sourceHandle: b
-    target: s5fx94tHxKeIofMvHG5L9
-    targetHandle: t
-    id: DZWLAH
   - source: vGQFdUjUJDxVInsUpL6pq
     sourceHandle: b
     target: 1zqsKoT3qlUrEBZZ3aGqg
     targetHandle: t
     id: _vfMYr
-  - source: s5fx94tHxKeIofMvHG5L9
-    sourceHandle: r
-    target: 1zqsKoT3qlUrEBZZ3aGqg
-    targetHandle: l
-    id: cD1GDm
   - source: 2Zb_TunbGkLyNPt-l6pGb
     sourceHandle: b
     target: 1zqsKoT3qlUrEBZZ3aGqg
