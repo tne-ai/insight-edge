@@ -5,11 +5,11 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter for Newness range segment
-df_newness = df[df['range_segment'] == 'Newness']
+# Filter for Newness products with Polyester Blend material
+filtered_df = df[(df['range_segment'] == 'Newness') & (df['material'] == 'Polyester Blend')]
 
-# Group by material and colour_description, summing sales
-df_material_colour_sales = df_newness.groupby(['material', 'colour_description'])['sales'].sum().reset_index()
+# Group by color description and sum sales to get total sales per color
+total_sales_per_color = filtered_df.groupby('colour_description')['sales'].sum().reset_index()
 
-# Sort by sales in descending order and get the top 12 combinations
-result = df_material_colour_sales.sort_values(by='sales', ascending=False).head(12)
+# Sort by total sales in descending order and limit to 12 items
+result = total_sales_per_color.sort_values(by='sales', ascending=False).head(12)
