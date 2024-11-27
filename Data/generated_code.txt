@@ -1,20 +1,29 @@
 import pandas as pd
 from tne.TNE import TNE
 
-# Initialize the TNE session
+# Initialize TNE session
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 
-# Load the data
+# Load data
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter for crossbody bags
-crossbody_bags = df[df['product_subgroup_desc'] == 'Crossbody bag']
+# Ensure 'period' column is of integer type for sorting
+df['period'] = df['period'].astype(int)
 
-# Group by colour description and calculate total sales value
-sales_value_by_colour = crossbody_bags.groupby('colour_description')['sales v'].sum().reset_index()
+# Find the most recent period
+most_recent_period = df['period'].max()
 
-# Sort by total sales value in descending order
-sales_value_by_colour_sorted = sales_value_by_colour.sort_values(by='sales v', ascending=False)
+# Filter data for the most recent period
+recent_df = df[df['period'] == most_recent_period]
 
-# Limit to the top 12 results
-result = sales_value_by_colour_sorted.head(12)
+# Group by 'product_subgroup_desc' and find the product with the highest sales in each subgroup
+best_selling_products = recent_df.loc[recent_df.groupby('product_subgroup_desc')['sales'].idxmax()]
+
+# Select relevant columns for the output
+result = best_selling_products[['product_subgroup_desc', 'style_colour_desc', 'sales']]
+
+# Limit to 12 rows if more than 12 subcategories exist
+result = result.head(12)
+
+# Store the final result in the 'result' variable
+result = pd.DataFrame(result)
