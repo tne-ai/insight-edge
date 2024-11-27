@@ -5,18 +5,14 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter for Women Skirts
-skirts_df = df[df['product_subgroup_desc'] == 'WOMENS SKIRTS']
+# Filter for Newness range segment
+df_newness = df[df['range_segment'] == 'Newness']
 
-# Calculate total sales and sales units for each size
-size_sales = skirts_df.groupby('size_code')['sales v'].sum().reset_index(name='total_sales')
-size_units = skirts_df.groupby('size_code')['sales'].sum().reset_index(name='sales_units')
+# Group by pareto, material, and colour_description, then sum sales
+df_grouped = df_newness.groupby(['pareto', 'material', 'colour_description'])['sales'].sum().reset_index()
 
-# Merge the total sales and sales units dataframes
-size_sales_units = pd.merge(size_sales, size_units, on='size_code')
+# Sort by pareto and sales in descending order
+df_sorted = df_grouped.sort_values(by=['pareto', 'sales'], ascending=[True, False])
 
-# Calculate average unit retail (average standard selling price) for each size
-size_sales_units['average_unit_retail'] = size_sales_units['total_sales'] / size_sales_units['sales_units']
-
-# Sort by average unit retail in descending order and get the top 12 sizes
-result = size_sales_units.sort_values(by='average_unit_retail', ascending=False).head(12)[['size_code', 'average_unit_retail']]
+# Get the best selling material-colour combination for each pareto tagging
+result = df_sorted.groupby('pareto').head(1).reset_index(drop=True)
