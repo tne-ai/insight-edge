@@ -5,14 +5,11 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Convert period to datetime for sorting
-df['period'] = pd.to_datetime(df['period'], format='%Y%m')
-
-# Get the most recent period for each sku_id
-most_recent_sales = df.loc[df.groupby('sku_id')['period'].idxmax()]
-
 # Calculate total sales and number of styles for each subcategory
-result = most_recent_sales.groupby('product_subgroup_desc').agg({
+result = df.groupby('product_subgroup_desc').agg({
     'sales': 'sum',
     'style_color_description': 'nunique'
-}).reset_index().head(12)
+}).reset_index().rename(columns={
+    'sales': 'total_sales',
+    'style_color_description': 'number_of_styles'
+}).head(12)
