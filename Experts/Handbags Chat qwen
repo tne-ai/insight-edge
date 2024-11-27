@@ -20,7 +20,7 @@ nodes:
       modelName: nvidia/llama-3.1-nemotron-70b-instruct
     width: 212
     height: 730
-    selected: true
+    selected: false
     positionAbsolute:
       x: 157.24437216834724
       'y': 329.3288590421148
@@ -46,34 +46,34 @@ nodes:
   - id: zONjfr0eMtJtEqt_tRjW5
     type: file
     position:
-      x: 681.2182848045979
-      'y': 254.93821825262603
+      x: 729.0789701547117
+      'y': 278.8685609276829
     data:
       id: zONjfr0eMtJtEqt_tRjW5
-      title: File
+      title: Code
       fileName: generated_code.txt
     width: 210
     height: 226
     selected: false
     positionAbsolute:
-      x: 681.2182848045979
-      'y': 254.93821825262603
+      x: 729.0789701547117
+      'y': 278.8685609276829
     dragging: false
   - id: ftETm4EbqlrmLP5kQ4zyM
     type: file
     position:
-      x: 1558.7147707445822
-      'y': 265.457242165904
+      x: 1536.3797842478625
+      'y': 263.8618859875669
     data:
       id: ftETm4EbqlrmLP5kQ4zyM
       title: General rules
       fileName: general-rules.txt
     width: 210
     height: 226
-    selected: false
+    selected: true
     positionAbsolute:
-      x: 1558.7147707445822
-      'y': 265.457242165904
+      x: 1536.3797842478625
+      'y': 263.8618859875669
     dragging: false
   - id: DAnjY7T61Xmqlg-0c5McO
     type: file
@@ -178,7 +178,7 @@ nodes:
       'y': 1199.7489916553377
     data:
       id: T_W7NcD6rTVVtbmY7wbKp
-      title: Save File
+      title: Code
       outputName: generated_code.txt
     width: 210
     height: 190
@@ -190,8 +190,8 @@ nodes:
   - id: xaI9VeYwmCHLgMZkuteN0
     type: llm
     position:
-      x: -538.2435083329268
-      'y': 885.8577952345031
+      x: -397.8521646392601
+      'y': 822.0435481010182
     data:
       id: xaI9VeYwmCHLgMZkuteN0
       title: Ruleset relevance filter qwen
@@ -231,8 +231,8 @@ nodes:
     selected: false
     dragging: false
     positionAbsolute:
-      x: -538.2435083329268
-      'y': 885.8577952345031
+      x: -397.8521646392601
+      'y': 822.0435481010182
   - id: UAMXXxRmB7mrfj_ySxhSo
     type: llm
     position:
