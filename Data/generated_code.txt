@@ -5,11 +5,20 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter for Newness range_segment
-newness_df = df[df['range_segment'] == 'Newness']
+# Filter for Womens Pants
+womens_pants_df = df[df['product_subgroup_desc'] == 'WOMENS PANTS']
 
-# Group by material, colour_description, and size_code, then sum sales
-grouped_df = newness_df.groupby(['material', 'colour_description', 'size_code'])['sales'].sum().reset_index()
+# Group by period and sum sales to find the best time to launch
+monthly_sales = womens_pants_df.groupby('period')['sales'].sum().reset_index()
 
-# Sort by sales in descending order and get the top 12 combinations
-result = grouped_df.sort_values(by='sales', ascending=False).head(12)
+# Sort by sales in descending order to find the best month
+best_month = monthly_sales.sort_values(by='sales', ascending=False).head(12)
+
+# Convert period to a more readable format
+best_month['period'] = pd.to_datetime(best_month['period'], format='%Y%m').dt.strftime('%B %Y')
+
+# Rename columns for clarity
+best_month = best_month.rename(columns={'period': 'Best Time to Launch', 'sales': 'Units Sold'})
+
+# Select the top month
+result = best_month.head(1)
