@@ -10,8 +10,7 @@ A user in DTC retail fashion has made a request about business data. You will re
 
 # Important supplied information
 - a selected relevant set of definitions and formulas useful to understand and respond to the request
-- model-friendly-rule-syntax-key 2024-08-20.txt: Describes the syntax of the definitions and formulas
-- general-rules_2024-08-21.txt: Important instructions to follow about calculating and formatting data in the response
+- general-rules: Important instructions to follow about calculating and formatting data in the response
 - handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv: The data that you will ultimately operate on to calculate the pd.DataFrame response
 - complete-handbags-shopping_list-no_run-1_1-with_periods-metadata.txt: A detailed description of the data source that you will calculate with
 
