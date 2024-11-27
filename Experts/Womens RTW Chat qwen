@@ -287,9 +287,9 @@ nodes:
       useUserQuery: true
       apiKey: OPENROUTER_API_KEY
       engineName: openrouter
-      modelName: mistralai/mistral-nemo
+      modelName: anthropic/claude-3.5-sonnet
     width: 212
-    height: 706
+    height: 730
     selected: true
     positionAbsolute:
       x: 123.67832943045539
