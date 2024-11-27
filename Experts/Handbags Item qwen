@@ -14,234 +14,196 @@ nodes:
       apiKey: OPENAI_API_KEY
       engineName: openai-gpt
       modelName: gpt-4o
-    width: 214
+    width: 212
     height: 466
     selected: false
     positionAbsolute:
       x: 103.24437216834724
       'y': 365.3288590421148
     dragging: false
-  - id: RjNl6A5e5LMXx1xy85IWA
-    type: llm
-    position:
-      x: 1007.7204057233687
-      'y': 669.4130403240091
-    data:
-      id: RjNl6A5e5LMXx1xy85IWA
-      title: Item generator
-      input: ''
-      slashgptManifest: ie_item_generator.model
-      toolJson: ''
-      toolCode: ''
-      outputType: overwrite
-      outputToCanvas: false
-      useUserQuery: true
-    width: 212
-    height: 490
-    selected: false
-    positionAbsolute:
-      x: 1007.7204057233687
-      'y': 669.4130403240091
-    dragging: false
   - id: JeKsgcbsvmI_P55qW5mwZ
     type: python_code
     position:
-      x: 520.8404308114866
-      'y': 611.5015344708191
+      x: 410.19648146139787
+      'y': 612.9020907917063
     data:
       id: JeKsgcbsvmI_P55qW5mwZ
       title: DF to MD
       module: chat_markdown.py
       outputType: overwrite
       outputToCanvas: true
-    width: 212
+    width: 210
     height: 348
     selected: false
     dragging: false
     positionAbsolute:
-      x: 520.8404308114866
-      'y': 611.5015344708191
+      x: 410.19648146139787
+      'y': 612.9020907917063
   - id: WrvWlKo5cLLGx6Nxg93Sl
     type: out
     position:
-      x: 166.81673614345743
-      'y': 1178.3505610179513
+      x: 107.61121390534913
+      'y': 920.52006094877
     data:
       id: WrvWlKo5cLLGx6Nxg93Sl
-      title: Save File
+      title: Code
       outputName: generated_code.txt
-    width: 212
+    width: 210
     height: 190
     selected: false
     positionAbsolute:
-      x: 166.81673614345743
-      'y': 1178.3505610179513
+      x: 107.61121390534913
+      'y': 920.52006094877
     dragging: false
   - id: zONjfr0eMtJtEqt_tRjW5
     type: file
     position:
-      x: 681.2182848045979
-      'y': 254.93821825262603
+      x: 446.8162125881347
+      'y': 274.8006232109172
     data:
       id: zONjfr0eMtJtEqt_tRjW5
-      title: File
+      title: Code
       fileName: generated_code.txt
-    width: 212
+    width: 210
     height: 226
     selected: false
     positionAbsolute:
-      x: 681.2182848045979
-      'y': 254.93821825262603
+      x: 446.8162125881347
+      'y': 274.8006232109172
     dragging: false
   - id: ftETm4EbqlrmLP5kQ4zyM
     type: file
     position:
-      x: 1524.7147707445822
-      'y': 243.457242165904
+      x: 1247.4046192089165
+      'y': 261.66447433743764
     data:
       id: ftETm4EbqlrmLP5kQ4zyM
       title: General rules
       fileName: general-rules.txt
-    width: 212
+    width: 210
     height: 226
     selected: false
     positionAbsolute:
-      x: 1524.7147707445822
-      'y': 243.457242165904
+      x: 1247.4046192089165
+      'y': 261.66447433743764
     dragging: false
   - id: DAnjY7T61Xmqlg-0c5McO
     type: file
     position:
-      x: 75.65242209732048
-      'y': -81.27353579939471
+      x: -93.10824521848804
+      'y': -116.19060437046709
     data:
       id: DAnjY7T61Xmqlg-0c5McO
       title: General Rules
       fileName: general-rules.txt
-    width: 212
+    width: 210
     height: 226
     selected: false
     dragging: false
     positionAbsolute:
-      x: 75.65242209732048
-      'y': -81.27353579939471
+      x: -93.10824521848804
+      'y': -116.19060437046709
   - id: ZNznVxIpP-M5GxFVpn8ka
     type: file
     position:
-      x: 291.06965697418286
-      'y': -80.89015772849991
+      x: 147.629226013432
+      'y': -117.91282285481456
     data:
       id: ZNznVxIpP-M5GxFVpn8ka
       title: Metadata
       fileName: complete-handbags-shopping_list-no_run-1_1-with_periods-metadata.txt
-    width: 212
+    width: 210
     height: 298
     selected: false
     positionAbsolute:
-      x: 291.06965697418286
-      'y': -80.89015772849991
+      x: 147.629226013432
+      'y': -117.91282285481456
     dragging: false
   - id: Kct9wMiDsihKdptXUEJLK
     type: file
     position:
-      x: 504.2063102712282
-      'y': -80.5858107560802
+      x: 374.03975933160416
+      'y': -132.83976589526432
     data:
       id: Kct9wMiDsihKdptXUEJLK
       title: Data
       fileName: handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv
-    width: 212
+    width: 210
     height: 322
     selected: false
     dragging: false
     positionAbsolute:
-      x: 504.2063102712282
-      'y': -80.5858107560802
+      x: 374.03975933160416
+      'y': -132.83976589526432
   - id: oAzmdpEkBV2LGUSikmOED
     type: file
     position:
-      x: 1253.3519546217512
-      'y': 230.26120224814832
+      x: 963.4367961981006
+      'y': 259.67288498677954
     data:
       id: oAzmdpEkBV2LGUSikmOED
       title: Metadata
       fileName: complete-handbags-shopping_list-no_run-1_1-with_periods-metadata.txt
-    width: 212
+    width: 210
     height: 298
     selected: false
     dragging: false
     positionAbsolute:
-      x: 1253.3519546217512
-      'y': 230.26120224814832
-  - id: Fo9gIhUDw5VXWVkzryhr-
-    type: file
-    position:
-      x: -139.13726087762484
-      'y': -83.41805072215718
-    data:
-      id: Fo9gIhUDw5VXWVkzryhr-
-      title: Model-friendly rules key
-      fileName: model-friendly-rule-syntax-key.txt
-    width: 212
-    height: 274
-    selected: false
-    positionAbsolute:
-      x: -139.13726087762484
-      'y': -83.41805072215718
-    dragging: false
+      x: 963.4367961981006
+      'y': 259.67288498677954
   - id: zj5hKVM0U5WhmM1XhUDC0
     type: file
     position:
-      x: -355.72609233578453
-      'y': -85.53340118633167
+      x: -319.4808679496911
+      'y': -109.57855941851875
     data:
       id: zj5hKVM0U5WhmM1XhUDC0
       title: Code generator instructions
       fileName: codegen-instructions-handbags-shopping_list-no_run-1_1-with_periods.txt
-    width: 212
+    width: 210
     height: 322
     selected: false
     positionAbsolute:
-      x: -355.72609233578453
-      'y': -85.53340118633167
+      x: -319.4808679496911
+      'y': -109.57855941851875
     dragging: false
   - id: x4Mi7xYMuKwdejGNkWtde
     type: file
     position:
-      x: -601.2017874104359
-      'y': 393.9615241544526
+      x: -558.3489234880923
+      'y': 299.6852235252964
     data:
       id: x4Mi7xYMuKwdejGNkWtde
       title: Metadata
       fileName: complete-handbags-shopping_list-no_run-1_1-with_periods-metadata.txt
-    width: 212
+    width: 210
     height: 298
     selected: false
     positionAbsolute:
-      x: -601.2017874104359
-      'y': 393.9615241544526
+      x: -558.3489234880923
+      'y': 299.6852235252964
     dragging: false
   - id: M1S7cEYzJU--FcF4WMXl0
     type: file
     position:
-      x: 1806.7186267545621
-      'y': 265.72155159230044
+      x: 1526.607362577122
+      'y': 254.51710102520286
     data:
       id: M1S7cEYzJU--FcF4WMXl0
       title: Item template
       fileName: ie_item_template.txt
-    width: 212
+    width: 210
     height: 226
-    selected: false
+    selected: true
     positionAbsolute:
-      x: 1806.7186267545621
-      'y': 265.72155159230044
+      x: 1526.607362577122
+      'y': 254.51710102520286
     dragging: false
   - id: Rk04-dc0H8Wf3HOMYrj3A
     type: file
     position:
-      x: -283.24158032793696
-      'y': 374.9085799158099
+      x: -327.80855880717434
+      'y': 299.487539412485
     data:
       id: Rk04-dc0H8Wf3HOMYrj3A
       title: Data
@@ -270,40 +232,40 @@ nodes:
               https://api.github.com/repos/tne-ai/insight-edge/git/blobs/7f3df8ec1b61412a4a6fdafcee2add6b10b0b161
             html: >-
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Item%20qwen
-    width: 212
+    width: 210
     height: 250
     selected: false
     positionAbsolute:
-      x: -283.24158032793696
-      'y': 374.9085799158099
+      x: -327.80855880717434
+      'y': 299.487539412485
     dragging: false
   - id: 0YheAYRAFwVLOzLf5dyeH
     type: file
     position:
-      x: 992.7584196720632
-      'y': 258.9085799158099
+      x: 702.8432612484128
+      'y': 258.90857991581
     data:
       id: 0YheAYRAFwVLOzLf5dyeH
       title: Data
       fileName: tne-kg-ruleset-with-key.txt
       flowState: *ref_0
-    width: 212
+    width: 210
     height: 250
     selected: false
     positionAbsolute:
-      x: 992.7584196720632
-      'y': 258.9085799158099
+      x: 702.8432612484128
+      'y': 258.90857991581
     dragging: false
   - id: GeyI-RzbTRsfIMZgym5Lp
     type: llm
     position:
-      x: -317.24158032793696
-      'y': 747.1585799158099
+      x: -380.753404547879
+      'y': 701.4591866207255
     data:
       id: GeyI-RzbTRsfIMZgym5Lp
       title: Ruleset relevance filter
       input: ''
-      slashgptManifest: ruleset_relevance_filter_70.model
+      slashgptManifest: ruleset_relevance_filter_qwen.model
       toolJson: ''
       toolCode: ''
       outputType: overwrite
@@ -333,14 +295,112 @@ nodes:
               https://api.github.com/repos/tne-ai/insight-edge/git/blobs/026dc11a06dcf2ccbaf2c66b46bb41160421a720
             html: >-
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Item%20qwen
-    width: 212
+    width: 210
     height: 490
-    selected: true
+    selected: false
     positionAbsolute:
-      x: -317.24158032793696
-      'y': 747.1585799158099
+      x: -380.753404547879
+      'y': 701.4591866207255
+    dragging: false
+  - id: UxBIojh7f7O2RUx4kEao4
+    type: file
+    position:
+      x: 613.1691761464798
+      'y': -140.87435808859442
+    data:
+      id: UxBIojh7f7O2RUx4kEao4
+      title: Ruleset key
+      fileName: tne-compressed-kg-ruleset-key.txt
+      flowState: &ref_1
+        backend: git
+        repo: insight-edge
+        content:
+          name: Handbags Item qwen
+          path: Experts/Handbags Item qwen
+          sha: 69b3248e910b925d0af1cd23e1ed6b8dd00740cb
+          size: 11456
+          url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Handbags%20Item%20qwen?ref=main
+          html_url: >-
+            https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Item%20qwen
+          git_url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/git/blobs/69b3248e910b925d0af1cd23e1ed6b8dd00740cb
+          download_url: >-
+            https://raw.githubusercontent.com/tne-ai/insight-edge/main/Experts/Handbags%20Item%20qwen
+          type: file
+          _links:
+            self: >-
+              https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Handbags%20Item%20qwen?ref=main
+            git: >-
+              https://api.github.com/repos/tne-ai/insight-edge/git/blobs/69b3248e910b925d0af1cd23e1ed6b8dd00740cb
+            html: >-
+              https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Item%20qwen
+    width: 210
+    height: 250
+    selected: false
+    positionAbsolute:
+      x: 613.1691761464798
+      'y': -140.87435808859442
+    dragging: false
+  - id: j0-uq92JVoxqBiJ5kqI22
+    type: llm
+    position:
+      x: 902.4116070361026
+      'y': 647.6592824200081
+    data:
+      id: j0-uq92JVoxqBiJ5kqI22
+      title: Item Generator
+      input: ''
+      slashgptManifest: item_generator_qwen.model
+      toolJson: ''
+      toolCode: ''
+      outputType: overwrite
+      outputToCanvas: false
+      useUserQuery: false
+      flowState: *ref_1
+    width: 210
+    height: 490
+    selected: false
+    positionAbsolute:
+      x: 902.4116070361026
+      'y': 647.6592824200081
     dragging: false
 edges:
+  - source: JeKsgcbsvmI_P55qW5mwZ
+    sourceHandle: r
+    target: j0-uq92JVoxqBiJ5kqI22
+    targetHandle: l
+    id: xMWGke
+  - source: zONjfr0eMtJtEqt_tRjW5
+    sourceHandle: b
+    target: j0-uq92JVoxqBiJ5kqI22
+    targetHandle: t
+    id: okEKgX
+  - source: 0YheAYRAFwVLOzLf5dyeH
+    sourceHandle: b
+    target: j0-uq92JVoxqBiJ5kqI22
+    targetHandle: t
+    id: wJ0Wl4
+  - source: oAzmdpEkBV2LGUSikmOED
+    sourceHandle: b
+    target: j0-uq92JVoxqBiJ5kqI22
+    targetHandle: t
+    id: SNPUCo
+  - source: ftETm4EbqlrmLP5kQ4zyM
+    sourceHandle: b
+    target: j0-uq92JVoxqBiJ5kqI22
+    targetHandle: t
+    id: FZCMUR
+  - source: M1S7cEYzJU--FcF4WMXl0
+    sourceHandle: b
+    target: j0-uq92JVoxqBiJ5kqI22
+    targetHandle: t
+    id: uAASrZ
+  - source: UxBIojh7f7O2RUx4kEao4
+    sourceHandle: b
+    target: 1zqsKoT3qlUrEBZZ3aGqg
+    targetHandle: t
+    id: PnQN-w
   - source: GeyI-RzbTRsfIMZgym5Lp
     sourceHandle: r
     target: 1zqsKoT3qlUrEBZZ3aGqg
@@ -356,32 +416,12 @@ edges:
     target: GeyI-RzbTRsfIMZgym5Lp
     targetHandle: t
     id: dN98jf
-  - source: 0YheAYRAFwVLOzLf5dyeH
-    sourceHandle: b
-    target: RjNl6A5e5LMXx1xy85IWA
-    targetHandle: t
-    id: 5yx-rm
-  - source: M1S7cEYzJU--FcF4WMXl0
-    sourceHandle: b
-    target: RjNl6A5e5LMXx1xy85IWA
-    targetHandle: t
-    id: NDxnKz
   - source: zj5hKVM0U5WhmM1XhUDC0
     sourceHandle: b
     target: 1zqsKoT3qlUrEBZZ3aGqg
     targetHandle: t
     id: KUs62U
     selected: false
-  - source: Fo9gIhUDw5VXWVkzryhr-
-    sourceHandle: b
-    target: 1zqsKoT3qlUrEBZZ3aGqg
-    targetHandle: t
-    id: ptk_lu
-  - source: oAzmdpEkBV2LGUSikmOED
-    sourceHandle: b
-    target: RjNl6A5e5LMXx1xy85IWA
-    targetHandle: t
-    id: oKHov7
   - source: Kct9wMiDsihKdptXUEJLK
     sourceHandle: b
     target: 1zqsKoT3qlUrEBZZ3aGqg
@@ -397,26 +437,11 @@ edges:
     target: 1zqsKoT3qlUrEBZZ3aGqg
     targetHandle: t
     id: IhQn-u
-  - id: HXCe0c
-    source: ftETm4EbqlrmLP5kQ4zyM
-    sourceHandle: b
-    target: RjNl6A5e5LMXx1xy85IWA
-    targetHandle: t
-  - id: ywjZ0Y
-    source: zONjfr0eMtJtEqt_tRjW5
-    sourceHandle: b
-    target: RjNl6A5e5LMXx1xy85IWA
-    targetHandle: t
   - id: N_a_Ri
     source: 1zqsKoT3qlUrEBZZ3aGqg
     sourceHandle: b
     target: WrvWlKo5cLLGx6Nxg93Sl
     targetHandle: t
-  - id: 2Ieiav
-    source: JeKsgcbsvmI_P55qW5mwZ
-    sourceHandle: r
-    target: RjNl6A5e5LMXx1xy85IWA
-    targetHandle: l
   - id: Io48SD
     source: 1zqsKoT3qlUrEBZZ3aGqg
     sourceHandle: r
