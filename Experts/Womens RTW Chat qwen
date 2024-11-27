@@ -7,7 +7,12 @@ nodes:
     data:
       id: 1zqsKoT3qlUrEBZZ3aGqg
       title: Generate Code
-      prompt: ''
+      prompt: >-
+        For the given question, you must generate a pd.DataFrame. Do NOT use the
+        matplotlib library. Even when asked to generate a certain type of chart,
+
+        like a bar or line, you must simply generate a pd.DataFrame that will
+        be  amenable to downstream charting.
       outputType: overwrite
       outputToCanvas: false
       useUserQuery: true
@@ -15,7 +20,7 @@ nodes:
       engineName: openrouter
       modelName: nvidia/llama-3.1-nemotron-70b-instruct
     width: 212
-    height: 490
+    height: 730
     selected: true
     positionAbsolute:
       x: 129.85939485958374
