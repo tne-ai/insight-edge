@@ -1,31 +1,4 @@
 nodes:
-  - id: 1zqsKoT3qlUrEBZZ3aGqg
-    type: code_generation
-    position:
-      x: 129.85939485958374
-      'y': 242.14549327442978
-    data:
-      id: 1zqsKoT3qlUrEBZZ3aGqg
-      title: Generate Code
-      prompt: >-
-        For the given question, you must generate a pd.DataFrame. Do NOT use the
-        matplotlib library. Even when asked to generate a certain type of chart,
-
-        like a bar or line, you must simply generate a pd.DataFrame that will
-        be  amenable to downstream charting.
-      outputType: overwrite
-      outputToCanvas: false
-      useUserQuery: true
-      apiKey: OPENROUTER_API_KEY
-      engineName: openrouter
-      modelName: nvidia/llama-3.1-nemotron-70b-instruct
-    width: 212
-    height: 730
-    selected: false
-    positionAbsolute:
-      x: 129.85939485958374
-      'y': 242.14549327442978
-    dragging: false
   - id: uhEulH9Z49LWGA7KpOQTA
     type: file
     position:
@@ -45,8 +18,8 @@ nodes:
   - id: JeKsgcbsvmI_P55qW5mwZ
     type: python_code
     position:
-      x: 583.6148028588891
-      'y': 471.6005680943883
+      x: 729.7880712389112
+      'y': 431.3283410917291
     data:
       id: JeKsgcbsvmI_P55qW5mwZ
       title: DF to MD
@@ -58,8 +31,8 @@ nodes:
     selected: false
     dragging: false
     positionAbsolute:
-      x: 583.6148028588891
-      'y': 471.6005680943883
+      x: 729.7880712389112
+      'y': 431.3283410917291
   - id: WrvWlKo5cLLGx6Nxg93Sl
     type: out
     position:
@@ -71,7 +44,7 @@ nodes:
       outputName: generated_code.txt
     width: 210
     height: 190
-    selected: true
+    selected: false
     positionAbsolute:
       x: 131.87639693508106
       'y': 1030.9963657664453
@@ -146,8 +119,8 @@ nodes:
   - id: d3WFVmFAznrjq8G1zZvHB
     type: file
     position:
-      x: 569.7505568096076
-      'y': 120.49689505497267
+      x: 618.9721675906355
+      'y': 56.35964464333031
     data:
       id: d3WFVmFAznrjq8G1zZvHB
       title: Generated code
@@ -156,8 +129,8 @@ nodes:
     height: 226
     selected: false
     positionAbsolute:
-      x: 569.7505568096076
-      'y': 120.49689505497267
+      x: 618.9721675906355
+      'y': 56.35964464333031
     dragging: false
   - id: vGQFdUjUJDxVInsUpL6pq
     type: file
@@ -295,12 +268,69 @@ nodes:
       x: -374.9444172941834
       'y': 491.4259853438474
     dragging: false
+  - id: 0XMbhB0mOlJNsKYFDan8c
+    type: code_generation
+    position:
+      x: 123.67832943045539
+      'y': 228.04874971901975
+    data:
+      id: 0XMbhB0mOlJNsKYFDan8c
+      title: Generate Code
+      prompt: >-
+        For the given question, you must generate a pd.DataFrame. Do NOT use the
+        matplotlib library. Even when asked to generate a certain type of chart,
+
+        like a bar or line, you must simply generate a pd.DataFrame that will
+        be  amenable to downstream charting.
+      outputType: overwrite
+      outputToCanvas: false
+      useUserQuery: true
+      apiKey: OPENROUTER_API_KEY
+      engineName: openrouter
+      modelName: nvidia/llama-3.1-nemotron-70b-instruct
+    width: 212
+    height: 730
+    selected: true
+    positionAbsolute:
+      x: 123.67832943045539
+      'y': 228.04874971901975
+    dragging: false
 edges:
+  - source: 0XMbhB0mOlJNsKYFDan8c
+    sourceHandle: b
+    target: WrvWlKo5cLLGx6Nxg93Sl
+    targetHandle: t
+    id: _86zd5
+  - source: 0XMbhB0mOlJNsKYFDan8c
+    sourceHandle: r
+    target: JeKsgcbsvmI_P55qW5mwZ
+    targetHandle: l
+    id: k4SHet
   - source: 27_17fKQ67iqqZPZppij-
     sourceHandle: r
-    target: 1zqsKoT3qlUrEBZZ3aGqg
+    target: 0XMbhB0mOlJNsKYFDan8c
     targetHandle: l
-    id: BNCn5J
+    id: 9RgUVf
+  - source: uhEulH9Z49LWGA7KpOQTA
+    sourceHandle: b
+    target: 0XMbhB0mOlJNsKYFDan8c
+    targetHandle: t
+    id: mHaD2w
+  - source: 2Zb_TunbGkLyNPt-l6pGb
+    sourceHandle: b
+    target: 0XMbhB0mOlJNsKYFDan8c
+    targetHandle: t
+    id: YQ8_Ry
+  - source: B2gbDTRyyPB6-h7fPIe0p
+    sourceHandle: b
+    target: 0XMbhB0mOlJNsKYFDan8c
+    targetHandle: t
+    id: miCpN3
+  - source: vGQFdUjUJDxVInsUpL6pq
+    sourceHandle: b
+    target: 0XMbhB0mOlJNsKYFDan8c
+    targetHandle: t
+    id: sR8DrK
   - source: oqMth1hfHd-5ImJMPCgSB
     sourceHandle: b
     target: 27_17fKQ67iqqZPZppij-
@@ -336,34 +366,4 @@ edges:
     target: pEsdkDoeqW15M_TYssGSV
     targetHandle: t
     id: vIh5b5
-  - source: vGQFdUjUJDxVInsUpL6pq
-    sourceHandle: b
-    target: 1zqsKoT3qlUrEBZZ3aGqg
-    targetHandle: t
-    id: _vfMYr
-  - source: 2Zb_TunbGkLyNPt-l6pGb
-    sourceHandle: b
-    target: 1zqsKoT3qlUrEBZZ3aGqg
-    targetHandle: t
-    id: ajNMsG
-  - source: B2gbDTRyyPB6-h7fPIe0p
-    sourceHandle: b
-    target: 1zqsKoT3qlUrEBZZ3aGqg
-    targetHandle: t
-    id: sXmSa1
-  - id: N_a_Ri
-    source: 1zqsKoT3qlUrEBZZ3aGqg
-    sourceHandle: b
-    target: WrvWlKo5cLLGx6Nxg93Sl
-    targetHandle: t
-  - id: Io48SD
-    source: 1zqsKoT3qlUrEBZZ3aGqg
-    sourceHandle: r
-    target: JeKsgcbsvmI_P55qW5mwZ
-    targetHandle: l
-  - id: 9OPUbl
-    source: uhEulH9Z49LWGA7KpOQTA
-    sourceHandle: b
-    target: 1zqsKoT3qlUrEBZZ3aGqg
-    targetHandle: t
 description: null
