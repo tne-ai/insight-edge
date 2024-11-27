@@ -287,10 +287,10 @@ nodes:
       useUserQuery: true
       apiKey: OPENROUTER_API_KEY
       engineName: openrouter
-      modelName: nvidia/llama-3.1-nemotron-70b-instruct
+      modelName: qwen/qwen-2.5-coder-32b-instruct
     width: 212
     height: 730
-    selected: true
+    selected: false
     positionAbsolute:
       x: 123.67832943045539
       'y': 228.04874971901975
@@ -322,6 +322,7 @@ edges:
     target: 0XMbhB0mOlJNsKYFDan8c
     targetHandle: t
     id: YQ8_Ry
+    selected: true
   - source: B2gbDTRyyPB6-h7fPIe0p
     sourceHandle: b
     target: 0XMbhB0mOlJNsKYFDan8c
