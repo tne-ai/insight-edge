@@ -5,17 +5,17 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Calculate total sales by subgroup
-sales_by_subgroup = df.groupby('product_subgroup_desc')['sales'].sum()
+# Ensure 'sales' is of numeric type
+df['sales'] = pd.to_numeric(df['sales'], errors='coerce')
 
-# Count unique styles by subgroup
-styles_by_subgroup = df.groupby('product_subgroup_desc')['style_color_description'].nunique()
+# Group by 'product_subgroup_desc' and calculate total sales and number of styles
+result = df.groupby('product_subgroup_desc').apply(lambda x: pd.Series({
+    'Total Sales': x['sales'].sum(),
+    'Number of Styles': x['style_color_description'].nunique()
+})).reset_index()
 
-# Combine into final dataframe
-result = pd.DataFrame({
-    'Total Sales': sales_by_subgroup,
-    'Number of Styles': styles_by_subgroup
-}).reset_index()
+# Limit to 12 rows if more than 12 subcategories exist, sorted by Total Sales in descending order
+if len(result) > 12:
+    result = result.sort_values('Total Sales', ascending=False).head(12)
 
-# Sort by total sales descending
-result = result.sort_values('Total Sales', ascending=False)
+result
