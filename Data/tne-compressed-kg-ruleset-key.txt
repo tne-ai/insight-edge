@@ -1,0 +1,12 @@
+{
+  "nodeTypes": ["term", "synonym", "formula", "variable", "context", "note", "example"],
+  "edgeTypes": ["has_synonym", "defined_by", "uses_variable", "has_context", "has_note", "has_example", "calculates", "is_component_of"],
+  "notes": [
+    "Often the leaf of a hierarchy of categorization, e.g., category to subcategory to product. If a style-color is offered in multiple sizes, a SKU is identified by a combination of style-color and size. If a single size is offered, the style-color has the same specificity as a SKU.",
+    "Labels or column headers in the source data may not match the language used by the user.",
+    "If a rate of sale or ROS field exists in the data source, use the field content rather than calculating it.",
+    "Style-colors with the range_segment 'newness' are collectively referred to as 'newness'.",
+    "Selling well is defined as having the highest percentage increase in unit sales in the most recent period relative to the average of the prior like periods within the preceding year. By default, the subset is a subgroup, but a request may define it as a style, material, color, or other product attribute.",
+    "If the data source has an AUR column, use the given data rather than the formula."
+  ]
+}
