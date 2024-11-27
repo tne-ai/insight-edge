@@ -1,29 +1,37 @@
 import pandas as pd
 from tne.TNE import TNE
 
-# Initialize TNE session
+# Initialize the TNE session
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 
-# Load data
+# Load the data
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Ensure 'period' column is of integer type for sorting
-df['period'] = df['period'].astype(int)
+# Convert 'period' to datetime for easier manipulation
+df['period'] = pd.to_datetime(df['period'], format='%Y%m')
 
-# Find the most recent period
+# Get the most recent period
 most_recent_period = df['period'].max()
 
-# Filter data for the most recent period
-recent_df = df[df['period'] == most_recent_period]
+# Filter the data for the most recent period
+recent_data = df[df['period'] == most_recent_period]
 
-# Group by 'product_subgroup_desc' and find the product with the highest sales in each subgroup
-best_selling_products = recent_df.loc[recent_df.groupby('product_subgroup_desc')['sales'].idxmax()]
+# Calculate the average units sold in prior periods for each style_colour_desc
+prior_periods = df[df['period'] < most_recent_period]
+average_prior_sales = prior_periods.groupby('style_colour_desc')['sales'].mean().reset_index()
+average_prior_sales.columns = ['style_colour_desc', 'average_units_sold_prior_periods']
 
-# Select relevant columns for the output
-result = best_selling_products[['product_subgroup_desc', 'style_colour_desc', 'sales']]
+# Merge the recent data with the average prior sales
+merged_data = pd.merge(recent_data, average_prior_sales, on='style_colour_desc', how='left')
 
-# Limit to 12 rows if more than 12 subcategories exist
+# Calculate the percentage increase in sales
+merged_data['percentage_increase'] = ((merged_data['sales'] - merged_data['average_units_sold_prior_periods']) / merged_data['average_units_sold_prior_periods']) * 100
+
+# Find the best-selling product in each subcategory based on the highest percentage increase
+best_selling_products = merged_data.loc[merged_data.groupby('product_subgroup_desc')['percentage_increase'].idxmax()]
+
+# Select relevant columns to display
+result = best_selling_products[['product_subgroup_desc', 'style_colour_desc', 'sales', 'average_units_sold_prior_periods', 'percentage_increase']]
+
+# Limit the result to 12 items
 result = result.head(12)
-
-# Store the final result in the 'result' variable
-result = pd.DataFrame(result)
