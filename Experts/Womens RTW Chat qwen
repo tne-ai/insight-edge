@@ -36,8 +36,8 @@ nodes:
   - id: WrvWlKo5cLLGx6Nxg93Sl
     type: out
     position:
-      x: 131.87639693508106
-      'y': 1030.9963657664453
+      x: 124.41857711977377
+      'y': 1028.0132378403223
     data:
       id: WrvWlKo5cLLGx6Nxg93Sl
       title: Generated code
@@ -46,8 +46,8 @@ nodes:
     height: 190
     selected: false
     positionAbsolute:
-      x: 131.87639693508106
-      'y': 1030.9963657664453
+      x: 124.41857711977377
+      'y': 1028.0132378403223
     dragging: false
   - id: B2gbDTRyyPB6-h7fPIe0p
     type: file
@@ -290,12 +290,33 @@ nodes:
       modelName: nvidia/llama-3.1-nemotron-70b-instruct
     width: 212
     height: 730
-    selected: true
+    selected: false
     positionAbsolute:
       x: 123.67832943045539
       'y': 228.04874971901975
     dragging: false
+  - id: 0OPuQxQd6dtGHIo3-KUTV
+    type: debug
+    position:
+      x: 483.1387145796758
+      'y': 848.5828714537512
+    data:
+      id: 0OPuQxQd6dtGHIo3-KUTV
+      title: Prompt Debugger
+      outputName: codegen_prompt.txt
+    width: 210
+    height: 190
+    selected: false
+    positionAbsolute:
+      x: 483.1387145796758
+      'y': 848.5828714537512
+    dragging: false
 edges:
+  - source: 0XMbhB0mOlJNsKYFDan8c
+    sourceHandle: r
+    target: 0OPuQxQd6dtGHIo3-KUTV
+    targetHandle: t
+    id: ZxixuQ
   - source: 0XMbhB0mOlJNsKYFDan8c
     sourceHandle: b
     target: WrvWlKo5cLLGx6Nxg93Sl
@@ -306,6 +327,7 @@ edges:
     target: JeKsgcbsvmI_P55qW5mwZ
     targetHandle: l
     id: k4SHet
+    selected: false
   - source: 27_17fKQ67iqqZPZppij-
     sourceHandle: r
     target: 0XMbhB0mOlJNsKYFDan8c
