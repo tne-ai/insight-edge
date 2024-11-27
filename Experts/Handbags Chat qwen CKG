@@ -18,9 +18,9 @@ nodes:
       apiKey: OPENROUTER_API_KEY
       engineName: openrouter
       modelName: qwen/qwen-2.5-coder-32b-instruct
-    width: 214
+    width: 212
     height: 730
-    selected: true
+    selected: false
     positionAbsolute:
       x: 157.24437216834724
       'y': 329.3288590421148
@@ -36,7 +36,7 @@ nodes:
       module: chat_markdown.py
       outputType: overwrite
       outputToCanvas: false
-    width: 212
+    width: 210
     height: 348
     selected: false
     dragging: false
@@ -52,7 +52,7 @@ nodes:
       id: zONjfr0eMtJtEqt_tRjW5
       title: File
       fileName: generated_code.txt
-    width: 212
+    width: 210
     height: 226
     selected: false
     positionAbsolute:
@@ -68,7 +68,7 @@ nodes:
       id: ftETm4EbqlrmLP5kQ4zyM
       title: General rules
       fileName: general-rules.txt
-    width: 212
+    width: 210
     height: 226
     selected: false
     positionAbsolute:
@@ -78,34 +78,34 @@ nodes:
   - id: DAnjY7T61Xmqlg-0c5McO
     type: file
     position:
-      x: 75.65242209732048
+      x: 41.51433834294471
       'y': -81.27353579939471
     data:
       id: DAnjY7T61Xmqlg-0c5McO
       title: General Rules
       fileName: general-rules.txt
-    width: 212
+    width: 210
     height: 226
     selected: false
     dragging: false
     positionAbsolute:
-      x: 75.65242209732048
+      x: 41.51433834294471
       'y': -81.27353579939471
   - id: ZNznVxIpP-M5GxFVpn8ka
     type: file
     position:
-      x: 291.06965697418286
-      'y': -80.89015772849991
+      x: 283.3110015754611
+      'y': -83.99361988798863
     data:
       id: ZNznVxIpP-M5GxFVpn8ka
       title: Metadata
       fileName: complete-handbags-shopping_list-no_run-1_1-with_periods-metadata.txt
-    width: 212
+    width: 210
     height: 298
     selected: false
     positionAbsolute:
-      x: 291.06965697418286
-      'y': -80.89015772849991
+      x: 283.3110015754611
+      'y': -83.99361988798863
     dragging: false
   - id: Kct9wMiDsihKdptXUEJLK
     type: file
@@ -116,7 +116,7 @@ nodes:
       id: Kct9wMiDsihKdptXUEJLK
       title: Data
       fileName: handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv
-    width: 212
+    width: 210
     height: 322
     selected: false
     dragging: false
@@ -126,18 +126,18 @@ nodes:
   - id: oAzmdpEkBV2LGUSikmOED
     type: file
     position:
-      x: 1353.3519546217512
+      x: 1278.868862794022
       'y': 248.26120224814832
     data:
       id: oAzmdpEkBV2LGUSikmOED
       title: Metadata
       fileName: complete-handbags-shopping_list-no_run-1_1-with_periods-metadata.txt
-    width: 212
+    width: 210
     height: 298
     selected: false
     dragging: false
     positionAbsolute:
-      x: 1353.3519546217512
+      x: 1278.868862794022
       'y': 248.26120224814832
   - id: zj5hKVM0U5WhmM1XhUDC0
     type: file
@@ -148,7 +148,7 @@ nodes:
       id: zj5hKVM0U5WhmM1XhUDC0
       title: Code generator instructions
       fileName: codegen-instructions-handbags-shopping_list-no_run-1_1-with_periods.txt
-    width: 212
+    width: 210
     height: 322
     selected: false
     positionAbsolute:
@@ -164,7 +164,7 @@ nodes:
       id: x4Mi7xYMuKwdejGNkWtde
       title: Metadata
       fileName: complete-handbags-shopping_list-no_run-1_1-with_periods-metadata.txt
-    width: 212
+    width: 210
     height: 298
     selected: false
     positionAbsolute:
@@ -180,7 +180,7 @@ nodes:
       id: T_W7NcD6rTVVtbmY7wbKp
       title: Save File
       outputName: generated_code.txt
-    width: 212
+    width: 210
     height: 190
     selected: false
     positionAbsolute:
@@ -194,9 +194,9 @@ nodes:
       'y': 885.8577952345031
     data:
       id: xaI9VeYwmCHLgMZkuteN0
-      title: Ruleset relevance filter70
+      title: Ruleset relevance filter qwen
       input: ''
-      slashgptManifest: ruleset_relevance_filter_70.model
+      slashgptManifest: ruleset_relevance_filter_qwen.model
       toolJson: ''
       toolCode: ''
       outputType: overwrite
@@ -226,7 +226,7 @@ nodes:
               https://api.github.com/repos/tne-ai/insight-edge/git/blobs/195747fadf9646d6558199c724a6ee0c894a0602
             html: >-
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070
-    width: 212
+    width: 210
     height: 514
     selected: false
     dragging: false
@@ -240,9 +240,9 @@ nodes:
       'y': 689.8577952345031
     data:
       id: UAMXXxRmB7mrfj_ySxhSo
-      title: Chat explain 70
+      title: Chat explain qwen
       input: ''
-      slashgptManifest: chat_explain_70.model
+      slashgptManifest: chat_explain_qwen.model
       toolJson: ''
       toolCode: ''
       outputType: overwrite
@@ -272,8 +272,8 @@ nodes:
               https://api.github.com/repos/tne-ai/insight-edge/git/blobs/d175dbb3c6bd014e5068d2bc8457aa0e0379ef7a
             html: >-
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070
-    width: 212
-    height: 466
+    width: 210
+    height: 490
     selected: false
     positionAbsolute:
       x: 1077.756491667073
@@ -312,7 +312,7 @@ nodes:
               https://api.github.com/repos/tne-ai/insight-edge/git/blobs/c980cdfafcc3b50c99b4d6cb5cfda074738e54db
             html: >-
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070%20CKG
-    width: 212
+    width: 210
     height: 250
     selected: false
     positionAbsolute:
@@ -352,7 +352,7 @@ nodes:
               https://api.github.com/repos/tne-ai/insight-edge/git/blobs/78b35efac7d1fac7f4a615414f7e19add0a0021b
             html: >-
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070%20CKG
-    width: 212
+    width: 210
     height: 250
     selected: false
     positionAbsolute:
