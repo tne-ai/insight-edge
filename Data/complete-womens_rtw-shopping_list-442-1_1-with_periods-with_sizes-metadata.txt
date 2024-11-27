@@ -1,31 +1,29 @@
 Original columns: demand_plan_description, product_hier_feature_1_desc, product_group_description, product_subgroup_desc, gender, sku_id, size_code, style_color_description, style_color_id, period, client_id, region_id, range_segment, material, product_launch_date, colour_description, price_metric, sales, end_inv, total_stock, dc_inv, weeks_selling, standard_selling_price, standard_cost_price, aur, margin  v, sales v, discount v, discount %, margin %, distinct_store_count, pareto, season
 Number of rows: 2117
 
-# Schema notes for womens_rtw-shopping_list-442-1_1-with_periods-with_sizes
+# Schema notes for womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv
 
 ## Descriptions of column meaning in the  data:
-period: Month of reported sales and inventory for the row. The format is YYYYMM, so 202202 is February of 2022.
-sales: Unit sales for the specified product during the month specified in 'period'
-product_launch_date: Date when the product was first launched in DD/MM/YYYY format
-
+period: Month of reported sales for the row. The format is YYYYMM, so 202202 is February of 2022.
+sales: unit sales for the specified product during the month specified in 'period'
 
 ## Important information about calculating using the data schema:
 ### Product hierarchy and identity
 - All the products in the data are women's clothing
-- The top level grouping column is "product_hier_feature_1_desc", then 'product_group_description', then 'product_subgroup_desc', then style_colour as either 'style_colour_description' or 'style_colour_id'
-- A 'sku_id' is determined by a 'style_colour_id' combined with a specific 'size_code'
+- The top level grouping column is "product_hier_feature_1_desc", then 'product_group_description', then 'product_subgroup_desc', then style_color as either 'style_color_description' or 'style_color_id'
+- A 'sku_id' is determined by a 'style_color_id' combined with a specific 'size_code'
 - When asked about a product using a seven-digit number, like "5226727", it is a 'sku_id'.
-- There is a 1:1 mapping between 'style_colour_description' and 'style_colour_id'. Those are two equivalent identifiers for a style_color.
+- There is a 1:1 mapping between 'style_color_description' and 'style_color_id'. Those are two equivalent identifiers for a style_color.
 
-- One style_colour can appear in multiple rows. Among those rows, the size, period, and sales information will vary.
+- One style_color can appear in multiple rows. Among those rows, the size, period, and sales information will vary.
 - Each row presents sales information for its 'sku_id' in the month noted in the row's 'period' column.
 
-- Discount is ('standard selling price' - 'aur') * sales . Discount can be totale for a group of style_colours, a product over time, or both. Do NOT use 'msrp' to calculate discount.
+- Discount is ('standard selling price' - 'aur') * sales . Discount can be total for a group of style_colors, a product over time, or both. Do NOT use 'msrp' to calculate discount.
 
 ### Sales
-- To get total sales for a style_colour or sku_id, total the 'sales' in all the rows for that style_color or sku_id.
+- To get total sales for a style_color or sku_id, total the 'sales' in all the rows for that style_color or sku_id.
 - To detect and describe trends in unit sales for a style_color or sku, analyse its 'sales' growing or shrinking over time.
-- To answer simple, direct questions about sales for a style_colour or sku_id that don't specify a specific period, aggregation or comparison among periods, sum 'sales' over all periods available.
+- To answer simple, direct questions about sales for a style_color or sku_id that don't specify a specific period, aggregation or comparison among periods, sum 'sales' over all periods available.
 - To get total sales for a style_color or sku, total the 'sales' in all the rows for various 'period's for that style_color.
 - To detect and describe trends in unit sales for a style_color, analyse its 'sales' growing or shrinking over time.
 - To answer simple, direct questions about a product's sales that don't specify aggregation or comparison
@@ -33,7 +31,7 @@ among periods, use 'sales' for the most recent period available for the product.
 
 ### Other notes about presentation and calculation
 - In this data set, no terms refer to a specific brand. Requests for this data set are more likely to refer to categories or subcategories.
-- Unless explicitly directed by the user, don't use the numerical column 'style_colour_code' in a response without additional context. Instead, return textual columns such as 'style_colour_description' or 'product_subgroup_desc'
+- Unless explicitly directed by the user, don't use the numerical column 'style_color_id' in a response without additional context. Instead, return textual columns such as 'style_color_description' or 'product_subgroup_desc'
 - Because of the data format, you cannot extract information from the 'period' column with the method df['period'].str.endswith(). Instead, use pd.to_datetime() to extract this information.
 - REMEMBER: 'sells well', 'top', 'what want people want to buy' are referring to the 'sales' column, NOT ROS. DO NOT calculate ROS in response to these types of questions.
 
