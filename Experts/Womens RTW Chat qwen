@@ -287,10 +287,10 @@ nodes:
       useUserQuery: true
       apiKey: OPENROUTER_API_KEY
       engineName: openrouter
-      modelName: nvidia/llama-3.1-nemotron-70b-instruct
+      modelName: anthropic/claude-3.5-sonnet
     width: 212
     height: 730
-    selected: false
+    selected: true
     positionAbsolute:
       x: 123.67832943045539
       'y': 228.04874971901975
