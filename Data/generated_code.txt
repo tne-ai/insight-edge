@@ -4,19 +4,31 @@ from tne.TNE import TNE
 # Initialize TNE session
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 
-# Load data from CSV file
+# Load data
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for 'newness' range segment
-newness_df = df[df['range_segment'] == 'Newness']
+# Ensure 'period' column is of integer type for proper sorting
+df['period'] = df['period'].astype(int)
 
-# Group by 'period' (month) and calculate total sales for each month
-monthly_sales_newness = newness_df.groupby('period')['sales'].sum().reset_index()
+# Sort data by 'period' in descending order to easily access last 3 months
+df = df.sort_values(by='period', ascending=False)
 
-# Rename columns for clarity
-monthly_sales_newness.columns = ['Month (YYYYMM)', 'Monthly Sales for Newness']
+# Calculate average sales for all periods except the last 3
+df_rest = df[df['period'] <= df['period'].unique()[2]]
+avg_sales_rest = df_rest.groupby('product_subgroup_desc')['sales'].mean().reset_index()
 
-# Limit to 12 rows if more than 12 months are present
-result = monthly_sales_newness.head(12)
+# Calculate average sales for the last 3 periods
+df_last_3 = df[df['period'] > df['period'].unique()[2]]
+avg_sales_last_3 = df_last_3.groupby('product_subgroup_desc')['sales'].mean().reset_index()
 
-print(result)
+# Merge the two dataframes on 'product_subgroup_desc'
+merged_df = pd.merge(avg_sales_rest, avg_sales_last_3, on='product_subgroup_desc', suffixes=('_rest', '_last_3'))
+
+# Calculate underperformance using the provided formula
+merged_df['underperformance'] = ((merged_df['sales_rest'] - merged_df['sales_last_3']) / merged_df['sales_rest']) * 100
+
+# Identify the subcategory that is underperforming (i.e., underperformance < 0)
+underperforming_subcategory = merged_df[merged_df['underperformance'] < 0].sort_values(by='underperformance', ascending=True)
+
+# Limit to the first 12 items if there are more than 12 underperforming subcategories
+result = underperforming_subcategory.head(12)[['product_subgroup_desc', 'underperformance']]
