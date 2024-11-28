@@ -4,22 +4,22 @@ from tne.TNE import TNE
 # Initialize TNE session
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 
-# Load data from CSV file
+# Load data
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Convert 'period' column to datetime and extract month and year
-df['period'] = pd.to_datetime(df['period'], format='%Y%m')
-df['month'] = df['period'].dt.month
-df['year'] = df['period'].dt.year
+# Filter data for 'Newness' range segment
+newness_df = df[df['range_segment'] == 'Newness']
 
-# Filter data for December
-december_df = df[df['month'] == 12]
+# Group by 'month' and sum 'sales' to find total sales for each month
+monthly_sales = newness_df.groupby('month')['sales'].sum().reset_index()
 
-# Group by 'style_colour_desc' and sum 'sales'
-december_sales = december_df.groupby('style_colour_desc')['sales'].sum().reset_index()
+# Sort by 'sales' in descending order to find the best month
+best_month = monthly_sales.sort_values(by='sales', ascending=False).head(1)
 
-# Sort by 'sales' in descending order and limit to top 12 products
-result = december_sales.sort_values(by='sales', ascending=False).head(12)
+# Create result DataFrame with the best month and its corresponding sales
+result = pd.DataFrame({
+    'Best Month for Newness': [best_month['month'].values[0]],
+    'Total Sales': [best_month['sales'].values[0]]
+})
 
-# Rename columns for clarity
-result = result.rename(columns={'style_colour_desc': 'Product', 'sales': 'Units Sold in December'})
+print(result)
