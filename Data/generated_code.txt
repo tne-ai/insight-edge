@@ -7,28 +7,42 @@ session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 # Load data
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Ensure 'period' column is of integer type for proper sorting
-df['period'] = df['period'].astype(int)
+# Convert period to datetime and extract month and year
+df['period'] = pd.to_datetime(df['period'], format='%Y%m')
+df['month'] = df['period'].dt.month
+df['year'] = df['period'].dt.year
 
-# Sort data by 'period' in descending order to easily access last 3 months
-df = df.sort_values(by='period', ascending=False)
+# Get the last month available in the data
+last_month = df['period'].max()
+last_month_year = last_month.year
+last_month_month = last_month.month
 
-# Calculate average sales for all periods except the last 3
-df_rest = df[df['period'] <= df['period'].unique()[2]]
-avg_sales_rest = df_rest.groupby('product_subgroup_desc')['sales'].mean().reset_index()
+# Filter data for the last month and the same month in the previous year
+last_month_df = df[(df['year'] == last_month_year) & (df['month'] == last_month_month)]
+prior_year_same_month_df = df[(df['year'] == last_month_year - 1) & (df['month'] == last_month_month)]
 
-# Calculate average sales for the last 3 periods
-df_last_3 = df[df['period'] > df['period'].unique()[2]]
-avg_sales_last_3 = df_last_3.groupby('product_subgroup_desc')['sales'].mean().reset_index()
+# Calculate average sales for the prior like periods within the preceding year
+average_prior_sales = prior_year_same_month_df.groupby('style_colour_desc')['sales'].mean().reset_index()
+average_prior_sales.columns = ['style_colour_desc', 'average_units_sold_prior_periods']
 
-# Merge the two dataframes on 'product_subgroup_desc'
-merged_df = pd.merge(avg_sales_rest, avg_sales_last_3, on='product_subgroup_desc', suffixes=('_rest', '_last_3'))
+# Calculate units sold in the current period
+current_period_sales = last_month_df[['style_colour_desc', 'sales']].rename(columns={'sales': 'units_sold_current_period'})
 
-# Calculate underperformance using the provided formula
-merged_df['underperformance'] = ((merged_df['sales_rest'] - merged_df['sales_last_3']) / merged_df['sales_rest']) * 100
+# Merge dataframes
+merged_df = pd.merge(current_period_sales, average_prior_sales, on='style_colour_desc')
 
-# Identify the subcategory that is underperforming (i.e., underperformance < 0)
-underperforming_subcategory = merged_df[merged_df['underperformance'] < 0].sort_values(by='underperformance', ascending=True)
+# Calculate underperforming metric (lower percentage increase in unit sales)
+merged_df['underperforming'] = (merged_df['units_sold_current_period'] - merged_df['average_units_sold_prior_periods']) / merged_df['average_units_sold_prior_periods']
 
-# Limit to the first 12 items if there are more than 12 underperforming subcategories
-result = underperforming_subcategory.head(12)[['product_subgroup_desc', 'underperformance']]
+# Filter underperforming SKUs (bottom 10 by underperforming metric)
+underperforming_skus = merged_df.nsmallest(10, 'underperforming')
+
+# Merge with original dataframe to get ending inventory
+result = pd.merge(underperforming_skus, last_month_df[['style_colour_desc', 'end_inv']], on='style_colour_desc')
+result = result[['style_colour_desc', 'underperforming', 'end_inv']]
+
+# Rename columns for clarity
+result.columns = ['SKU', 'Underperformance Metric', 'Ending Inventory']
+
+# Store result in the required variable
+result = result
