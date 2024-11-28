@@ -7,19 +7,29 @@ session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 # Load data
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for 'Newness' range segment
-newness_df = df[df['range_segment'] == 'Newness']
+# Filter data for Crossbody bags
+crossbody_df = df[df['product_subgroup_desc'] == 'Crossbody bag']
 
-# Group by 'month' and sum 'sales' to find total sales for each month
-monthly_sales = newness_df.groupby('month')['sales'].sum().reset_index()
+# Get the most recent period
+max_period = crossbody_df['period'].max()
 
-# Sort by 'sales' in descending order to find the best month
-best_month = monthly_sales.sort_values(by='sales', ascending=False).head(1)
+# Filter data for the most recent period
+recent_crossbody_df = crossbody_df[crossbody_df['period'] == max_period]
 
-# Create result DataFrame with the best month and its corresponding sales
-result = pd.DataFrame({
-    'Best Month for Newness': [best_month['month'].values[0]],
-    'Total Sales': [best_month['sales'].values[0]]
-})
+# Calculate average units sold in prior periods for each range segment
+prior_periods_df = crossbody_df[crossbody_df['period'] < max_period]
+average_units_sold_prior_periods = prior_periods_df.groupby('range_segment')['sales'].mean().reset_index()
+
+# Merge recent data with average prior periods data
+merged_df = pd.merge(recent_crossbody_df, average_units_sold_prior_periods, on='range_segment', suffixes=('', '_prior'))
+
+# Calculate percentage increase
+merged_df['percentage_increase'] = ((merged_df['sales'] - merged_df['sales_prior']) / merged_df['sales_prior']) * 100
+
+# Sort by percentage increase in descending order and select top 12 range segments
+result = merged_df.sort_values(by='percentage_increase', ascending=False)[['range_segment', 'percentage_increase']].head(12)
+
+# Rename columns for clarity
+result.columns = ['Range Segment', 'Percentage Increase in Unit Sales']
 
 print(result)
