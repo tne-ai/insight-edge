@@ -7,19 +7,22 @@ session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 # Load data
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for Clutches
-clutches_df = df[df['product_subgroup_desc'] == 'Clutch']
+# Filter data for December
+december_df = df[df['month'] == 'December']
 
-# Group by month and sum sales
-monthly_sales = clutches_df.groupby('month')['sales'].sum().reset_index()
+# Calculate average units sold prior periods (assuming prior like periods are same month in previous year)
+december_df['period'] = december_df['period'].astype(str)
+prior_year_periods = december_df['period'].str[:-2] + '20' + december_df['period'].str[-2:].astype(int).add(-1).astype(str)
+prior_year_df = df[df['period'].isin(prior_year_periods)]
+average_units_sold_prior_periods = prior_year_df.groupby('product_subgroup_desc')['sales'].mean().reset_index()
 
-# Find the month with the highest sales (Best Time to Launch)
-best_time_to_launch = monthly_sales.loc[monthly_sales['sales'].idxmax()]
+# Merge with December data
+merged_df = pd.merge(december_df, average_units_sold_prior_periods, on='product_subgroup_desc', suffixes=('', '_prior'))
 
-# Create the result DataFrame
-result = pd.DataFrame({
-    'Best Time to Launch': [best_time_to_launch['month']],
-    'Highest Sales': [best_time_to_launch['sales']]
-})
+# Calculate percentage increase
+merged_df['percentage_increase'] = ((merged_df['sales'] - merged_df['sales_prior']) / merged_df['sales_prior']) * 100
+
+# Rank by percentage increase and limit to top 12
+result = merged_df.sort_values('percentage_increase', ascending=False).head(12)[['product_subgroup_desc', 'style_colour_desc', 'percentage_increase']]
 
 print(result)
