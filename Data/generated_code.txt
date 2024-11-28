@@ -7,26 +7,11 @@ session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 # Load data from CSV file
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Calculate Gross Margin for each row
-df['gross_margin'] = (df['aur'] - df['standard_cost_price']) * df['sales']
+# Calculate the number of distinct style colours
+distinct_style_colours = df['style_colour_desc'].nunique()
 
-# Calculate Total Sales Revenue for each row
-df['total_sales_revenue'] = df['aur'] * df['sales']
+# Create a pd.DataFrame with the result
+result = pd.DataFrame({'Distinct Style Colours': [distinct_style_colours]})
 
-# Group by product_subgroup_desc and calculate Total Gross Margin and Total Sales Revenue
-grouped_df = df.groupby('product_subgroup_desc').agg({
-    'gross_margin': 'sum',
-    'total_sales_revenue': 'sum'
-}).reset_index()
-
-# Calculate Gross Margin Percentage for each group
-grouped_df['gross_margin_percentage'] = (grouped_df['gross_margin'] / grouped_df['total_sales_revenue']) * 100
-
-# Find the subclass with the highest Gross Margin Percentage
-result = grouped_df.nlargest(1, 'gross_margin_percentage')[['product_subgroup_desc', 'gross_margin_percentage']]
-
-# Limit to 12 rows if more than one row has the same highest value
-if len(grouped_df[grouped_df['gross_margin_percentage'] == result['gross_margin_percentage'].iloc[0]]) > 1:
-    result = grouped_df[grouped_df['gross_margin_percentage'] == result['gross_margin_percentage'].iloc[0]].head(12)
-
-print(result)
+# Store the final result in the 'result' variable
+result = result
