@@ -7,42 +7,19 @@ session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 # Load data
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Convert period to datetime and extract month and year
-df['period'] = pd.to_datetime(df['period'], format='%Y%m')
-df['month'] = df['period'].dt.month
-df['year'] = df['period'].dt.year
+# Filter data for Clutches
+clutches_df = df[df['product_subgroup_desc'] == 'Clutch']
 
-# Get the last month available in the data
-last_month = df['period'].max()
-last_month_year = last_month.year
-last_month_month = last_month.month
+# Group by month and sum sales
+monthly_sales = clutches_df.groupby('month')['sales'].sum().reset_index()
 
-# Filter data for the last month and the same month in the previous year
-last_month_df = df[(df['year'] == last_month_year) & (df['month'] == last_month_month)]
-prior_year_same_month_df = df[(df['year'] == last_month_year - 1) & (df['month'] == last_month_month)]
+# Find the month with the highest sales (Best Time to Launch)
+best_time_to_launch = monthly_sales.loc[monthly_sales['sales'].idxmax()]
 
-# Calculate average sales for the prior like periods within the preceding year
-average_prior_sales = prior_year_same_month_df.groupby('style_colour_desc')['sales'].mean().reset_index()
-average_prior_sales.columns = ['style_colour_desc', 'average_units_sold_prior_periods']
+# Create the result DataFrame
+result = pd.DataFrame({
+    'Best Time to Launch': [best_time_to_launch['month']],
+    'Highest Sales': [best_time_to_launch['sales']]
+})
 
-# Calculate units sold in the current period
-current_period_sales = last_month_df[['style_colour_desc', 'sales']].rename(columns={'sales': 'units_sold_current_period'})
-
-# Merge dataframes
-merged_df = pd.merge(current_period_sales, average_prior_sales, on='style_colour_desc')
-
-# Calculate underperforming metric (lower percentage increase in unit sales)
-merged_df['underperforming'] = (merged_df['units_sold_current_period'] - merged_df['average_units_sold_prior_periods']) / merged_df['average_units_sold_prior_periods']
-
-# Filter underperforming SKUs (bottom 10 by underperforming metric)
-underperforming_skus = merged_df.nsmallest(10, 'underperforming')
-
-# Merge with original dataframe to get ending inventory
-result = pd.merge(underperforming_skus, last_month_df[['style_colour_desc', 'end_inv']], on='style_colour_desc')
-result = result[['style_colour_desc', 'underperforming', 'end_inv']]
-
-# Rename columns for clarity
-result.columns = ['SKU', 'Underperformance Metric', 'Ending Inventory']
-
-# Store result in the required variable
-result = result
+print(result)
