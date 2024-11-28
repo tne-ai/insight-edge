@@ -4,34 +4,24 @@ from tne.TNE import TNE
 # Initialize TNE session
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 
-# Load data
+# Load data from CSV file
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for totes
-totes_df = df[df['product_subgroup_desc'] == 'Tote bag']
+# Ensure 'period' column is of integer type for sorting
+df['period'] = df['period'].astype(int)
 
-# Calculate total sales units for totes and all products
-total_tote_sales_units = totes_df['sales'].sum()
-total_all_sales_units = df['sales'].sum()
+# Filter data to the last period available
+last_period = df['period'].max()
+df_last_period = df[df['period'] == last_period]
 
-# Calculate unit contribution of totes
-unit_contribution_totes = (total_tote_sales_units / total_all_sales_units) * 100
+# Calculate Sell-Through Rate (STR)
+df_last_period['sell_through_rate'] = (df_last_period['sales'] / (df_last_period['sales'] + df_last_period['end_inv'])) * 100
 
-# Calculate revenue (sales value) for totes and all products
-totes_revenue = (totes_df['aur'] * totes_df['sales']).sum()
-all_revenue = (df['aur'] * df['sales']).sum()
+# Identify High Inventory Stock (top 10 by ending inventory)
+high_inventory_stock = df_last_period.nlargest(10, 'end_inv')
 
-# Calculate revenue contribution of totes
-revenue_contribution_totes = (totes_revenue / all_revenue) * 100
+# Select relevant columns for output
+result = high_inventory_stock[['style_colour_desc', 'end_inv', 'sell_through_rate']]
 
-# Create result DataFrame
-result = pd.DataFrame({
-    'Contribution Type': ['Unit Contribution', 'Revenue Contribution'],
-    'Totes Contribution': [unit_contribution_totes, revenue_contribution_totes]
-})
-
-# Limit to 12 rows (not applicable in this case, but added for consistency)
+# Ensure result is not more than 12 items as per general-rules
 result = result.head(12)
-
-# Store final result
-result = result
