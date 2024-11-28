@@ -4,32 +4,18 @@ from tne.TNE import TNE
 # Initialize TNE session
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 
-# Load data
+# Load data from CSV file
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for Crossbody bags
-crossbody_df = df[df['product_subgroup_desc'] == 'Crossbody bag']
+# Filter data for Crossbody bag
+crossbody_bag_df = df[df['product_subgroup_desc'] == 'Crossbody bag']
 
-# Get the most recent period
-max_period = crossbody_df['period'].max()
+# Calculate total sales for each style-color
+total_sales_df = crossbody_bag_df.groupby('style_colour_desc')['sales'].sum().reset_index()
+total_sales_df = total_sales_df.rename(columns={'sales': 'total_sales'})
 
-# Filter data for the most recent period
-recent_crossbody_df = crossbody_df[crossbody_df['period'] == max_period]
+# Sort by total sales in descending order and select top 5
+top_5_total_sales_df = total_sales_df.sort_values(by='total_sales', ascending=False).head(5)
 
-# Calculate average units sold in prior periods for each range segment
-prior_periods_df = crossbody_df[crossbody_df['period'] < max_period]
-average_units_sold_prior_periods = prior_periods_df.groupby('range_segment')['sales'].mean().reset_index()
-
-# Merge recent data with average prior periods data
-merged_df = pd.merge(recent_crossbody_df, average_units_sold_prior_periods, on='range_segment', suffixes=('', '_prior'))
-
-# Calculate percentage increase
-merged_df['percentage_increase'] = ((merged_df['sales'] - merged_df['sales_prior']) / merged_df['sales_prior']) * 100
-
-# Sort by percentage increase in descending order and select top 12 range segments
-result = merged_df.sort_values(by='percentage_increase', ascending=False)[['range_segment', 'percentage_increase']].head(12)
-
-# Rename columns for clarity
-result.columns = ['Range Segment', 'Percentage Increase in Unit Sales']
-
-print(result)
+# Store result in 'result' variable
+result = top_5_total_sales_df[['style_colour_desc', 'total_sales']]
