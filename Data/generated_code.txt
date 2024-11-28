@@ -4,20 +4,19 @@ from tne.TNE import TNE
 # Initialize TNE session
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 
-# Load data
+# Load data from CSV file
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for December
-december_df = df[df['month'] == 'December']
+# Filter data for 'newness' range segment
+newness_df = df[df['range_segment'] == 'Newness']
 
-# Group by product_subgroup_desc and sum sales
-top_subclasses = december_df.groupby('product_subgroup_desc')['sales'].sum().reset_index()
-
-# Sort in descending order by sales and limit to top 12
-top_subclasses = top_subclasses.sort_values(by='sales', ascending=False).head(12)
+# Group by 'period' (month) and calculate total sales for each month
+monthly_sales_newness = newness_df.groupby('period')['sales'].sum().reset_index()
 
 # Rename columns for clarity
-top_subclasses = top_subclasses.rename(columns={'product_subgroup_desc': 'Top Subclasses', 'sales': 'Total Sales in December'})
+monthly_sales_newness.columns = ['Month (YYYYMM)', 'Monthly Sales for Newness']
 
-# Store result in 'result' variable
-result = top_subclasses
+# Limit to 12 rows if more than 12 months are present
+result = monthly_sales_newness.head(12)
+
+print(result)
