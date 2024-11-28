@@ -4,22 +4,34 @@ from tne.TNE import TNE
 # Initialize TNE session
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 
-# Load data from CSV file
+# Load data
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Convert 'period' column to datetime and extract month
-df['period'] = pd.to_datetime(df['period'], format='%Y%m')
-df['month'] = df['period'].dt.strftime('%B')
+# Filter data for totes
+totes_df = df[df['product_subgroup_desc'] == 'Tote bag']
 
-# Filter data for Crossbody bag in July
-crossbody_bags_july = df[(df['product_subgroup_desc'] == 'Crossbody bag') & 
-                          (df['month'] == 'July')]
+# Calculate total sales units for totes and all products
+total_tote_sales_units = totes_df['sales'].sum()
+total_all_sales_units = df['sales'].sum()
 
-# Sort by sales in descending order and select top row
-top_crossbody_bag_july = crossbody_bags_july.nlargest(1, 'sales')
+# Calculate unit contribution of totes
+unit_contribution_totes = (total_tote_sales_units / total_all_sales_units) * 100
 
-# Select relevant columns for output
-result = top_crossbody_bag_july[['style_colour_desc', 'sales', 'month', 'period']]
+# Calculate revenue (sales value) for totes and all products
+totes_revenue = (totes_df['aur'] * totes_df['sales']).sum()
+all_revenue = (df['aur'] * df['sales']).sum()
 
-# Ensure result has at most 12 rows (already capped at 1 in this case)
+# Calculate revenue contribution of totes
+revenue_contribution_totes = (totes_revenue / all_revenue) * 100
+
+# Create result DataFrame
+result = pd.DataFrame({
+    'Contribution Type': ['Unit Contribution', 'Revenue Contribution'],
+    'Totes Contribution': [unit_contribution_totes, revenue_contribution_totes]
+})
+
+# Limit to 12 rows (not applicable in this case, but added for consistency)
 result = result.head(12)
+
+# Store final result
+result = result
