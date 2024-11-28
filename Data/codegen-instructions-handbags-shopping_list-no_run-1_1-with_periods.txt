@@ -14,6 +14,18 @@ A user in DTC retail fashion has made a request about business data. You will re
 - handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv: The data that you will ultimately operate on to calculate the pd.DataFrame response
 - complete-handbags-shopping_list-no_run-1_1-with_periods-metadata.txt: A detailed description of the data source that you will calculate with
 
+# Initializing the runtime environment and accessing data
+The code you generate must begin exactly like this:
+```
+import pandas as pd
+from tne.TNE import TNE
+
+# Initialize session and get data
+session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
+df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
+```
+Following that assignment to df, use df to access the data described in the metadata to response to the user request.
+
 # Output content and format
 ## Don't include too many rows
 If the table would display information for more than 12 objects, include only the first 12 items. Sort the remaining included rows to match the filtering and sorting  principle of the request, like inventory size or rate of sales.
