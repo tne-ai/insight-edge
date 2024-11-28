@@ -1,12 +1,25 @@
 import pandas as pd
 from tne.TNE import TNE
 
-# Initialize session and get data
+# Initialize TNE session
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
-df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter for pareto A and range_segment Newness
-filtered_df = df[(df['pareto'] == 'A') & (df['range_segment'] == 'Newness')]
+# Load data from CSV file
+df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Group by material and colour_description and calculate total sales
-result = filtered_df.groupby(['material', 'colour_description'])['sales'].sum().reset_index().head(12)
+# Convert 'period' column to datetime and extract month
+df['period'] = pd.to_datetime(df['period'], format='%Y%m')
+df['month'] = df['period'].dt.strftime('%B')
+
+# Filter data for Crossbody bag in July
+crossbody_bags_july = df[(df['product_subgroup_desc'] == 'Crossbody bag') & 
+                          (df['month'] == 'July')]
+
+# Sort by sales in descending order and select top row
+top_crossbody_bag_july = crossbody_bags_july.nlargest(1, 'sales')
+
+# Select relevant columns for output
+result = top_crossbody_bag_july[['style_colour_desc', 'sales', 'month', 'period']]
+
+# Ensure result has at most 12 rows (already capped at 1 in this case)
+result = result.head(12)
