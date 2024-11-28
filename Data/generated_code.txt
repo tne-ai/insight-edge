@@ -7,11 +7,14 @@ session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 # Load data from CSV file
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Calculate the number of distinct style colours
-distinct_style_colours = df['style_colour_desc'].nunique()
+# Filter data for Crossbody bag styles
+crossbody_bags = df[df['product_subgroup_desc'] == 'Crossbody bag']
+
+# Count unique Crossbody bag styles
+unique_crossbody_styles = crossbody_bags['style_colour_desc'].nunique()
 
 # Create a pd.DataFrame with the result
-result = pd.DataFrame({'Distinct Style Colours': [distinct_style_colours]})
+result = pd.DataFrame({'Number of Crossbody Bag Styles': [unique_crossbody_styles]})
 
 # Store the final result in the 'result' variable
 result = result
