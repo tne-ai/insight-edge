@@ -4,33 +4,29 @@ from tne.TNE import TNE
 # Initialize TNE session
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 
-# Load data
+# Load data from CSV file
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Ensure 'period' column is of integer type for sorting
-df['period'] = df['period'].astype(int)
+# Calculate Gross Margin for each row
+df['gross_margin'] = (df['aur'] - df['standard_cost_price']) * df['sales']
 
-# Filter data for the last period
-last_period = df['period'].max()
-last_period_df = df[df['period'] == last_period]
+# Calculate Total Sales Revenue for each row
+df['total_sales_revenue'] = df['aur'] * df['sales']
 
-# Check if 'rate_of_sale' or 'ROS' field exists in the data source
-if 'rate_of_sale' in last_period_df.columns or 'ROS' in last_period_df.columns:
-    # Use existing 'rate_of_sale' or 'ROS' field
-    if 'rate_of_sale' in last_period_df.columns:
-        ros_column = 'rate_of_sale'
-    else:
-        ros_column = 'ROS'
-    # Sort by 'rate_of_sale' or 'ROS' in descending order and select top product
-    result = last_period_df.sort_values(by=ros_column, ascending=False)[['style_colour_desc', ros_column]].head(1)
-else:
-    # Calculate 'rate_of_sale' using the provided formula
-    last_period_df['rate_of_sale'] = last_period_df['sales'] / (last_period_df['weeks_selling'] * last_period_df['distinct_store_count'])
-    # Sort by calculated 'rate_of_sale' in descending order and select top product
-    result = last_period_df.sort_values(by='rate_of_sale', ascending=False)[['style_colour_desc', 'rate_of_sale']].head(1)
+# Group by product_subgroup_desc and calculate Total Gross Margin and Total Sales Revenue
+grouped_df = df.groupby('product_subgroup_desc').agg({
+    'gross_margin': 'sum',
+    'total_sales_revenue': 'sum'
+}).reset_index()
 
-# Ensure result is a pd.DataFrame
-result = pd.DataFrame(result)
+# Calculate Gross Margin Percentage for each group
+grouped_df['gross_margin_percentage'] = (grouped_df['gross_margin'] / grouped_df['total_sales_revenue']) * 100
 
-# Store final result in the 'result' variable
-result
+# Find the subclass with the highest Gross Margin Percentage
+result = grouped_df.nlargest(1, 'gross_margin_percentage')[['product_subgroup_desc', 'gross_margin_percentage']]
+
+# Limit to 12 rows if more than one row has the same highest value
+if len(grouped_df[grouped_df['gross_margin_percentage'] == result['gross_margin_percentage'].iloc[0]]) > 1:
+    result = grouped_df[grouped_df['gross_margin_percentage'] == result['gross_margin_percentage'].iloc[0]].head(12)
+
+print(result)
