@@ -4,17 +4,20 @@ from tne.TNE import TNE
 # Initialize TNE session
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 
-# Load data from CSV file
+# Load data
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for Crossbody bag styles
-crossbody_bags = df[df['product_subgroup_desc'] == 'Crossbody bag']
+# Filter data for December
+december_df = df[df['month'] == 'December']
 
-# Count unique Crossbody bag styles
-unique_crossbody_styles = crossbody_bags['style_colour_desc'].nunique()
+# Group by product_subgroup_desc and sum sales
+top_subclasses = december_df.groupby('product_subgroup_desc')['sales'].sum().reset_index()
 
-# Create a pd.DataFrame with the result
-result = pd.DataFrame({'Number of Crossbody Bag Styles': [unique_crossbody_styles]})
+# Sort in descending order by sales and limit to top 12
+top_subclasses = top_subclasses.sort_values(by='sales', ascending=False).head(12)
 
-# Store the final result in the 'result' variable
-result = result
+# Rename columns for clarity
+top_subclasses = top_subclasses.rename(columns={'product_subgroup_desc': 'Top Subclasses', 'sales': 'Total Sales in December'})
+
+# Store result in 'result' variable
+result = top_subclasses
