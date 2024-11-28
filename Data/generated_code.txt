@@ -4,32 +4,33 @@ from tne.TNE import TNE
 # Initialize TNE session
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 
-# Load data from CSV file
+# Load data
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Convert 'period' column to datetime and extract month and year
-df['period'] = pd.to_datetime(df['period'], format='%Y%m')
-df['month'] = df['period'].dt.month
-df['year'] = df['period'].dt.year
+# Ensure 'period' column is of integer type for sorting
+df['period'] = df['period'].astype(int)
 
-# Filter data for last 3 months (assuming last 3 unique months in the data)
-last_three_months = df['period'].nunique()
-last_three_months = df['period'].unique()[-3:]
+# Filter data for the last period
+last_period = df['period'].max()
+last_period_df = df[df['period'] == last_period]
 
-# Filter data for crossbody bags in last 3 months
-crossbody_bags_last_three_months = df[(df['product_subgroup_desc'] == 'Crossbody bag') & 
-                                       (df['period'].isin(last_three_months))]
+# Check if 'rate_of_sale' or 'ROS' field exists in the data source
+if 'rate_of_sale' in last_period_df.columns or 'ROS' in last_period_df.columns:
+    # Use existing 'rate_of_sale' or 'ROS' field
+    if 'rate_of_sale' in last_period_df.columns:
+        ros_column = 'rate_of_sale'
+    else:
+        ros_column = 'ROS'
+    # Sort by 'rate_of_sale' or 'ROS' in descending order and select top product
+    result = last_period_df.sort_values(by=ros_column, ascending=False)[['style_colour_desc', ros_column]].head(1)
+else:
+    # Calculate 'rate_of_sale' using the provided formula
+    last_period_df['rate_of_sale'] = last_period_df['sales'] / (last_period_df['weeks_selling'] * last_period_df['distinct_store_count'])
+    # Sort by calculated 'rate_of_sale' in descending order and select top product
+    result = last_period_df.sort_values(by='rate_of_sale', ascending=False)[['style_colour_desc', 'rate_of_sale']].head(1)
 
-# Calculate total discount value using the given formula
-crossbody_bags_last_three_months['discount'] = (crossbody_bags_last_three_months['standard_selling_price'] - 
-                                                crossbody_bags_last_three_months['aur']) * \
-                                               crossbody_bags_last_three_months['sales']
+# Ensure result is a pd.DataFrame
+result = pd.DataFrame(result)
 
-# Group by month and year, and calculate total discount value
-result = crossbody_bags_last_three_months.groupby(['year', 'month'])['discount'].sum().reset_index()
-
-# Rename columns for better understanding
-result.columns = ['Year', 'Month', 'Total Discount Value']
-
-# Limit to 12 rows if more than 12 exist
-result = result.head(12)
+# Store final result in the 'result' variable
+result
