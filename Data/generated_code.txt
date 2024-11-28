@@ -7,21 +7,29 @@ session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 # Load data from CSV file
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Ensure 'period' column is of integer type for sorting
-df['period'] = df['period'].astype(int)
+# Convert 'period' column to datetime and extract month and year
+df['period'] = pd.to_datetime(df['period'], format='%Y%m')
+df['month'] = df['period'].dt.month
+df['year'] = df['period'].dt.year
 
-# Filter data to the last period available
-last_period = df['period'].max()
-df_last_period = df[df['period'] == last_period]
+# Filter data for last 3 months (assuming last 3 unique months in the data)
+last_three_months = df['period'].nunique()
+last_three_months = df['period'].unique()[-3:]
 
-# Calculate Sell-Through Rate (STR)
-df_last_period['sell_through_rate'] = (df_last_period['sales'] / (df_last_period['sales'] + df_last_period['end_inv'])) * 100
+# Filter data for crossbody bags in last 3 months
+crossbody_bags_last_three_months = df[(df['product_subgroup_desc'] == 'Crossbody bag') & 
+                                       (df['period'].isin(last_three_months))]
 
-# Identify High Inventory Stock (top 10 by ending inventory)
-high_inventory_stock = df_last_period.nlargest(10, 'end_inv')
+# Calculate total discount value using the given formula
+crossbody_bags_last_three_months['discount'] = (crossbody_bags_last_three_months['standard_selling_price'] - 
+                                                crossbody_bags_last_three_months['aur']) * \
+                                               crossbody_bags_last_three_months['sales']
 
-# Select relevant columns for output
-result = high_inventory_stock[['style_colour_desc', 'end_inv', 'sell_through_rate']]
+# Group by month and year, and calculate total discount value
+result = crossbody_bags_last_three_months.groupby(['year', 'month'])['discount'].sum().reset_index()
 
-# Ensure result is not more than 12 items as per general-rules
+# Rename columns for better understanding
+result.columns = ['Year', 'Month', 'Total Discount Value']
+
+# Limit to 12 rows if more than 12 exist
 result = result.head(12)
