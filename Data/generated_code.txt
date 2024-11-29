@@ -5,7 +5,11 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Group by size_code and count distinct style_color_description
-result = df.groupby('size_code')['style_color_description'].nunique().reset_index()
-result.columns = ['Size Code', 'Number of Styles Sold']
-result = result.sort_values(by='Size Code').head(12)
+# Filter for tops
+df_tops = df[df['product_hier_feature_1_desc'] == 'WOMENS TOPS']
+
+# Group by size_code and colour_description, then sum sales
+df_color_sales = df_tops.groupby(['size_code', 'colour_description'])['sales'].sum().reset_index()
+
+# Find the most popular color for each size
+result = df_color_sales.loc[df_color_sales.groupby('size_code')['sales'].idxmax()].sort_values(by='size_code').head(12)
