@@ -1,0 +1,748 @@
+FILENAME: item_schema.txt
+
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["title", "bodyText", "tableData", "chartData", "subhead", "details", "recommendations", "request_and_response_issues"],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "A 20-60 character summary of the content of the response",
+      "minLength": 20,
+      "maxLength": 60
+    },
+    "bodyText": {
+      "type": "string",
+      "description": "The text body of the response. The complete response to the request, including relevant context and any significant cautions about data sufficiency or methodology. Should be organized and formatted using Markdown."
+    },
+    "tableData": {
+      "type": "string",
+      "description": "The given markdown table without any extra formatting like code blocks"
+    },
+    "chartData": {
+      "type": "object",
+      "description": "Include a chart.js-compatible specification that represents the markdown of the result. Use single colors specified explicitly. Labels longer than 12 characters should be meaningfully abbreviated. Legends should be explicitly excluded."
+    },
+    "subhead": {
+      "type": "string",
+      "description": "A concise 100-250 character summary of the response content. Should summarize the body text and table data, not describe the request.",
+      "minLength": 100,
+      "maxLength": 250
+    },
+    "details": {
+      "type": "string",
+      "description": "Complete supporting data including source data references (column names, filters, etc.), definitions, algorithms and formulas used in calculations. Should summarize mathematical formulas implemented in the code."
+    },
+    "recommendations": {
+      "type": "string",
+      "description": "One or more specific options for actions the user should consider to correct, optimize, or react to situations identified in the response"
+    },
+    "request_and_response_issues": {
+      "type": "string", 
+      "description": "Description of request ambiguities, data insufficiencies/uncertainties/inconsistencies, or missing algorithms/formulas that affect response reliability"
+    }
+  }
+}
+
+FILENAME: general-rules.txt
+
+# Reading and interpreting data and requests
+ - Capitalization and connective punctuation (like - and \_) are used inconsistently in field names, so be flexible in your searching and matching if you need to be.
+ - Always limit the number of items in any tables you generate to NO MORE THAN 12 ITEMS. Unless, SPECIFICALLY TOLD SO BY THE USER. Any queries you write need to be explicitly capped at 12 results and sorted accordingly (low-to-high or high-to-low).
+ - When formatting responses or writing code, ensure you AVOID SCIENTIFIC NOTATION UNLESS SPECIFICALLY TOLD BY THE USER TO USE IT.
+ - In your response to a user, to name or specify entities such as style-colours, choose textual descriptive columns such as 'style-color-description'. Don't use purely numerical fields like 'style-color-code' unless explicitly instructed to in the user's request.
+ - If a  request refers to "the last <n> months" or similar, it means the last <n> months for which data is available. It is not relative to the current date. If the request uses a phrase like this, include labels in the output that name the absolute month and year.
+
+# Things you must keep in mind
+- If a request is about a group or collection of things, like a subfamily, don't show the data for all the members of the group.
+- If you don't have the data you need to answer a question, explain clearly which data is lacking and why.
+- If necessary data is missing, do not answer the question with hypothetical data unless the user has asked you to.
+FILENAME: complete-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes-metadata.txt
+
+Original columns: demand_plan_description, product_hier_feature_1_desc, product_group_description, product_subgroup_desc, gender, sku_id, size_code, style_color_description, style_color_id, period, client_id, region_id, range_segment, material, product_launch_date, colour_description, price_metric, sales, end_inv, total_stock, dc_inv, weeks_selling, standard_selling_price, standard_cost_price, aur, margin  v, sales v, discount v, discount %, margin %, distinct_store_count, pareto, season
+Number of rows: 2117
+
+# Schema notes for womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv
+
+## Descriptions of column meaning in the  data:
+period: Month of reported sales for the row. The format is YYYYMM, so 202202 is February of 2022.
+sales: unit sales for the specified product during the month specified in 'period'
+
+## Important information about calculating using the data schema:
+### Product hierarchy and identity
+- All the products in the data are women's clothing
+- The top level grouping column is "product_hier_feature_1_desc", then 'product_group_description', then 'product_subgroup_desc', then style_color as either 'style_color_description' or 'style_color_id'
+- A 'sku_id' is determined by a 'style_color_id' combined with a specific 'size_code'
+- When asked about a product using a seven-digit number, like "5226727", it is a 'sku_id'.
+- There is a 1:1 mapping between 'style_color_description' and 'style_color_id'. Those are two equivalent identifiers for a style_color.
+
+- One style_color can appear in multiple rows. Among those rows, the size, period, and sales information will vary.
+- Each row presents sales information for its 'sku_id' in the month noted in the row's 'period' column.
+
+- Discount is ('standard selling price' - 'aur') * sales . Discount can be total for a group of style_colors, a product over time, or both. Do NOT use 'msrp' to calculate discount.
+
+### Sales
+- To get total sales for a style_color or sku_id, total the 'sales' in all the rows for that style_color or sku_id.
+- To detect and describe trends in unit sales for a style_color or sku, analyse its 'sales' growing or shrinking over time.
+- To answer simple, direct questions about sales for a style_color or sku_id that don't specify a specific period, aggregation or comparison among periods, sum 'sales' over all periods available.
+- To get total sales for a style_color or sku, total the 'sales' in all the rows for various 'period's for that style_color.
+- To detect and describe trends in unit sales for a style_color, analyse its 'sales' growing or shrinking over time.
+- To answer simple, direct questions about a product's sales that don't specify aggregation or comparison
+among periods, use 'sales' for the most recent period available for the product.
+
+### Other notes about presentation and calculation
+- In this data set, no terms refer to a specific brand. Requests for this data set are more likely to refer to categories or subcategories.
+- Unless explicitly directed by the user, don't use the numerical column 'style_color_id' in a response without additional context. Instead, return textual columns such as 'style_color_description' or 'product_subgroup_desc'
+- Because of the data format, you cannot extract information from the 'period' column with the method df['period'].str.endswith(). Instead, use pd.to_datetime() to extract this information.
+- REMEMBER: 'sells well', 'top', 'what want people want to buy' are referring to the 'sales' column, NOT ROS. DO NOT calculate ROS in response to these types of questions.
+
+{
+  "summary_structure": {
+    "title": "Women's Ready-to-Wear Sales and Inventory Summary",
+    "description": "This summary provides insights into the sales, inventory, and pricing data for women's ready-to-wear clothing across different categories, sizes, colors, and time periods.",
+    "sections": [
+      {
+        "title": "Data Structure",
+        "content": "The data is structured in a CSV file. Each row represents sales and inventory data for a specific SKU (Stock Keeping Unit) within a certain time period (month). A single SKU can have multiple rows representing its performance across different months."
+      },
+      {
+        "title": "Key Columns",
+        "content": [
+          {
+            "column_name": "product_hier_feature_1_desc",
+            "description": "Broadest product category (e.g., 'WOMENS BOTTOMS', 'WOMENS OUTERWEAR', 'WOMENS TOPS')"
+          },
+          {
+            "column_name": "product_group_description",
+            "description": "More specific product group within the broad category (e.g., 'WOMENS PANTS', 'WOMENS SHORTS/SKIRTS', 'WOMENS OUTERWEAR')"
+          },
+          {
+            "column_name": "product_subgroup_desc",
+            "description": "Most specific product category (e.g., 'WOMENS PANTS', 'WOMENS SHORTS', 'WOMENS SKIRTS', 'WOMENS HEAVY', 'WOMENS LIGHT', 'WOMENS VESTS', 'WOMENS ZIP-UPS', 'WOMENS LS TOPS', 'WOMENS SS TOPS')"
+          },
+          {
+            "column_name": "sku_id",
+            "description": "Unique identifier for each individual product SKU"
+          },
+          {
+            "column_name": "size_code",
+            "description": "Numeric code representing the size of the clothing item (e.g., 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20)"
+          },
+          {
+            "column_name": "style_color_description",
+            "description": "Unique identifier for a specific style and color combination of the product"
+          },
+          {
+            "column_name": "style_color_id",
+            "description": "Numeric identifier for a specific style and color combination of the product"
+          },
+          {
+            "column_name": "period",
+            "description": "Month of the data in YYYYMM format (e.g., 202111, 202112, 202201)"
+          },
+          {
+            "column_name": "range_segment",
+            "description": "Categorization of the product based on its lifecycle stage (e.g., 'Seasonal', 'Carryover', 'Carryover EOL', 'Newness')"
+          },
+          {
+            "column_name": "material",
+            "description": "Main material composition of the garment (e.g., 'Nylon', 'Nylon Blend', 'Polyester Blend', 'Other', 'Downproof Woven', 'French Terry', 'Pima cotton')"
+          },
+          {
+            "column_name": "product_launch_date",
+            "description": "Date when the product was first launched in DD/MM/YYYY format"
+          },
+          {
+            "column_name": "colour_description",
+            "description": "Description of the color of the garment (e.g., 'starlight', 'White', 'Multi', 'Black', 'Green', 'Taupe', 'Poolside', 'Red', 'Opal', 'Teal', 'Parachute', 'Espresso', 'Psychic', 'Grey', 'Pink', 'Orange', 'Mint', 'Bone', 'Pomegranate', 'Zap', 'Lemon', 'Navy', 'Ivory', 'Frappe', 'Purple', 'Plum', 'Cherry', 'Ice')"
+          },
+          {
+            "column_name": "price_metric",
+            "description": "Indicates the price tier of the product (e.g., 'ENTRY', 'EXIT', 'MIDDLE')"
+          },
+          {
+            "column_name": "sales",
+            "description": "Number of units sold in the given period"
+          },
+          {
+            "column_name": "end_inv",
+            "description": "Ending inventory for the given period"
+          },
+          {
+            "column_name": "total_stock",
+            "description": "Total stock available for the given period"
+          },
+          {
+            "column_name": "weeks_selling",
+            "description": "Number of weeks the product has been actively selling in the given period"
+          },
+          {
+            "column_name": "standard_selling_price",
+            "description": "Regular selling price of the product"
+          },
+          {
+            "column_name": "standard_cost_price",
+            "description": "Cost price of the product"
+          },
+          {
+            "column_name": "aur",
+            "description": "Average unit retail price (actual selling price achieved)"
+          },
+          {
+            "column_name": "margin  v",
+            "description": "Profit margin in value terms"
+          },
+          {
+            "column_name": "sales v",
+            "description": "Sales revenue in value terms"
+          },
+          {
+            "column_name": "discount v",
+            "description": "Discount given in value terms"
+          },
+          {
+            "column_name": "discount %",
+            "description": "Discount percentage applied to the product"
+          },
+          {
+            "column_name": "margin %",
+            "description": "Profit margin percentage"
+          },
+          {
+            "column_name": "distinct_store_count",
+            "description": "Number of distinct stores where the product was sold in the given period"
+          },
+          {
+            "column_name": "pareto",
+            "description": "Product categorization based on its sales performance (e.g., 'A', 'A*', 'B', 'C', 'Tail')"
+          },
+          {
+            "column_name": "season",
+            "description": "Season the product is intended for (e.g., 'Fall/Winter', 'Spring/Summer')"
+          }
+        ]
+      },
+      {
+        "title": "Data Types",
+        "content": [
+          {
+            "data_type": "Numeric Columns",
+            "columns": [
+              "sku_id",
+              "size_code",
+              "style_color_id",
+              "period",
+              "sales",
+              "end_inv",
+              "total_stock",
+              "weeks_selling",
+              "standard_selling_price",
+              "standard_cost_price",
+              "aur",
+              "margin  v",
+              "sales v",
+              "discount v",
+              "discount %",
+              "margin %",
+              "distinct_store_count"
+            ]
+          },
+          {
+            "data_type": "Categorical Columns",
+            "columns": [
+              "product_hier_feature_1_desc",
+              "product_group_description",
+              "product_subgroup_desc",
+              "style_color_description",
+              "range_segment",
+              "material",
+              "colour_description",
+              "price_metric",
+              "pareto",
+              "season"
+            ]
+          },
+          {
+            "data_type": "Date-like Column",
+            "columns": [
+              "product_launch_date (although stored as text)"
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Potential Analyses",
+        "content": [
+          "Sales and inventory performance analysis by various product categories (hierarchy, group, subgroup)",
+          "Analysis of sales trends and seasonality across different time periods",
+          "Performance evaluation of different range segments (Newness, Carryover, etc.)",
+          "Pricing and discount analysis based on 'price_metric', 'standard_selling_price', 'aur', and 'discount %'",
+          "Profit margin analysis using 'margin  v' and 'margin %'",
+          "SKU performance evaluation based on sales, inventory, and AUR",
+          "Impact of material and color on sales and pricing",
+          "Analysis of product performance based on 'pareto' tagging",
+          "Identification of best-selling sizes and colors within specific product categories"
+        ]
+      },
+      {
+        "title": "Common Aggregations",
+        "content": [
+          "Sum of 'sales', 'end_inv', 'total_stock', 'sales v', 'discount v'",
+          "Average of 'aur', 'standard_selling_price', 'standard_cost_price', 'discount %', 'margin %'",
+          "Count of distinct 'sku_id', 'style_color_description', 'style_color_id'"
+        ]
+      },
+      {
+        "title": "Typical Groupings",
+        "content": [
+          "By 'product_hier_feature_1_desc', 'product_group_description', 'product_subgroup_desc'",
+          "By 'size_code', 'style_color_description', 'style_color_id'",
+          "By 'period', 'range_segment', 'material', 'colour_description', 'price_metric', 'pareto', 'season'"
+        ]
+      },
+      {
+        "title": "Useful Filters",
+        "content": [
+          "'range_segment' for focusing on specific lifecycle stages",
+          "'period' for time-based analysis",
+          "'product_hier_feature_1_desc', 'product_group_description', 'product_subgroup_desc' for category-specific analysis",
+          "'size_code', 'colour_description' for analyzing performance of particular sizes and colors",
+          "'pareto' for segmenting products based on performance"
+        ]
+      }
+    ]
+  }
+}
+
+# Data simplification and compression
+- Columns with all NULL values in the original data have been removed.
+- Columns with a single, uniform value in the original data have been removed, and their value is noted below.
+
+## Deleted Null Columns
+
+-None-
+
+## Deleted Uniform Columns
+demand_plan_description: Testing Sales Value Tiering
+gender: Womens
+client_id: 9
+region_id: 3
+dc_inv: 0
+
+# Indices for Request Analysis
+## Forward Index - maps columns to their set of values
+### Format
+    <column>: <values>
+    **Examples:**
+    range_segment: [Carryover, Carryover EOL, Seasonal]
+    product_subgroup_desc: [City, Shopping, Tote bag]
+### Forward index data
+  material:
+  - Nylon
+  - Nylon Blend
+  - Polyester Blend
+  - Other
+  - Downproof Woven
+  - French Terry
+  - Pima cotton
+  pareto:
+  - A
+  - Tail
+  - A*
+  - B
+  - C
+  price_metric:
+  - ENTRY
+  - EXIT
+  - MIDDLE
+  product_group_description:
+  - WOMENS PANTS
+  - WOMENS SHORTS/SKIRTS
+  - WOMENS OUTERWEAR
+  - WOMENS 2ND LAYERS
+  - WOMENS SS-LS TOPS
+  product_hier_feature_1_desc:
+  - WOMENS BOTTOMS
+  - WOMENS OUTERWEAR
+  - WOMENS TOPS
+  product_subgroup_desc:
+  - WOMENS PANTS
+  - WOMENS SHORTS
+  - WOMENS SKIRTS
+  - WOMENS HEAVY
+  - WOMENS LIGHT
+  - WOMENS VESTS
+  - WOMENS ZIP-UPS
+  - WOMENS LS TOPS
+  - WOMENS SS TOPS
+  range_segment:
+  - Seasonal
+  - Carryover EOL
+  - Carryover
+  - Newness
+  season:
+  - Fall/Winter
+  - Spring/Summer
+
+## Inverted Index - maps values to columns where they occur.
+### Format
+    <value>: <columns>
+    **Examples:**
+    Carryover EOL: range_segment
+    City: product_subgroup_desc
+## Inverted index data
+  A:
+  - pareto
+  A*:
+  - pareto
+  B:
+  - pareto
+  C:
+  - pareto
+  Carryover:
+  - range_segment
+  Carryover EOL:
+  - range_segment
+  Downproof Woven:
+  - material
+  ENTRY:
+  - price_metric
+  EXIT:
+  - price_metric
+  Fall/Winter:
+  - season
+  French Terry:
+  - material
+  MIDDLE:
+  - price_metric
+  Newness:
+  - range_segment
+  Nylon:
+  - material
+  Nylon Blend:
+  - material
+  Other:
+  - material
+  Pima cotton:
+  - material
+  Polyester Blend:
+  - material
+  Seasonal:
+  - range_segment
+  Spring/Summer:
+  - season
+  Tail:
+  - pareto
+  WOMENS 2ND LAYERS:
+  - product_group_description
+  WOMENS BOTTOMS:
+  - product_hier_feature_1_desc
+  WOMENS HEAVY:
+  - product_subgroup_desc
+  WOMENS LIGHT:
+  - product_subgroup_desc
+  WOMENS LS TOPS:
+  - product_subgroup_desc
+  WOMENS OUTERWEAR:
+  - product_hier_feature_1_desc
+  - product_group_description
+  WOMENS PANTS:
+  - product_group_description
+  - product_subgroup_desc
+  WOMENS SHORTS:
+  - product_subgroup_desc
+  WOMENS SHORTS/SKIRTS:
+  - product_group_description
+  WOMENS SKIRTS:
+  - product_subgroup_desc
+  WOMENS SS TOPS:
+  - product_subgroup_desc
+  WOMENS SS-LS TOPS:
+  - product_group_description
+  WOMENS TOPS:
+  - product_hier_feature_1_desc
+  WOMENS VESTS:
+  - product_subgroup_desc
+  WOMENS ZIP-UPS:
+  - product_subgroup_desc
+
+# Representative Samples
+
+The following CSV table includes several complete rows from the original data source, including null and uniform columns. It shows a range of values in both categorical and numerical columns to represent the full scope of the data.
+
+demand_plan_description,product_hier_feature_1_desc,product_group_description,product_subgroup_desc,gender,sku_id,size_code,style_color_description,style_color_id,period,client_id,region_id,range_segment,material,product_launch_date,colour_description,price_metric,sales,end_inv,total_stock,dc_inv,weeks_selling,standard_selling_price,standard_cost_price,aur,margin  v,sales v,discount v,discount %,margin %,distinct_store_count,pareto,season
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS PANTS,WOMENS PANTS,Womens,5220125,4,Style Option 13782,23244,202112,9,3,Carryover,Polyester Blend,25/02/2019,Poolside,ENTRY,1738,0,1738,0,3,0.0,0.0,88.255743,153388.4813,153388.4813,-153388.4813,-100.00%,100.00%,387,A*,Fall/Winter
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS SHORTS/SKIRTS,WOMENS SHORTS,Womens,5197932,8,Style Option 19921,29383,202205,9,3,Carryover,Other,28/01/2019,Psychic,ENTRY,546,16,562,0,2,0.0,0.0,59.512865,32494.02429,32494.02429,-32494.02429,-100.00%,100.00%,382,A,Spring/Summer
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS PANTS,WOMENS PANTS,Womens,5220129,6,Style Option 13782,23244,202111,9,3,Carryover,Polyester Blend,25/02/2019,Poolside,EXIT,2418,40,2458,0,4,98.0,18.38,86.202363,163994.4737,208437.3137,28526.68627,14.00%,79.00%,387,A*,Fall/Winter
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS SHORTS/SKIRTS,WOMENS SHORTS,Womens,5324811,4,Style Option 21641,31103,202204,9,3,Newness,Polyester Blend,21/03/2022,Multi,ENTRY,3273,123,3396,0,3,0.0,0.0,53.512654999999995,173317.1763,173317.1763,-173317.1763,-100.00%,100.00%,382,A,Spring/Summer
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS SHORTS/SKIRTS,WOMENS SKIRTS,Womens,5224469,6,Style Option 23129,32591,202206,9,3,Carryover,Polyester Blend,06/05/2019,Pomegranate,MIDDLE,743,2,745,0,3,0.0,0.0,69.654737,51842.75413,51842.75413,-51842.75413,-100.00%,100.00%,376,A,Spring/Summer
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS SHORTS/SKIRTS,WOMENS SHORTS,Womens,5324816,6,Style Option 21641,31103,202204,9,3,Newness,Polyester Blend,21/03/2022,Multi,ENTRY,3584,137,3721,0,3,0.0,0.0,53.032746,188510.6844,188510.6844,-188510.6844,-100.00%,100.00%,383,A,Spring/Summer
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS SHORTS/SKIRTS,WOMENS SHORTS,Womens,5324816,6,Style Option 21641,31103,202206,9,3,Newness,Polyester Blend,21/03/2022,Multi,ENTRY,2015,2,2017,0,3,0.0,0.0,54.612183,109606.2076,109606.2076,-109606.2076,-100.00%,100.00%,383,A,Spring/Summer
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS PANTS,WOMENS PANTS,Womens,5220107,10,Style Option 13782,23244,202112,9,3,Carryover,Polyester Blend,25/02/2019,Poolside,ENTRY,657,0,657,0,2,0.0,0.0,86.558646,56869.03042,56869.03042,-56869.03042,-100.00%,100.00%,377,A*,Fall/Winter
+Testing Sales Value Tiering,WOMENS BOTTOMS,WOMENS SHORTS/SKIRTS,WOMENS SHORTS,Womens,5218635,4,Style Option 20101,29563,202205,9,3,Carryover,Other,28/01/2019,Pink,MIDDLE,2186,53,2239,0,4,0.0,0.0,60.859861,133039.6561,133039.6561,-133039.6561,-100.00%,100.00%,388,A,Spring/Summer
+Testing Sales Value Tiering,WOMENS OUTERWEAR,WOMENS OUTERWEAR,WOMENS LIGHT,Womens,5281488,4,Style Option 9881,19343,202201,9,3,Carryover,Nylon Blend,02/08/2021,Olive,EXIT,193,3,196,0,1,198.0,51.19,169.868127,22904.87851,32784.54851,5429.451489,17.00%,70.00%,292,A,Fall/Winter
+
+FILENAME: tne-kg-ruleset-with-key.txt
+
+{
+  "nodeTypes": ["term", "synonym", "formula", "variable", "context", "note", "example"],
+  "edgeTypes": ["has_synonym", "defined_by", "uses_variable", "has_context", "has_note", "has_example", "calculates", "is_component_of"],
+  "notes": [
+    "Often the leaf of a hierarchy of categorization, e.g., category to subcategory to product. If a style-color is offered in multiple sizes, a SKU is identified by a combination of style-color and size. If a single size is offered, the style-color has the same specificity as a SKU.",
+    "Labels or column headers in the source data may not match the language used by the user.",
+    "If a rate of sale or ROS field exists in the data source, use the field content rather than calculating it.",
+    "Style-colors with the range_segment 'newness' are collectively referred to as 'newness'.",
+    "Selling well is defined as having the highest percentage increase in unit sales in the most recent period relative to the average of the prior like periods within the preceding year. By default, the subset is a subgroup, but a request may define it as a style, material, color, or other product attribute.",
+    "If the data source has an AUR column, use the given data rather than the formula."
+  ]
+}
+
+{
+  "n": [
+    ["product", 0, "Product", "A good offered for sale.", [0]],
+    ["product_hierarchy", 0, "Product Hierarchy", "A structure used to categorize products, where subcategories are subsets of categories, subfamilies are subsets of families, and subgroups are subsets of groups.", [1]],
+    ["assortment", 0, "Assortment", "The set of products offered for sale, potentially limited by location, season, or time period."],
+    ["newness", 0, "Newness", "Products recently introduced to the assortment.", [3]],
+    ["launch", 0, "Launch", "The date of first sale of a product, specified as a day or month."],
+    ["sales_ranking", 0, "Sales Ranking"],
+    ["sells_well", 0, "Sells Well", "Having higher unit sales than other members of its cohort, optionally limited by time or outlet. The cohort might be grouped by range segment, subcategory, color, or other criteria."],
+    ["rate_of_sale", 0, "Rate of Sale"],
+    ["store_depth", 0, "Store Depth"],
+    ["stock_depth", 0, "Stock Depth", "The average number of units in stock per product at a given point in time."],
+    ["weeks_on_hand", 0, "Weeks on Hand"],
+    ["sell_through_rate", 0, "Sell-Through Rate"],
+    ["inventory_turn", 0, "Inventory Turn"],
+    ["productivity", 0, "Productivity"],
+    ["profit_driver", 0, "Profit Driver", "A product or set of products with a high total margin in cash relative to its peers in the assortment."],
+    ["running_out_risk", 0, "Running Out Risk", "A situation where a product has a high ROS relative to other products, and its inventory is small relative to its ROS."],
+    ["stockout", 0, "Stockout"],
+    ["inventory_risk", 0, "Inventory Risk"],
+    ["high_inventory_stock", 0, "High Inventory Stock", "The 10 products with the highest ending inventory in the last period for which data is available."],
+    ["what_people_want_to_buy_in_a_period", 0, "What People Want to Buy in a Period"],
+    ["rising_styles", 0, "Rising Styles", "Styles ranked by the percentage increase in unit sales in the most recent period for which data is available relative to the average of up to 11 prior like periods within the preceding 12 months overall. The top 10 of these are considered rising styles."],
+    ["falling_styles", 0, "Falling Styles", "Styles ranked by the percentage decrease in unit sales in the most recent period for which data is available relative to the average of up to 11 prior like periods within the preceding 12 months overall. The top 10 of these are considered falling styles."],
+    ["missing", 0, "Missing"],
+    ["heavy", 0, "Heavy", "A situation where a retailer has a higher percentage of products in a subcategory compared to other retailers, potentially indicating an area of focus or specialization."],
+    ["opportunity", 0, "Opportunity", "A situation where a retailer has a lower percentage of products in a subcategory compared to other retailers, potentially indicating potential areas for expansion or improvement."],
+    ["gaps", 0, "Gaps"],
+    ["core_colors", 0, "Core Colors", "Basic, fundamental colors including black, brown, beige, tan, white, and gray."],
+    ["fashion_colors", 0, "Fashion Colors", "Colors that are not considered core colors, typically more trend-driven or seasonal."],
+    ["pricing_metrics", 0, "Pricing Metrics", "A set of price-related measurements for a category or subcategory, including Entry Price (the lowest price), Average Price (the mean price), and Exit Price (the highest price)."],
+    ["competitor", 0, "Competitor"],
+    ["distribution", 0, "Distribution", "A representation of data that counts and displays all different occurrences of a particular value."],
+    ["star", 0, "Star", "A product with a class or Pareto designation of A or A*."],
+    ["dog", 0, "Dog", "A product with a class or Pareto designation of C or tail."],
+    ["gross_margin", 0, "Gross Margin"],
+    ["total_margin", 0, "Total Margin"],
+    ["gross_margin_percentage", 0, "Gross Margin Percentage"],
+    ["average_unit_retail", 0, "Average Unit Retail"],
+    ["stock_to_sales_ratio", 0, "Stock to Sales Ratio"],
+    ["contribution", 0, "Contribution"],
+    ["standard_selling_price", 0, "Standard Selling Price", "The standard selling price of the product, before any discounts are applied."],
+    ["discount", 0, "Discount"],
+    ["total_discount_value", 0, "Total Discount Value"],
+    ["total_stock", 0, "Total Stock"],
+    ["underperforming", 0, "Underperforming"],
+    ["overperforming", 0, "Overperforming"],
+    ["inventory_carried", 0, "Inventory Carried"],
+    ["best_time_to_launch", 0, "Best Time to Launch", "The month when sales for a given subcategory are highest."],
+    ["units_sold_current_period", 0, "Units Sold Current Period", "The number of units sold in the most recent period."],
+    ["average_units_sold_prior_periods", 0, "Average Units Sold Prior Periods", "The average number of units sold in the prior like periods within the preceding year."],
+    ["average_weekly_sales", 0, "Average Weekly Sales"],
+    ["average_inventory_value", 0, "Average Inventory Value"],
+    ["units_sold", 3, "Units Sold"],
+    ["weeks_available", 3, "Weeks Available"],
+    ["number_of_stores", 3, "Number of Stores"],
+    ["units_in_stock", 3, "Units in Stock"],
+    ["cost_of_goods_sold", 3, "Cost of Goods Sold"],
+    ["total_sales", 3, "Total Sales"],
+    ["number_of_products", 3, "Number of Products"],
+    ["standard_cost_price", 3, "Standard Cost Price"],
+    ["total_gross_margin", 3, "Total Gross Margin"],
+    ["total_sales_revenue", 3, "Total Sales Revenue"],
+    ["current_inventory_units", 3, "Current Inventory Units"],
+    ["product_or_category_sales_units", 3, "Product or Category Sales Units"],
+    ["ending_inventory", 3, "Ending Inventory"],
+    ["sales", 3, "Sales"],
+    ["average_sales_rest", 3, "Average Sales Rest", "Average sales units for all periods except the last 3."],
+    ["average_sales_last_3", 3, "Average Sales Last 3", "Average sales units for the last 3 periods."],
+    ["final_inventory", 3, "Final Inventory", "The Ending Inventory ONLY for the final period in the range."],
+    ["total_sales_for_period", 3, "Total Sales for Period", "The total of sales for all periods in the range."],
+    ["sales_units", 3, "Sales Units"],
+    ["weeks_in_store", 3, "Weeks in Store"],
+    ["beginning_inventory", 3, "Beginning Inventory"],
+    ["sku", 1, 0],
+    ["range", 1, 2],
+    ["intro", 1, 4],
+    ["ros", 1, 7],
+    ["woh", 1, 10],
+    ["str", 1, 11],
+    ["turn", 1, 12],
+    ["out_of_stock", 1, 16],
+    ["misses", 1, 22],
+    ["retailer", 1, 29],
+    ["aur", 1, 35],
+    ["ssr", 1, 37],
+    ["rate_of_sale_formula", 2, "Units Sold / (Weeks Available * Number of Stores)", [2], "rate_of_sale"],
+    ["store_depth_formula", 2, "Units Sold / Number of Stores", [], "store_depth"],
+    ["weeks_on_hand_formula", 2, "Units in Stock / Average Weekly Sales", [], "weeks_on_hand"],
+    ["sell_through_rate_formula", 2, "(Units Sold / (Units Sold + Units in Stock)) * 100", [], "sell_through_rate"],
+    ["inventory_turn_formula", 2, "Cost of Goods Sold / Average Inventory Value", [], "inventory_turn"],
+    ["productivity_formula", 2, "Total Sales / (Number of Products * Number of Stores)", [], "productivity"],
+    ["what_people_want_to_buy_formula", 2, "Percentage Increase = ((Units Sold Current Period - Average Units Sold Prior Periods) / Average Units Sold Prior Periods) * 100", [4], "what_people_want_to_buy_in_a_period"],
+    ["gross_margin_formula", 2, "(Average Unit Retail - Standard Cost Price) * Sales Units", [], "gross_margin"],
+    ["total_margin_formula", 2, "Sum(Gross Margin for all products in the group)", [], "total_margin"],
+    ["gross_margin_percentage_formula", 2, "(Total Gross Margin / Total Sales Revenue) * 100", [], "gross_margin_percentage"],
+    ["average_unit_retail_formula", 2, "Total Sales (in currency) / Total Sales Units", [5], "average_unit_retail"],
+    ["stock_to_sales_ratio_formula", 2, "Current Inventory Units / Sales Units", [], "stock_to_sales_ratio"],
+    ["contribution_formula", 2, "(Product or Category Sales Units / Total Sales Units) * 100", [], "contribution"],
+    ["discount_formula", 2, "(Standard Selling Price - Average Unit Retail) * Units Sold", [], "discount"],
+    ["total_discount_value_formula", 2, "Sum((Standard Selling Price - Average Unit Retail) * Units Sold)", [], "total_discount_value"],
+    ["total_stock_formula", 2, "Ending Inventory + Sales", [], "total_stock"],
+    ["underperforming_overperforming_formula", 2,  "(Average Sales Rest - Average Sales Last 3) / Average Sales Rest * 100", [], "underperforming"],
+    ["underperforming_overperforming_formula", 2,  "(Average Sales Rest - Average Sales Last 3) / Average Sales Rest * 100", [], "overperforming"],
+    ["inventory_carried_formula", 2, "Final Inventory + Total Sales for Period", [], "inventory_carried"],
+    ["average_weekly_sales_formula", 2, "Sales Units / Weeks in Store", [], "average_weekly_sales"],
+    ["average_inventory_value_formula", 2, "(Beginning Inventory + Ending Inventory) / 2", [], "average_inventory_value"],
+    ["sales_ranking_units_context", 4, "Units", "Ranked by number of units sold.", "sales_ranking"],
+    ["sales_ranking_cash_or_revenue_context", 4, "Cash or Revenue", "Ranked by total revenue generated.", "sales_ranking"],
+    ["inventory_risk_high_inventory_context", 4, "High Inventory", "A situation where a product has a low ROS relative to other products AND its inventory is large relative to its ROS.", "inventory_risk"],
+    ["inventory_risk_low_inventory_context", 4, "Low Inventory", "A situation where a product has a high ROS AND a low inventory, risking a stockout.", "inventory_risk"],
+    ["gaps_competitor_scope_context", 4, "Competitor Scope", "Subcategories where a competitor offers a product and the retailer does not.", "gaps"],
+    ["gaps_within_a_category_context", 4, "Within a Category", "Subcategories where the retailer does not offer any product.", "gaps"],
+    ["total_stock_single_period_context", 4, "For a single period", "The sum of ending inventory and sales for the given period.", "total_stock"]
+  ],
+  "e": [
+    ["product", "sku", "has_synonym"],
+    ["assortment", "range", "has_synonym"],
+    ["newness", "intro", "has_synonym"],
+    ["rate_of_sale", "ros", "has_synonym"],
+    ["weeks_on_hand", "woh", "has_synonym"],
+    ["sell_through_rate", "str", "has_synonym"],
+    ["inventory_turn", "turn", "has_synonym"],
+    ["stockout", "out_of_stock", "has_synonym"],
+    ["missing", "misses", "has_synonym"],
+    ["competitor", "retailer", "has_synonym"],
+    ["average_unit_retail", "aur", "has_synonym"],
+    ["stock_to_sales_ratio", "ssr", "has_synonym"],
+    ["rate_of_sale_formula", "units_sold", "uses_variable"],
+    ["rate_of_sale_formula", "weeks_available", "uses_variable"],
+    ["rate_of_sale_formula", "number_of_stores", "uses_variable"],
+    ["store_depth_formula", "units_sold", "uses_variable"],
+    ["store_depth_formula", "number_of_stores", "uses_variable"],
+    ["weeks_on_hand_formula", "units_in_stock", "uses_variable"],
+    ["weeks_on_hand_formula", "average_weekly_sales", "uses_variable"],
+    ["sell_through_rate_formula", "units_sold", "uses_variable"],
+    ["sell_through_rate_formula", "units_in_stock", "uses_variable"],
+    ["inventory_turn_formula", "cost_of_goods_sold", "uses_variable"],
+    ["inventory_turn_formula", "average_inventory_value", "uses_variable"],
+    ["productivity_formula", "total_sales", "uses_variable"],
+    ["productivity_formula", "number_of_products", "uses_variable"],
+    ["productivity_formula", "number_of_stores", "uses_variable"],
+    ["what_people_want_to_buy_formula", "units_sold_current_period", "uses_variable"],
+    ["what_people_want_to_buy_formula", "average_units_sold_prior_periods", "uses_variable"],
+    ["gross_margin_formula", "average_unit_retail", "uses_variable"],
+    ["gross_margin_formula", "standard_cost_price", "uses_variable"],
+    ["gross_margin_formula", "sales_units", "uses_variable"],
+    ["total_margin_formula", "gross_margin", "uses_variable"],
+    ["gross_margin_percentage_formula", "total_gross_margin", "uses_variable"],
+    ["gross_margin_percentage_formula", "total_sales_revenue", "uses_variable"],
+    ["average_unit_retail_formula", "total_sales", "uses_variable"],
+    ["average_unit_retail_formula", "sales_units", "uses_variable"],
+    ["stock_to_sales_ratio_formula", "current_inventory_units", "uses_variable"],
+    ["stock_to_sales_ratio_formula", "sales_units", "uses_variable"],
+    ["contribution_formula", "product_or_category_sales_units", "uses_variable"],
+    ["contribution_formula", "sales_units", "uses_variable"],
+    ["discount_formula", "standard_selling_price", "uses_variable"],
+    ["discount_formula", "average_unit_retail", "uses_variable"],
+    ["discount_formula", "units_sold", "uses_variable"],
+    ["total_discount_value_formula", "standard_selling_price", "uses_variable"],
+    ["total_discount_value_formula", "average_unit_retail", "uses_variable"],
+    ["total_discount_value_formula", "units_sold", "uses_variable"],
+    ["total_stock_formula", "ending_inventory", "uses_variable"],
+    ["total_stock_formula", "sales", "uses_variable"],
+    ["underperforming_overperforming_formula", "average_sales_rest", "uses_variable"],
+    ["underperforming_overperforming_formula", "average_sales_last_3", "uses_variable"],
+    ["inventory_carried_formula", "final_inventory", "uses_variable"],
+    ["inventory_carried_formula", "total_sales_for_period", "uses_variable"],
+    ["average_weekly_sales_formula", "sales_units", "uses_variable"],
+    ["average_weekly_sales_formula", "weeks_in_store", "uses_variable"],
+    ["average_inventory_value_formula", "beginning_inventory", "uses_variable"],
+    ["average_inventory_value_formula", "ending_inventory", "uses_variable"],
+    ["sales_ranking", "sales_ranking_units_context", "has_context"],
+    ["sales_ranking", "sales_ranking_cash_or_revenue_context", "has_context"],
+    ["inventory_risk", "inventory_risk_high_inventory_context", "has_context"],
+    ["inventory_risk", "inventory_risk_low_inventory_context", "has_context"],
+    ["gaps", "gaps_competitor_scope_context", "has_context"],
+    ["gaps", "gaps_within_a_category_context", "has_context"],
+    ["total_stock", "total_stock_single_period_context", "has_context"]
+  ]
+}
+FILENAME: generated_code.txt
+
+import pandas as pd
+from tne.TNE import TNE
+
+# Initialize session and get data
+session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
+df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
+
+# Group by size_code and count the number of unique style_color_description
+result = df.groupby('size_code')['style_color_description'].nunique().reset_index()
+result.columns = ['Size Code', 'Number of Styles Sold']
+result = result.sort_values(by='Size Code').head(12)
+# Your role
+You are a data science assistant expert in direct-to-consumer (DTC) retail fashion.
+
+# The situation and the goal
+A user in DTC retail fashion has made a request about business data regarding products, sales, and inventory. They want a clear, accurate, and compelling response. They should understand the response and how it was arrived at. 
+
+You will receive a "result" that is the basis of a response. You will generate a complete response  starting from the input "result". The result, augmented by the explanation you generate, will comprise complete response to the user.
+
+# Source data
+result: A Markdown-formatted table or a single data element. This is the raw data of a response.
+generated_code.txt: The code that computed the result
+tne-kg-ruleset-with-key: Definitions and formulas about the DTC fashion domain
+complete-woments_rtw-shopping-list-no_run-1_1-with_periods-metadata.txt: Information about the data that the result and your response are based on.
+ to explain, justify, and illuminate the "result".
+ie-item-schema.txt: a JSON schema with detailed descriptions of each field. This specified the content and format of your completed response. Your response must conform to the schema.
+
+Important: Do not calculate, create, or imagine any data. Instead, exclusively use the "result" and the supporting information that is passed to you.
+
+# Your assignment
+Using the *result* input and the supplied background information, build a complete clear response the user will believe and understand, in the format and structure of ie-item-schema.
+
+# Output content and format requirement
+Respond to the request with only a JSON dictionary that follows the "ie-item-schema", with the literal keys of the template and the value of each key as described in it. Do NOT output markdown headers within any JSON components.
+
+# Instructions to limit the size of tables in tableData
+If an informative table would present information about more than 12 similar objects, truncate the table to show only the first 12 items. Sort the remaining data based on the metric of the request (like minimum inventory or highest profitability).
+
+## Two exceptions to the number of rows in tableData
+1. If the user's request specifies a number of objects, show the requested number. For example, responding to 'Show me 11 top-selling style-colors in June', show data for 11 selected style-colors.
+2. If the request concerns monthly data, include data for all 12 months - do not truncate.
+
+# Chart data
+You MUST NOT generate a chart that will result in a bar graph with a single bar. For example, if the table data that you receive is just a single value, you MUST leave the chartData field of the item template blank. 
+
+# Things you must keep in mind
+- The JSON dictionary with the elements in ie-item-schema.txt must be your only response.
+- Work step by step.
+- If you don't receive sufficient data to answer a question, explain clearly which data is lacking and why. DO NOT CONCOCT NUMBERS.
+- Do not ever write code. You are a chat model, not a code model. You are incapable of writing code. You are incapable of running code. Your response must be based on the result you receive.
+- Wrap all LaTex in $ $ 
+- Important: Under no circumstances should you ever imagine data. Your job is only to report and complement the "result" passed to you using the supplied background information. If a numerical quantity is not passed to you directly, it is absolutely off limits for your response.
+
+|   Size Code |   Number of Styles Sold |
+|------------:|------------------------:|
+|           0 |                      29 |
+|           2 |                      44 |
+|           4 |                      48 |
+|           6 |                      51 |
+|           8 |                      44 |
+|          10 |                      45 |
+|          12 |                      38 |
+|          14 |                      29 |
+|          16 |                      20 |
+|          18 |                      18 |
+|          20 |                      18 |
