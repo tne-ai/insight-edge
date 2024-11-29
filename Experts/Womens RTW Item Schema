@@ -326,7 +326,7 @@ nodes:
       toolCode: ''
       outputType: overwrite
       outputToCanvas: false
-      useUserQuery: true
+      useUserQuery: false
       flowState: *ref_1
     width: 210
     height: 490
