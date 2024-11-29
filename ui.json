@@ -1,19 +1,19 @@
 {
-  "version": "insightedge--b4bd1dbe-20241118044138",
+  "version": "Insight Edge--LATEST@main",
   "data": [
     {
-      "id": "run1",
+      "id": "c677f80d-88c4-4e06-b3ba-b1abc5c40551",
       "data_source": "",
-      "item_expert_name": "Handbags Item",
-      "chat_expert_name": "Handbags Chat",
+      "item_expert_name": "Handbags Item qwen",
+      "chat_expert_name": "Handbags Chat qwen",
       "title": "Handbags"
     },
     {
-      "id": "run2",
+      "id": "9832efa2-2dd5-40c3-858e-486f68d1f8a6",
       "data_source": "",
-      "item_expert_name": "Womens RTW Item",
-      "chat_expert_name": "Womens RTW Chat",
-      "title": "Women's RTW"
+      "item_expert_name": "Womens RTW Item qwen",
+      "chat_expert_name": "Womens RTW Chat qwen",
+      "title": "Womens RTW"
     }
   ]
 }
