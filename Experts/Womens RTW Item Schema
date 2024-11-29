@@ -326,11 +326,11 @@ nodes:
       toolCode: ''
       outputType: overwrite
       outputToCanvas: false
-      useUserQuery: false
+      useUserQuery: true
       flowState: *ref_1
     width: 210
     height: 490
-    selected: false
+    selected: true
     positionAbsolute:
       x: 1066.8942336086973
       'y': 451.2124749803349
