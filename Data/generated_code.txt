@@ -1,9 +1,17 @@
 import pandas as pd
 from tne.TNE import TNE
 
-# Initialize session and get data
+# Initialize the TNE session
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
-df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Calculate the highest aur
-result = df.sort_values(by='aur', ascending=False).head(12)[['style_color_description', 'aur']]
+# Load the data
+df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
+
+# Group by 'product_subgroup_desc' and calculate total sales and number of styles
+result = df.groupby('product_subgroup_desc').agg(
+    total_sales_for_period=('sales', 'sum'),
+    number_of_products=('style_colour_desc', 'nunique')
+).reset_index()
+
+# Limit the result to the first 12 items
+result = result.head(12)
