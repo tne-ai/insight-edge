@@ -272,16 +272,22 @@ nodes:
       x: 123.67832943045539
       'y': 228.04874971901975
     dragging: false
-  - id: 9rUwKQuldfreca6KrGfcI
-    type: file
+  - id: ImOy-JMYS19SZfUgoQ6Vk
+    type: llm
     position:
-      x: 1530.3160542463513
-      'y': 58.09303580164382
+      x: 1066.8942336086973
+      'y': 451.2124749803349
     data:
-      id: 9rUwKQuldfreca6KrGfcI
-      title: Data
-      fileName: ie_item_schema.txt
-      flowState: &ref_1
+      id: ImOy-JMYS19SZfUgoQ6Vk
+      title: Item generator
+      input: ''
+      slashgptManifest: item_generator_w_schema.model
+      toolJson: ''
+      toolCode: ''
+      outputType: overwrite
+      outputToCanvas: false
+      useUserQuery: false
+      flowState:
         backend: git
         repo: insight-edge
         content:
@@ -306,46 +312,63 @@ nodes:
             html: >-
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Womens%20RTW%20Item%20qwen
     width: 210
+    height: 490
+    selected: false
+    positionAbsolute:
+      x: 1066.8942336086973
+      'y': 451.2124749803349
+    dragging: false
+  - id: hCWH7TXDrtGQ0RTHtJKR1
+    type: file
+    position:
+      x: 1530.3238233913935
+      'y': 71.03382441197823
+    data:
+      id: hCWH7TXDrtGQ0RTHtJKR1
+      title: Item schema
+      fileName: item_schema.txt
+      flowState:
+        backend: git
+        repo: insight-edge
+        content:
+          name: Womens RTW Item Schema
+          path: Experts/Womens RTW Item Schema
+          sha: 7d537b206cbf450af1c6cf71547b0d6d7d976a20
+          size: 11493
+          url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Womens%20RTW%20Item%20Schema?ref=main
+          html_url: >-
+            https://github.com/tne-ai/insight-edge/blob/main/Experts/Womens%20RTW%20Item%20Schema
+          git_url: >-
+            https://api.github.com/repos/tne-ai/insight-edge/git/blobs/7d537b206cbf450af1c6cf71547b0d6d7d976a20
+          download_url: >-
+            https://raw.githubusercontent.com/tne-ai/insight-edge/main/Experts/Womens%20RTW%20Item%20Schema
+          type: file
+          _links:
+            self: >-
+              https://api.github.com/repos/tne-ai/insight-edge/contents/Experts/Womens%20RTW%20Item%20Schema?ref=main
+            git: >-
+              https://api.github.com/repos/tne-ai/insight-edge/git/blobs/7d537b206cbf450af1c6cf71547b0d6d7d976a20
+            html: >-
+              https://github.com/tne-ai/insight-edge/blob/main/Experts/Womens%20RTW%20Item%20Schema
+    width: 210
     height: 226
     selected: false
     positionAbsolute:
-      x: 1530.3160542463513
-      'y': 58.09303580164382
-    dragging: false
-  - id: ImOy-JMYS19SZfUgoQ6Vk
-    type: llm
-    position:
-      x: 1066.8942336086973
-      'y': 451.2124749803349
-    data:
-      id: ImOy-JMYS19SZfUgoQ6Vk
-      title: Item generator
-      input: ''
-      slashgptManifest: item_generator_w_schema.model
-      toolJson: ''
-      toolCode: ''
-      outputType: overwrite
-      outputToCanvas: false
-      useUserQuery: false
-      flowState: *ref_1
-    width: 210
-    height: 490
-    selected: true
-    positionAbsolute:
-      x: 1066.8942336086973
-      'y': 451.2124749803349
+      x: 1530.3238233913935
+      'y': 71.03382441197823
     dragging: false
 edges:
+  - source: hCWH7TXDrtGQ0RTHtJKR1
+    sourceHandle: b
+    target: ImOy-JMYS19SZfUgoQ6Vk
+    targetHandle: t
+    id: QRI--K
   - source: JeKsgcbsvmI_P55qW5mwZ
     sourceHandle: r
     target: ImOy-JMYS19SZfUgoQ6Vk
     targetHandle: l
     id: qjTbxv
-  - source: 9rUwKQuldfreca6KrGfcI
-    sourceHandle: b
-    target: ImOy-JMYS19SZfUgoQ6Vk
-    targetHandle: t
-    id: 8H54F-
   - source: 0zdc5dhVer0Q5aCtYSTDW
     sourceHandle: b
     target: ImOy-JMYS19SZfUgoQ6Vk
