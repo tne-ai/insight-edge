@@ -31,7 +31,7 @@ prompt: |-
 
   # Output content and format requirement
   Respond to the request with only a JSON dictionary that follows the "ie-item-schema", with the literal keys of the template and the value of each key as described in it.
- Do NOT output markdown headers within any JSON components.
+  Do NOT output markdown headers within any JSON components.
 
   # Instructions to limit the size of tables in tableData
   If an informative table would present information about more than 12 similar objects, truncate the table to show only the first 12 items. Sort the remaining data based on the metric of the request (like minimum inventory or highest profitability).
