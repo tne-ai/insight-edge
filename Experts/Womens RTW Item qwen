@@ -235,7 +235,7 @@ nodes:
       toolJson: ''
       toolCode: ''
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
       useUserQuery: false
       flowState: *ref_0
     width: 210
@@ -260,7 +260,7 @@ nodes:
         like a bar or line, you must simply generate a pd.DataFrame that will
         be  amenable to downstream charting.
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
       useUserQuery: true
       apiKey: OPENROUTER_API_KEY
       engineName: openrouter
