@@ -19,7 +19,7 @@
     },
     "chartData": {
       "type": "object",
-      "description": "If a chart is requested or can convey the data clearly, include a chart.js-compatible specification. Must use single colors specified explicitly. Labels longer than 12 characters should be meaningfully abbreviated. Legends should be explicitly excluded. Should represent the markdown table data."
+      "description": "Include a chart.js-compatible specification that represents the markdown of the result. Use single colors specified explicitly. Labels longer than 12 characters should be meaningfully abbreviated. Legends should be explicitly excluded."
     },
     "subhead": {
       "type": "string",
