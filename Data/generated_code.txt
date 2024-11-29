@@ -1,21 +1,21 @@
 import pandas as pd
 from tne.TNE import TNE
 
-# Initialize TNE session
+# Initialize session and get data
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
+df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Load data from CSV file
-df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
+# Filter for Women Shorts
+df_shorts = df[df['product_subgroup_desc'] == 'WOMENS SHORTS']
 
-# Filter data for Crossbody bag
-crossbody_bag_df = df[df['product_subgroup_desc'] == 'Crossbody bag']
+# Group by style_color_description and sum sales
+top_styles = df_shorts.groupby('style_color_description')['sales'].sum().reset_index()
 
-# Calculate total sales for each style-color
-total_sales_df = crossbody_bag_df.groupby('style_colour_desc')['sales'].sum().reset_index()
-total_sales_df = total_sales_df.rename(columns={'sales': 'total_sales'})
+# Sort by sales in descending order and get top 10
+top_styles = top_styles.sort_values(by='sales', ascending=False).head(10)
 
-# Sort by total sales in descending order and select top 5
-top_5_total_sales_df = total_sales_df.sort_values(by='total_sales', ascending=False).head(5)
+# Rename columns for clarity
+top_styles.columns = ['Style Color Description', 'Total Units Sold']
 
-# Store result in 'result' variable
-result = top_5_total_sales_df[['style_colour_desc', 'total_sales']]
+# Store the result
+result = top_styles
