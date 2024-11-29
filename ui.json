@@ -9,9 +9,9 @@
       "title": "Handbags"
     },
     {
-      "id": "9832efa2-2dd5-40c3-858e-486f68d1f8a6",
+      "id": "865896cc-225f-4199-8288-397aaa4c0399",
       "data_source": "",
-      "item_expert_name": "Womens RTW Item qwen",
+      "item_expert_name": "Womens RTW Item Schema",
       "chat_expert_name": "Womens RTW Chat qwen",
       "title": "Womens RTW"
     }
