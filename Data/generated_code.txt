@@ -5,7 +5,7 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Group by size_code and count the number of unique style_color_description
+# Group by size_code and count distinct style_color_description
 result = df.groupby('size_code')['style_color_description'].nunique().reset_index()
 result.columns = ['Size Code', 'Number of Styles Sold']
 result = result.sort_values(by='Size Code').head(12)
