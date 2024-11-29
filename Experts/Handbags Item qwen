@@ -9,14 +9,14 @@ nodes:
       title: Generate Code
       prompt: ''
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
       useUserQuery: true
       apiKey: OPENAI_API_KEY
       engineName: openai-gpt
       modelName: gpt-4o
     width: 212
     height: 466
-    selected: false
+    selected: true
     positionAbsolute:
       x: 103.24437216834724
       'y': 365.3288590421148
@@ -194,7 +194,7 @@ nodes:
       fileName: ie_item_template.txt
     width: 210
     height: 226
-    selected: true
+    selected: false
     positionAbsolute:
       x: 1526.607362577122
       'y': 254.51710102520286
@@ -269,7 +269,7 @@ nodes:
       toolJson: ''
       toolCode: ''
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
       useUserQuery: false
       flowState:
         backend: git
