@@ -258,7 +258,7 @@ nodes:
       toolJson: ''
       toolCode: ''
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
       useUserQuery: false
       flowState: *ref_0
     width: 210
@@ -283,14 +283,14 @@ nodes:
         like a bar or line, you must simply generate a pd.DataFrame that will
         be  amenable to downstream charting.
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
       useUserQuery: true
       apiKey: OPENROUTER_API_KEY
       engineName: openrouter
       modelName: qwen/qwen-2.5-coder-32b-instruct
     width: 212
     height: 730
-    selected: false
+    selected: true
     positionAbsolute:
       x: 123.67832943045539
       'y': 228.04874971901975
@@ -322,7 +322,7 @@ edges:
     target: 0XMbhB0mOlJNsKYFDan8c
     targetHandle: t
     id: YQ8_Ry
-    selected: true
+    selected: false
   - source: B2gbDTRyyPB6-h7fPIe0p
     sourceHandle: b
     target: 0XMbhB0mOlJNsKYFDan8c
