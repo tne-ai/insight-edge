@@ -358,7 +358,28 @@ nodes:
       x: 1530.3238233913935
       'y': 71.03382441197823
     dragging: false
+  - id: POZ-uC_oH3pkixC_uVPMv
+    type: debug
+    position:
+      x: 1354.3238233913935
+      'y': 785.0338244119782
+    data:
+      id: POZ-uC_oH3pkixC_uVPMv
+      title: Prompt Debugger
+      outputName: item_generator_prompt.txt
+    width: 210
+    height: 214
+    selected: true
+    positionAbsolute:
+      x: 1354.3238233913935
+      'y': 785.0338244119782
+    dragging: false
 edges:
+  - source: ImOy-JMYS19SZfUgoQ6Vk
+    sourceHandle: r
+    target: POZ-uC_oH3pkixC_uVPMv
+    targetHandle: t
+    id: '-kYL7w'
   - source: hCWH7TXDrtGQ0RTHtJKR1
     sourceHandle: b
     target: ImOy-JMYS19SZfUgoQ6Vk
