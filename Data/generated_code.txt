@@ -5,24 +5,5 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Convert 'period' to datetime for filtering
-df['period'] = pd.to_datetime(df['period'], format='%Y%m')
-
-# Determine the last three months in the data
-last_period = df['period'].max()
-three_months_ago = last_period - pd.DateOffset(months=3)
-
-# Filter data for the last three months
-df_last_three_months = df[df['period'] > three_months_ago]
-
-# Calculate total sales and total sales units by product_subgroup_desc
-aggregated_data = df_last_three_months.groupby('product_subgroup_desc').agg({
-    'sales v': 'sum',
-    'sales': 'sum'
-}).reset_index()
-
-# Calculate average unit retail price
-aggregated_data['average_unit_retail'] = aggregated_data['sales v'] / aggregated_data['sales']
-
-# Sort by average unit retail price in descending order and limit to 12 items
-result = aggregated_data.sort_values(by='average_unit_retail', ascending=False).head(12)
+# Calculate the highest aur
+result = df.sort_values(by='aur', ascending=False).head(12)[['style_color_description', 'aur']]
