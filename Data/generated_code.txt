@@ -1,11 +1,17 @@
 import pandas as pd
 from tne.TNE import TNE
 
-# Initialize session and get data
+# Initialize the TNE session
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
-df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Group by size_code and count the number of unique style_color_description
-result = df.groupby('size_code')['style_color_description'].nunique().reset_index()
-result.columns = ['Size Code', 'Number of Styles Sold']
-result = result.sort_values(by='Size Code').head(12)
+# Load the data
+df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
+
+# Group by 'product_subgroup_desc' and calculate total sales and number of styles
+result = df.groupby('product_subgroup_desc').agg(
+    total_sales=('sales', 'sum'),
+    number_of_styles=('style_colour_desc', 'nunique')
+).reset_index()
+
+# Limit the result to 12 items
+result = result.head(12)
