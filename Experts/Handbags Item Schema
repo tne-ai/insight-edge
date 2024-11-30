@@ -335,7 +335,7 @@ nodes:
       id: j0-uq92JVoxqBiJ5kqI22
       title: Item Generator
       input: ''
-      slashgptManifest: item_generator_qwen.model
+      slashgptManifest: item_generator_w_schema.model
       toolJson: ''
       toolCode: ''
       outputType: overwrite
@@ -344,7 +344,7 @@ nodes:
       flowState: *ref_1
     width: 212
     height: 490
-    selected: false
+    selected: true
     positionAbsolute:
       x: 902.4116070361026
       'y': 647.6592824200081
@@ -384,7 +384,7 @@ nodes:
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Item%20Schema
     width: 212
     height: 226
-    selected: true
+    selected: false
     dragging: false
     positionAbsolute:
       x: 1522.5603135832248
