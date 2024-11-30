@@ -8,7 +8,7 @@ nodes:
       id: uhEulH9Z49LWGA7KpOQTA
       title: 442 Data
       fileName: womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv
-    width: 210
+    width: 212
     height: 322
     selected: false
     dragging: false
@@ -42,7 +42,7 @@ nodes:
       id: WrvWlKo5cLLGx6Nxg93Sl
       title: Generated code
       outputName: generated_code.txt
-    width: 210
+    width: 212
     height: 190
     selected: false
     positionAbsolute:
@@ -59,7 +59,7 @@ nodes:
       title: 442 Metadata
       fileName: >-
         complete-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes-metadata.txt
-    width: 210
+    width: 212
     height: 346
     selected: false
     positionAbsolute:
@@ -75,7 +75,7 @@ nodes:
       id: 2Zb_TunbGkLyNPt-l6pGb
       title: General rules
       fileName: general-rules.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     positionAbsolute:
@@ -92,7 +92,7 @@ nodes:
       title: 442 Metadata
       fileName: >-
         complete-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes-metadata.txt
-    width: 210
+    width: 212
     height: 346
     selected: false
     positionAbsolute:
@@ -109,7 +109,7 @@ nodes:
       title: 442 Metadata
       fileName: >-
         complete-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes-metadata.txt
-    width: 210
+    width: 212
     height: 346
     selected: false
     positionAbsolute:
@@ -125,7 +125,7 @@ nodes:
       id: d3WFVmFAznrjq8G1zZvHB
       title: Generated code
       fileName: generated_code.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     positionAbsolute:
@@ -142,7 +142,7 @@ nodes:
       title: 442 codegen instructions
       fileName: >-
         codegen_instructions-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes.txt
-    width: 210
+    width: 212
     height: 346
     selected: false
     dragging: false
@@ -158,7 +158,7 @@ nodes:
       id: 0zdc5dhVer0Q5aCtYSTDW
       title: General rules
       fileName: general-rules.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     dragging: false
@@ -198,7 +198,7 @@ nodes:
               https://api.github.com/repos/tne-ai/insight-edge/git/blobs/3d3829ab3696735d2406cdec030446a4c968618a
             html: >-
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Womens%20RTW%20Chat%20qwen
-    width: 210
+    width: 212
     height: 250
     selected: false
     positionAbsolute:
@@ -215,7 +215,7 @@ nodes:
       title: Rules
       fileName: tne-kg-ruleset-with-key.txt
       flowState: *ref_0
-    width: 210
+    width: 212
     height: 250
     selected: false
     positionAbsolute:
@@ -238,7 +238,7 @@ nodes:
       outputToCanvas: true
       useUserQuery: false
       flowState: *ref_0
-    width: 210
+    width: 212
     height: 490
     selected: false
     positionAbsolute:
@@ -265,7 +265,7 @@ nodes:
       apiKey: OPENROUTER_API_KEY
       engineName: openrouter
       modelName: qwen/qwen-2.5-coder-32b-instruct
-    width: 212
+    width: 214
     height: 730
     selected: false
     positionAbsolute:
@@ -311,7 +311,7 @@ nodes:
               https://api.github.com/repos/tne-ai/insight-edge/git/blobs/fdbf04c5f2eb5430f8a90921a901a6ce81761470
             html: >-
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Womens%20RTW%20Item%20qwen
-    width: 210
+    width: 212
     height: 490
     selected: false
     positionAbsolute:
@@ -351,35 +351,14 @@ nodes:
               https://api.github.com/repos/tne-ai/insight-edge/git/blobs/7d537b206cbf450af1c6cf71547b0d6d7d976a20
             html: >-
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Womens%20RTW%20Item%20Schema
-    width: 210
+    width: 212
     height: 226
     selected: false
     positionAbsolute:
       x: 1530.3238233913935
       'y': 71.03382441197823
     dragging: false
-  - id: POZ-uC_oH3pkixC_uVPMv
-    type: debug
-    position:
-      x: 1354.3238233913935
-      'y': 785.0338244119782
-    data:
-      id: POZ-uC_oH3pkixC_uVPMv
-      title: Prompt Debugger
-      outputName: item_generator_prompt.txt
-    width: 210
-    height: 214
-    selected: true
-    positionAbsolute:
-      x: 1354.3238233913935
-      'y': 785.0338244119782
-    dragging: false
 edges:
-  - source: ImOy-JMYS19SZfUgoQ6Vk
-    sourceHandle: r
-    target: POZ-uC_oH3pkixC_uVPMv
-    targetHandle: t
-    id: '-kYL7w'
   - source: hCWH7TXDrtGQ0RTHtJKR1
     sourceHandle: b
     target: ImOy-JMYS19SZfUgoQ6Vk
