@@ -26,7 +26,7 @@ nodes:
       module: chat_markdown.py
       outputType: overwrite
       outputToCanvas: true
-    width: 210
+    width: 212
     height: 348
     selected: false
     dragging: false
@@ -231,7 +231,7 @@ nodes:
       id: 27_17fKQ67iqqZPZppij-
       title: Ruleset relevance filter
       input: ''
-      slashgptManifest: ruleset_relevance_filter_qwen.model
+      slashgptManifest: ruleset_relevance_filter_405.model
       toolJson: ''
       toolCode: ''
       outputType: overwrite
@@ -240,7 +240,7 @@ nodes:
       flowState: *ref_0
     width: 212
     height: 490
-    selected: false
+    selected: true
     positionAbsolute:
       x: -374.9444172941834
       'y': 491.4259853438474
@@ -262,9 +262,9 @@ nodes:
       outputType: overwrite
       outputToCanvas: true
       useUserQuery: true
-      apiKey: OPENROUTER_API_KEY
-      engineName: openrouter
-      modelName: qwen/qwen-2.5-coder-32b-instruct
+      apiKey: OPENAI_API_KEY
+      engineName: tne
+      modelName: Llama-3.1-405B-Instruct
     width: 214
     height: 730
     selected: false
@@ -281,7 +281,7 @@ nodes:
       id: ImOy-JMYS19SZfUgoQ6Vk
       title: Item generator
       input: ''
-      slashgptManifest: item_generator_w_schema.model
+      slashgptManifest: item_generator_405.model
       toolJson: ''
       toolCode: ''
       outputType: overwrite
