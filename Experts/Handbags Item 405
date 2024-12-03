@@ -12,11 +12,11 @@ nodes:
       outputToCanvas: true
       useUserQuery: true
       apiKey: OPENAI_API_KEY
-      engineName: openai-gpt
-      modelName: gpt-4o
+      engineName: tne
+      modelName: Llama-3.1-405B-Instruct
     width: 214
-    height: 466
-    selected: false
+    height: 490
+    selected: true
     positionAbsolute:
       x: 103.24437216834724
       'y': 365.3288590421148
@@ -249,7 +249,7 @@ nodes:
       id: GeyI-RzbTRsfIMZgym5Lp
       title: Ruleset relevance filter
       input: ''
-      slashgptManifest: ruleset_relevance_filter_qwen.model
+      slashgptManifest: ruleset_relevance_filter_405.model
       toolJson: ''
       toolCode: ''
       outputType: overwrite
@@ -335,7 +335,7 @@ nodes:
       id: j0-uq92JVoxqBiJ5kqI22
       title: Item Generator
       input: ''
-      slashgptManifest: item_generator_w_schema.model
+      slashgptManifest: item_generator_405.model
       toolJson: ''
       toolCode: ''
       outputType: overwrite
@@ -344,7 +344,7 @@ nodes:
       flowState: *ref_1
     width: 212
     height: 490
-    selected: true
+    selected: false
     positionAbsolute:
       x: 902.4116070361026
       'y': 647.6592824200081
