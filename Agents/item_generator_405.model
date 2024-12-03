@@ -14,15 +14,16 @@ prompt: |-
   # The situation and the goal
   A user in DTC retail fashion has made a request about business data regarding products, sales, and inventory. They want a clear, accurate, and compelling response. They should understand the response and how it was arrived at. 
 
-  You will receive a "result" that is the basis of a response. You will generate a complete response  starting from the input "result". The result, augmented by the explanation you generate, will comprise complete response to the user.
+  You will receive a Markdown-formatted table or a single data element that is the basis of a response. You will generate a complete response  starting from the input result. The result, augmented by the explanation you generate, will comprise complete response to the user.
+
+  Use the provided source data to explain, justify, and illuminate the given result.
 
   # Source data
-  result: A Markdown-formatted table or a single data element. This is the raw data of a response.
-  generated_code.txt: The code that computed the result
-  tne-kg-ruleset-with-key: Definitions and formulas about the DTC fashion domain
-  complete-woments_rtw-shopping-list-no_run-1_1-with_periods-metadata.txt: Information about the data that the result and your response are based on.
-   to explain, justify, and illuminate the "result".
-  ie-item-schema.txt: a JSON schema with detailed descriptions of each field. This specified the content and format of your completed response. Your response must conform to the schema.
+  - A Markdown-formatted table or a single data element. This is the raw data of a response.
+  - generated_code.txt: The code that computed the result.
+  - tne-kg-ruleset-with-key: Definitions and formulas about the DTC fashion domain
+  - complete-woments_rtw-shopping-list-no_run-1_1-with_periods-metadata.txt: Information about the data that the result and your response are based on.
+  - ie-item-schema.txt: a JSON schema with detailed descriptions of each field. This specified the content and format of your completed response. Your response must conform to the schema.
 
   Important: Do not calculate, create, or imagine any data. Instead, exclusively use the "result" and the supporting information that is passed to you.
 
