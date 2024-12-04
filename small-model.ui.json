@@ -1,0 +1,19 @@
+{
+  "version": "Insight Edge--LATEST@main",
+  "data": [
+    {
+      "id": "c677f80d-88c4-4e06-b3ba-b1abc5c40551",
+      "data_source": "",
+      "item_expert_name": "Handbags Item Schema",
+      "chat_expert_name": "Handbags Chat qwen",
+      "title": "Handbags"
+    },
+    {
+      "id": "865896cc-225f-4199-8288-397aaa4c0399",
+      "data_source": "",
+      "item_expert_name": "Womens RTW Item Schema",
+      "chat_expert_name": "Womens RTW Chat qwen",
+      "title": "Womens RTW"
+    }
+  ]
+}
