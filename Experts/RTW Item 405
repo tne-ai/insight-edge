@@ -313,7 +313,7 @@ nodes:
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Womens%20RTW%20Item%20qwen
     width: 212
     height: 490
-    selected: false
+    selected: true
     positionAbsolute:
       x: 1066.8942336086973
       'y': 451.2124749803349
