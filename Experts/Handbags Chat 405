@@ -35,7 +35,7 @@ nodes:
       title: DF to MD
       module: chat_markdown.py
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
     width: 212
     height: 348
     selected: false
@@ -274,7 +274,7 @@ nodes:
               https://github.com/tne-ai/insight-edge/blob/main/Experts/Handbags%20Chat%2070
     width: 212
     height: 490
-    selected: true
+    selected: false
     positionAbsolute:
       x: 1077.756491667073
       'y': 689.8577952345031
