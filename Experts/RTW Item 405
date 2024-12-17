@@ -240,7 +240,7 @@ nodes:
       flowState: *ref_0
     width: 212
     height: 490
-    selected: true
+    selected: false
     positionAbsolute:
       x: -374.9444172941834
       'y': 491.4259853438474
@@ -286,7 +286,7 @@ nodes:
       toolCode: ''
       outputType: overwrite
       outputToCanvas: false
-      useUserQuery: false
+      useUserQuery: true
       flowState:
         backend: git
         repo: insight-edge
