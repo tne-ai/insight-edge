@@ -20,7 +20,7 @@ nodes:
       modelName: gpt-4o-2024-08-06
     width: 212
     height: 706
-    selected: true
+    selected: false
     positionAbsolute:
       x: 155.99026812497334
       'y': 329.3288590421148
@@ -57,10 +57,10 @@ nodes:
       title: DF to MD
       module: chat_markdown.py
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
     width: 210
     height: 348
-    selected: false
+    selected: true
     dragging: false
     positionAbsolute:
       x: 574.8404308114866
