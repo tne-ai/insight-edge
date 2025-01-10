@@ -3,13 +3,13 @@ nodes:
     type: code_generation
     position:
       x: 139.57453380072855
-      'y': 296.5502713448407
+      'y': 298.53921100902886
     data:
       id: 1zqsKoT3qlUrEBZZ3aGqg
       title: Generate Code
       prompt: ''
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
       useUserQuery: true
       apiKey: OPENAI_API_KEY
       engineName: openai-gpt
@@ -19,7 +19,7 @@ nodes:
     selected: false
     positionAbsolute:
       x: 139.57453380072855
-      'y': 296.5502713448407
+      'y': 298.53921100902886
     dragging: false
   - id: RjNl6A5e5LMXx1xy85IWA
     type: llm
@@ -88,7 +88,7 @@ nodes:
       outputToCanvas: false
     width: 212
     height: 348
-    selected: true
+    selected: false
     dragging: false
     positionAbsolute:
       x: 583.6148028588891
