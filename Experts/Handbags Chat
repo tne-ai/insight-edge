@@ -2,7 +2,7 @@ nodes:
   - id: 1zqsKoT3qlUrEBZZ3aGqg
     type: code_generation
     position:
-      x: 157.24437216834724
+      x: 155.99026812497334
       'y': 329.3288590421148
     data:
       id: 1zqsKoT3qlUrEBZZ3aGqg
@@ -13,7 +13,7 @@ nodes:
         like a bar or line, you must simply generate a pd.DataFrame that will be
         amenable to downstream charting.
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
       useUserQuery: true
       apiKey: OPENAI_API_KEY
       engineName: openai-gpt
@@ -22,7 +22,7 @@ nodes:
     height: 706
     selected: true
     positionAbsolute:
-      x: 157.24437216834724
+      x: 155.99026812497334
       'y': 329.3288590421148
     dragging: false
   - id: RjNl6A5e5LMXx1xy85IWA
