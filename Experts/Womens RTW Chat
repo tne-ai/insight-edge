@@ -9,14 +9,14 @@ nodes:
       title: Generate Code
       prompt: ''
       outputType: overwrite
-      outputToCanvas: true
+      outputToCanvas: false
       useUserQuery: true
       apiKey: OPENAI_API_KEY
       engineName: openai-gpt
       modelName: gpt-4o-2024-11-20
     width: 214
     height: 466
-    selected: true
+    selected: false
     positionAbsolute:
       x: 139.57453380072855
       'y': 296.5502713448407
@@ -85,10 +85,10 @@ nodes:
       title: DF to MD
       module: chat_markdown.py
       outputType: overwrite
-      outputToCanvas: true
+      outputToCanvas: false
     width: 212
     height: 348
-    selected: false
+    selected: true
     dragging: false
     positionAbsolute:
       x: 583.6148028588891
@@ -102,7 +102,7 @@ nodes:
       id: WrvWlKo5cLLGx6Nxg93Sl
       title: Generated code
       outputName: generated_code.txt
-    width: 210
+    width: 212
     height: 190
     selected: false
     positionAbsolute:
@@ -120,7 +120,7 @@ nodes:
       fileName: >-
         complete-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes-metadata.txt
     width: 212
-    height: 370
+    height: 346
     selected: false
     positionAbsolute:
       x: 3.0077351884146992
@@ -207,7 +207,7 @@ nodes:
       fileName: >-
         complete-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes-metadata.txt
     width: 212
-    height: 370
+    height: 346
     selected: false
     positionAbsolute:
       x: -698.5668871129703
@@ -256,7 +256,7 @@ nodes:
       fileName: >-
         complete-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes-metadata.txt
     width: 212
-    height: 370
+    height: 346
     selected: false
     positionAbsolute:
       x: 1864.0152645961139
