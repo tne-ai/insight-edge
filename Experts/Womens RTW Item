@@ -6,21 +6,17 @@ nodes:
       'y': 294.5502713448407
     data:
       id: 1zqsKoT3qlUrEBZZ3aGqg
-      title: Code generator
-      prompt: >-
-        For the given question, you must generate a pd.DataFrame. Do NOT use the
-        matplotlib library. Even when asked to generate a certain type of chart,
-        like a bar or line, you must simply generate a pd.DataFrame that will be
-        amenable to downstream charting.
+      title: Generate Code
+      prompt: ''
       outputType: overwrite
-      outputToCanvas: true
+      outputToCanvas: false
       useUserQuery: true
       apiKey: OPENAI_API_KEY
       engineName: openai-gpt
       modelName: gpt-4o
     width: 212
     height: 706
-    selected: false
+    selected: true
     positionAbsolute:
       x: 133.57453380072855
       'y': 294.5502713448407
@@ -173,7 +169,7 @@ nodes:
       fileName: model-friendly-rule-syntax-key.txt
     width: 210
     height: 250
-    selected: true
+    selected: false
     positionAbsolute:
       x: 889.2867732487766
       'y': -341.2036568749437
@@ -324,7 +320,7 @@ nodes:
       id: k8EooHtQjJvfce5Z8Fc2P
       title: ' Item template'
       fileName: ie_item_template.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     positionAbsolute:
