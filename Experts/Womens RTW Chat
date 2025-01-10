@@ -6,16 +6,20 @@ nodes:
       'y': 296.5502713448407
     data:
       id: 1zqsKoT3qlUrEBZZ3aGqg
-      title: Generate Code
-      prompt: ''
+      title: Code generator
+      prompt: >-
+        For the given question, you must generate a pd.DataFrame. Do NOT use the
+        matplotlib library. Even when asked to generate a certain type of chart,
+        like a bar or line, you must simply generate a pd.DataFrame that will be
+        amenable to downstream charting.
       outputType: overwrite
-      outputToCanvas: false
+      outputToCanvas: true
       useUserQuery: true
       apiKey: OPENAI_API_KEY
       engineName: openai-gpt
-      modelName: gpt-4o
-    width: 214
-    height: 466
+      modelName: gpt-4o-2024-08-06
+    width: 212
+    height: 706
     selected: false
     positionAbsolute:
       x: 139.57453380072855
@@ -36,7 +40,7 @@ nodes:
       outputType: overwrite
       outputToCanvas: false
       useUserQuery: true
-    width: 212
+    width: 210
     height: 490
     selected: false
     positionAbsolute:
@@ -52,7 +56,7 @@ nodes:
       id: qIHgOQxy64ACQgxcD93bT
       title: Ruleset
       fileName: tejv-domain-rules.txt
-    width: 212
+    width: 210
     height: 226
     selected: false
     positionAbsolute:
@@ -68,7 +72,7 @@ nodes:
       id: uhEulH9Z49LWGA7KpOQTA
       title: 442 Data
       fileName: womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv
-    width: 212
+    width: 210
     height: 322
     selected: false
     dragging: false
@@ -85,8 +89,8 @@ nodes:
       title: DF to MD
       module: chat_markdown.py
       outputType: overwrite
-      outputToCanvas: false
-    width: 212
+      outputToCanvas: true
+    width: 210
     height: 348
     selected: true
     dragging: false
@@ -102,7 +106,7 @@ nodes:
       id: WrvWlKo5cLLGx6Nxg93Sl
       title: Generated code
       outputName: generated_code.txt
-    width: 212
+    width: 210
     height: 190
     selected: false
     positionAbsolute:
@@ -119,7 +123,7 @@ nodes:
       title: 442 Metadata
       fileName: >-
         complete-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes-metadata.txt
-    width: 212
+    width: 210
     height: 346
     selected: false
     positionAbsolute:
@@ -135,7 +139,7 @@ nodes:
       id: 2Zb_TunbGkLyNPt-l6pGb
       title: General rules
       fileName: general-rules.txt
-    width: 212
+    width: 210
     height: 226
     selected: false
     positionAbsolute:
@@ -151,7 +155,7 @@ nodes:
       id: VQCjBEibZL1iR6Hxilpy0
       title: Ruleset key
       fileName: model-friendly-rule-syntax-key.txt
-    width: 212
+    width: 210
     height: 250
     selected: false
     positionAbsolute:
@@ -167,7 +171,7 @@ nodes:
       id: zao7baSNdlWH5li6QoALA
       title: Ruleset key
       fileName: model-friendly-rule-syntax-key.txt
-    width: 212
+    width: 210
     height: 250
     selected: false
     positionAbsolute:
@@ -189,7 +193,7 @@ nodes:
       outputType: overwrite
       outputToCanvas: true
       useUserQuery: false
-    width: 212
+    width: 210
     height: 490
     selected: false
     positionAbsolute:
@@ -206,7 +210,7 @@ nodes:
       title: 442 Metadata
       fileName: >-
         complete-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes-metadata.txt
-    width: 212
+    width: 210
     height: 346
     selected: false
     positionAbsolute:
@@ -222,7 +226,7 @@ nodes:
       id: aFgU5QjpZ7M23LrRYOGHN
       title: Ruleset
       fileName: tejv-domain-rules.txt
-    width: 212
+    width: 210
     height: 226
     selected: false
     dragging: false
@@ -238,7 +242,7 @@ nodes:
       id: mDvGHC0bnJGbZfzKOEY3m
       title: Ruleset key
       fileName: model-friendly-rule-syntax-key.txt
-    width: 212
+    width: 210
     height: 250
     selected: false
     positionAbsolute:
@@ -255,7 +259,7 @@ nodes:
       title: 442 Metadata
       fileName: >-
         complete-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes-metadata.txt
-    width: 212
+    width: 210
     height: 346
     selected: false
     positionAbsolute:
@@ -271,7 +275,7 @@ nodes:
       id: d3WFVmFAznrjq8G1zZvHB
       title: Generated code
       fileName: generated_code.txt
-    width: 212
+    width: 210
     height: 226
     selected: false
     positionAbsolute:
@@ -288,7 +292,7 @@ nodes:
       title: 442 codegen instructions
       fileName: >-
         codegen_instructions-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes.txt
-    width: 212
+    width: 210
     height: 346
     selected: false
     dragging: false
@@ -304,7 +308,7 @@ nodes:
       id: 0zdc5dhVer0Q5aCtYSTDW
       title: General rules
       fileName: general-rules.txt
-    width: 212
+    width: 210
     height: 226
     selected: false
     dragging: false
