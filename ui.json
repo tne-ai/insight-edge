@@ -4,15 +4,15 @@
     {
       "id": "run1",
       "data_source": "",
-      "item_expert_name": "Handbags Chat",
-      "chat_expert_name": "Handbags Item",
+      "item_expert_name": "Handbags Item",
+      "chat_expert_name": "Handbags Chat",
       "title": "Handbags"
     },
     {
       "id": "run2",
       "data_source": "",
-      "item_expert_name": "Womens RTW Chat",
-      "chat_expert_name": "Womens RTW Item",
+      "item_expert_name": "Womens RTW Item",
+      "chat_expert_name": "Womens RTW Chat",
       "title": "Womens RTW"
     }
   ]
