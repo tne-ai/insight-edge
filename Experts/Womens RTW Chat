@@ -16,7 +16,7 @@ nodes:
       modelName: gpt-4o-2024-11-20
     width: 214
     height: 466
-    selected: false
+    selected: true
     positionAbsolute:
       x: 139.57453380072855
       'y': 298.53921100902886
