@@ -13,10 +13,10 @@ nodes:
       useUserQuery: true
       apiKey: OPENAI_API_KEY
       engineName: openai-gpt
-      modelName: gpt-4o
+      modelName: gpt-4o-2024-08-06
     width: 212
     height: 466
-    selected: false
+    selected: true
     positionAbsolute:
       x: 165.24437216834724
       'y': 371.3288590421148
@@ -56,7 +56,7 @@ nodes:
       outputToCanvas: true
     width: 210
     height: 348
-    selected: true
+    selected: false
     dragging: false
     positionAbsolute:
       x: 520.8404308114866
