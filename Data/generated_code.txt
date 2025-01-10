@@ -5,15 +5,14 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter for Women Shorts and products launched in February
-df['product_launch_date'] = pd.to_datetime(df['product_launch_date'], format='%d/%m/%Y')
-df_february_launch = df[(df['product_subgroup_desc'] == 'WOMENS SHORTS') & (df['product_launch_date'].dt.month == 2)]
+# Filter for 'Newness' range_segment
+newness_df = df[df['range_segment'] == 'Newness']
 
-# Group by SKU and sum sales
-df_sku_sales = df_february_launch.groupby('sku_id')['sales'].sum().reset_index()
+# Group by 'material' and 'colour_description', then sum the sales
+grouped_sales = newness_df.groupby(['material', 'colour_description'])['sales'].sum().reset_index()
 
-# Sort by sales in descending order and get top 10 SKUs
-df_top_skus = df_sku_sales.sort_values(by='sales', ascending=False).head(10)
+# Sort by sales in descending order to find the best-selling combination
+best_selling_combination = grouped_sales.sort_values(by='sales', ascending=False).head(1)
 
-# Merge to get additional details for the top SKUs
-result = df_top_skus.merge(df[['sku_id', 'style_color_description', 'size_code']], on='sku_id').drop_duplicates()
+# Limit the result to the first 12 items if necessary
+result = best_selling_combination.head(12)
