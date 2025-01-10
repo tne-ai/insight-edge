@@ -17,10 +17,10 @@ nodes:
       useUserQuery: true
       apiKey: OPENAI_API_KEY
       engineName: openai-gpt
-      modelName: gpt-4o-2024-08-06
-    width: 212
+      modelName: gpt-4o-2024-11-20
+    width: 214
     height: 706
-    selected: false
+    selected: true
     positionAbsolute:
       x: 155.99026812497334
       'y': 329.3288590421148
@@ -40,7 +40,7 @@ nodes:
       outputType: overwrite
       outputToCanvas: false
       useUserQuery: true
-    width: 210
+    width: 212
     height: 466
     selected: false
     positionAbsolute:
@@ -58,9 +58,9 @@ nodes:
       module: chat_markdown.py
       outputType: overwrite
       outputToCanvas: true
-    width: 210
+    width: 212
     height: 348
-    selected: true
+    selected: false
     dragging: false
     positionAbsolute:
       x: 574.8404308114866
@@ -74,7 +74,7 @@ nodes:
       id: zONjfr0eMtJtEqt_tRjW5
       title: File
       fileName: generated_code.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     positionAbsolute:
@@ -90,7 +90,7 @@ nodes:
       id: ftETm4EbqlrmLP5kQ4zyM
       title: General rules
       fileName: general-rules.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     positionAbsolute:
@@ -106,7 +106,7 @@ nodes:
       id: DAnjY7T61Xmqlg-0c5McO
       title: General Rules
       fileName: general-rules.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     dragging: false
@@ -122,7 +122,7 @@ nodes:
       id: ZNznVxIpP-M5GxFVpn8ka
       title: Metadata
       fileName: complete-handbags-shopping_list-no_run-1_1-with_periods-metadata.txt
-    width: 210
+    width: 212
     height: 298
     selected: false
     positionAbsolute:
@@ -138,7 +138,7 @@ nodes:
       id: Kct9wMiDsihKdptXUEJLK
       title: Data
       fileName: handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv
-    width: 210
+    width: 212
     height: 322
     selected: false
     dragging: false
@@ -154,7 +154,7 @@ nodes:
       id: oAzmdpEkBV2LGUSikmOED
       title: Metadata
       fileName: complete-handbags-shopping_list-no_run-1_1-with_periods-metadata.txt
-    width: 210
+    width: 212
     height: 298
     selected: false
     dragging: false
@@ -170,7 +170,7 @@ nodes:
       id: Fo9gIhUDw5VXWVkzryhr-
       title: Model-friendly rules key
       fileName: model-friendly-rule-syntax-key.txt
-    width: 210
+    width: 212
     height: 274
     selected: false
     positionAbsolute:
@@ -186,7 +186,7 @@ nodes:
       id: Cb2etq3z-PQucMzUX9LRC
       title: Domain rules
       fileName: tejv-domain-rules.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     positionAbsolute:
@@ -202,7 +202,7 @@ nodes:
       id: zj5hKVM0U5WhmM1XhUDC0
       title: Code generator instructions
       fileName: codegen-instructions-handbags-shopping_list-no_run-1_1-with_periods.txt
-    width: 210
+    width: 212
     height: 322
     selected: false
     positionAbsolute:
@@ -224,7 +224,7 @@ nodes:
       outputType: overwrite
       outputToCanvas: true
       useUserQuery: false
-    width: 210
+    width: 212
     height: 490
     selected: false
     positionAbsolute:
@@ -240,7 +240,7 @@ nodes:
       id: CK1oGZ69ueZkIJKxOfrZA
       title: Syntax key
       fileName: model-friendly-rule-syntax-key.txt
-    width: 210
+    width: 212
     height: 250
     selected: false
     positionAbsolute:
@@ -256,7 +256,7 @@ nodes:
       id: nXvlcgrve5EuU9-3NBhn6
       title: Domain rules
       fileName: tejv-domain-rules.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     positionAbsolute:
@@ -272,7 +272,7 @@ nodes:
       id: x4Mi7xYMuKwdejGNkWtde
       title: Metadata
       fileName: complete-handbags-shopping_list-no_run-1_1-with_periods-metadata.txt
-    width: 210
+    width: 212
     height: 298
     selected: false
     positionAbsolute:
@@ -288,7 +288,7 @@ nodes:
       id: mZdhO-F5bxnOeZqIz1_Xv
       title: Key
       fileName: model-friendly-rule-syntax-key.txt
-    width: 210
+    width: 212
     height: 250
     selected: false
     positionAbsolute:
@@ -304,7 +304,7 @@ nodes:
       id: T_W7NcD6rTVVtbmY7wbKp
       title: Save File
       outputName: generated_code.txt
-    width: 210
+    width: 212
     height: 190
     selected: false
     positionAbsolute:
