@@ -13,8 +13,8 @@ nodes:
       useUserQuery: true
       apiKey: OPENAI_API_KEY
       engineName: openai-gpt
-      modelName: gpt-4o-2024-08-06
-    width: 212
+      modelName: gpt-4o-2024-11-20
+    width: 214
     height: 466
     selected: true
     positionAbsolute:
@@ -36,7 +36,7 @@ nodes:
       outputType: overwrite
       outputToCanvas: false
       useUserQuery: true
-    width: 210
+    width: 212
     height: 490
     selected: false
     positionAbsolute:
@@ -52,7 +52,7 @@ nodes:
       id: qIHgOQxy64ACQgxcD93bT
       title: Ruleset
       fileName: tejv-domain-rules.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     positionAbsolute:
@@ -68,7 +68,7 @@ nodes:
       id: uhEulH9Z49LWGA7KpOQTA
       title: Womens RTW Data
       fileName: womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv
-    width: 210
+    width: 212
     height: 322
     selected: false
     dragging: false
@@ -86,7 +86,7 @@ nodes:
       module: chat_markdown.py
       outputType: overwrite
       outputToCanvas: true
-    width: 210
+    width: 212
     height: 348
     selected: false
     dragging: false
@@ -119,7 +119,7 @@ nodes:
       title: Womens RTW Metadata
       fileName: >-
         complete-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes-metadata.txt
-    width: 210
+    width: 212
     height: 370
     selected: false
     positionAbsolute:
@@ -135,7 +135,7 @@ nodes:
       id: 2Zb_TunbGkLyNPt-l6pGb
       title: General rules
       fileName: general-rules.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     positionAbsolute:
@@ -151,7 +151,7 @@ nodes:
       id: VQCjBEibZL1iR6Hxilpy0
       title: Ruleset key
       fileName: model-friendly-rule-syntax-key.txt
-    width: 210
+    width: 212
     height: 250
     selected: false
     positionAbsolute:
@@ -167,7 +167,7 @@ nodes:
       id: zao7baSNdlWH5li6QoALA
       title: Ruleset key
       fileName: model-friendly-rule-syntax-key.txt
-    width: 210
+    width: 212
     height: 250
     selected: false
     positionAbsolute:
@@ -189,7 +189,7 @@ nodes:
       outputType: overwrite
       outputToCanvas: true
       useUserQuery: false
-    width: 210
+    width: 212
     height: 490
     selected: false
     positionAbsolute:
@@ -206,7 +206,7 @@ nodes:
       title: Womens RTW Metadata
       fileName: >-
         complete-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes-metadata.txt
-    width: 210
+    width: 212
     height: 370
     selected: false
     positionAbsolute:
@@ -222,7 +222,7 @@ nodes:
       id: aFgU5QjpZ7M23LrRYOGHN
       title: Ruleset
       fileName: tejv-domain-rules.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     dragging: false
@@ -238,7 +238,7 @@ nodes:
       id: mDvGHC0bnJGbZfzKOEY3m
       title: Ruleset key
       fileName: model-friendly-rule-syntax-key.txt
-    width: 210
+    width: 212
     height: 250
     selected: false
     positionAbsolute:
@@ -255,7 +255,7 @@ nodes:
       title: Womens RTW Metadata
       fileName: >-
         complete-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes-metadata.txt
-    width: 210
+    width: 212
     height: 370
     selected: false
     positionAbsolute:
@@ -271,7 +271,7 @@ nodes:
       id: d3WFVmFAznrjq8G1zZvHB
       title: Generated code
       fileName: generated_code.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     positionAbsolute:
@@ -288,7 +288,7 @@ nodes:
       title: 442 codegen instructions
       fileName: >-
         codegen_instructions-womens_rtw-shopping_list-442-1_1-with_periods-with_sizes.txt
-    width: 210
+    width: 212
     height: 346
     selected: false
     dragging: false
@@ -304,7 +304,7 @@ nodes:
       id: 0zdc5dhVer0Q5aCtYSTDW
       title: General rules
       fileName: general-rules.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     dragging: false
@@ -320,7 +320,7 @@ nodes:
       id: k8EooHtQjJvfce5Z8Fc2P
       title: ' Item template'
       fileName: ie_item_template.txt
-    width: 210
+    width: 212
     height: 226
     selected: false
     positionAbsolute:
