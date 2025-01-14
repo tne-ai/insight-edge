@@ -5,34 +5,23 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Convert 'period' to datetime for easier filtering
+# Convert 'period' column to datetime for filtering
 df['period'] = pd.to_datetime(df['period'], format='%Y%m')
 
-# Determine the last 3 months in the dataset
-max_date = df['period'].max()
-last_3_months = max_date - pd.DateOffset(months=3)
+# Determine the most recent period in the dataset
+max_period = df['period'].max()
 
-# Filter data for the last 3 months and the rest of the periods
-last_3_months_data = df[df['period'] > last_3_months]
-rest_of_data = df[df['period'] <= last_3_months]
+# Calculate the start of the last 3 months
+start_period = max_period - pd.DateOffset(months=3)
 
-# Calculate average sales for each subcategory in the last 3 months
-avg_sales_last_3 = last_3_months_data.groupby('product_subgroup_desc')['sales'].mean()
+# Filter data for the last 3 months and for 'Crossbody bag' in 'product_subgroup_desc'
+filtered_df = df[(df['period'] > start_period) & (df['period'] <= max_period) & (df['product_subgroup_desc'] == 'Crossbody bag')]
 
-# Calculate average sales for each subcategory in the rest of the periods
-avg_sales_rest = rest_of_data.groupby('product_subgroup_desc')['sales'].mean()
+# Calculate the total discount value
+filtered_df['discount_value'] = (filtered_df['standard_selling_price'] - filtered_df['aur']) * filtered_df['sales']
 
-# Combine the two averages into a single DataFrame
-comparison_df = pd.DataFrame({
-    'avg_sales_rest': avg_sales_rest,
-    'avg_sales_last_3': avg_sales_last_3
-}).dropna()
+# Sum the total discount value
+total_discount_value = filtered_df['discount_value'].sum()
 
-# Calculate the percentage decrease for each subcategory
-comparison_df['percentage_decrease'] = (comparison_df['avg_sales_rest'] - comparison_df['avg_sales_last_3']) / comparison_df['avg_sales_rest'] * 100
-
-# Find the subcategory with the highest percentage decrease
-comparison_df = comparison_df.sort_values(by='percentage_decrease', ascending=False).head(12)
-
-# Store the result
-result = comparison_df
+# Store the result in a variable
+result = total_discount_value
