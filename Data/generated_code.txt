@@ -5,23 +5,12 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Convert 'period' column to datetime for filtering
-df['period'] = pd.to_datetime(df['period'], format='%Y%m')
+# Calculate Gross Margin and Gross Margin Percentage
+df['Gross Margin'] = (df['aur'] - df['standard_cost_price']) * df['sales']
+df['Gross Margin %'] = (df['Gross Margin'] / (df['aur'] * df['sales'])) * 100
 
-# Determine the most recent period in the dataset
-max_period = df['period'].max()
+# Group by product_subgroup_desc and calculate the average Gross Margin %
+grouped = df.groupby('product_subgroup_desc', as_index=False)['Gross Margin %'].mean()
 
-# Calculate the start of the last 3 months
-start_period = max_period - pd.DateOffset(months=3)
-
-# Filter data for the last 3 months and for 'Crossbody bag' in 'product_subgroup_desc'
-filtered_df = df[(df['period'] > start_period) & (df['period'] <= max_period) & (df['product_subgroup_desc'] == 'Crossbody bag')]
-
-# Calculate the total discount value
-filtered_df['discount_value'] = (filtered_df['standard_selling_price'] - filtered_df['aur']) * filtered_df['sales']
-
-# Sum the total discount value
-total_discount_value = filtered_df['discount_value'].sum()
-
-# Store the result in a variable
-result = total_discount_value
+# Find the subclass with the highest Gross Margin %
+result = grouped.sort_values(by='Gross Margin %', ascending=False).head(1)
