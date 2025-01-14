@@ -13,14 +13,14 @@ nodes:
         like a bar or line, you must simply generate a pd.DataFrame that will be
         amenable to downstream charting.
       outputType: overwrite
-      outputToCanvas: true
+      outputToCanvas: false
       useUserQuery: true
       apiKey: OPENAI_API_KEY
       engineName: openai-gpt
       modelName: gpt-4o-2024-11-20
     width: 214
     height: 706
-    selected: true
+    selected: false
     positionAbsolute:
       x: 155.99026812497334
       'y': 329.3288590421148
@@ -57,10 +57,10 @@ nodes:
       title: DF to MD
       module: chat_markdown.py
       outputType: overwrite
-      outputToCanvas: true
+      outputToCanvas: false
     width: 212
     height: 348
-    selected: false
+    selected: true
     dragging: false
     positionAbsolute:
       x: 574.8404308114866
