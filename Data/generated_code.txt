@@ -3,16 +3,36 @@ from tne.TNE import TNE
 
 # Initialize session and get data
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
-df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
+df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for 'Newness' range_segment
-newness_df = df[df['range_segment'] == 'Newness']
+# Convert 'period' to datetime for easier filtering
+df['period'] = pd.to_datetime(df['period'], format='%Y%m')
 
-# Group by material and colour description, summing up sales
-grouped = newness_df.groupby(['material', 'colour_description'], as_index=False)['sales'].sum()
+# Determine the last 3 months in the dataset
+max_date = df['period'].max()
+last_3_months = max_date - pd.DateOffset(months=3)
 
-# Find the best-selling material-colour combination
-best_selling = grouped.sort_values(by='sales', ascending=False).head(1)
+# Filter data for the last 3 months and the rest of the periods
+last_3_months_data = df[df['period'] > last_3_months]
+rest_of_data = df[df['period'] <= last_3_months]
+
+# Calculate average sales for each subcategory in the last 3 months
+avg_sales_last_3 = last_3_months_data.groupby('product_subgroup_desc')['sales'].mean()
+
+# Calculate average sales for each subcategory in the rest of the periods
+avg_sales_rest = rest_of_data.groupby('product_subgroup_desc')['sales'].mean()
+
+# Combine the two averages into a single DataFrame
+comparison_df = pd.DataFrame({
+    'avg_sales_rest': avg_sales_rest,
+    'avg_sales_last_3': avg_sales_last_3
+}).dropna()
+
+# Calculate the percentage decrease for each subcategory
+comparison_df['percentage_decrease'] = (comparison_df['avg_sales_rest'] - comparison_df['avg_sales_last_3']) / comparison_df['avg_sales_rest'] * 100
+
+# Find the subcategory with the highest percentage decrease
+comparison_df = comparison_df.sort_values(by='percentage_decrease', ascending=False).head(12)
 
 # Store the result
-result = best_selling
+result = comparison_df
