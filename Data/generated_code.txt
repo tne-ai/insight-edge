@@ -5,12 +5,37 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Calculate Gross Margin and Gross Margin Percentage
-df['Gross Margin'] = (df['aur'] - df['standard_cost_price']) * df['sales']
-df['Gross Margin %'] = (df['Gross Margin'] / (df['aur'] * df['sales'])) * 100
+# Convert 'period' to datetime for easier filtering
+df['period'] = pd.to_datetime(df['period'], format='%Y%m')
 
-# Group by product_subgroup_desc and calculate the average Gross Margin %
-grouped = df.groupby('product_subgroup_desc', as_index=False)['Gross Margin %'].mean()
+# Determine the last 3 months available in the dataset
+max_period = df['period'].max()
+last_3_months = max_period - pd.DateOffset(months=3)
 
-# Find the subclass with the highest Gross Margin %
-result = grouped.sort_values(by='Gross Margin %', ascending=False).head(1)
+# Filter data for the last 3 months and the rest of the periods
+last_3_months_data = df[df['period'] > last_3_months]
+rest_of_periods_data = df[df['period'] <= last_3_months]
+
+# Calculate average sales for each subcategory in the last 3 months and the rest of the periods
+avg_sales_last_3 = last_3_months_data.groupby('product_subgroup_desc')['sales'].mean()
+avg_sales_rest = rest_of_periods_data.groupby('product_subgroup_desc')['sales'].mean()
+
+# Calculate the percentage increase for each subcategory
+percentage_increase = ((avg_sales_last_3 - avg_sales_rest) / avg_sales_rest * 100).dropna()
+
+# Identify the overperforming subcategory
+overperforming_subcategory = percentage_increase.idxmax()
+overperforming_increase = percentage_increase.max()
+
+# Filter data for the overperforming subcategory in the last 3 months
+overperforming_data_last_3 = last_3_months_data[last_3_months_data['product_subgroup_desc'] == overperforming_subcategory]
+
+# Calculate the total discount value for the overperforming subcategory in the last 3 months
+overperforming_discount = ((overperforming_data_last_3['standard_selling_price'] - overperforming_data_last_3['aur']) * overperforming_data_last_3['sales']).sum()
+
+# Create the result DataFrame
+result = pd.DataFrame({
+    'subcategory': [overperforming_subcategory],
+    'percentage_increase': [overperforming_increase],
+    'total_discount_value': [overperforming_discount]
+})
