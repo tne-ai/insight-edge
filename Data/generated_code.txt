@@ -9,16 +9,16 @@ df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.
 df['period'] = pd.to_datetime(df['period'], format='%Y%m')
 
 # Determine the last 3 months available in the dataset
-max_period = df['period'].max()
-last_3_months = max_period - pd.DateOffset(months=3)
+max_date = df['period'].max()
+last_3_months = max_date - pd.DateOffset(months=3)
 
 # Filter data for the last 3 months and the rest of the periods
-last_3_months_data = df[df['period'] > last_3_months]
-rest_of_periods_data = df[df['period'] <= last_3_months]
+df_last_3 = df[df['period'] > last_3_months]
+df_rest = df[df['period'] <= last_3_months]
 
 # Calculate average sales for each subcategory in the last 3 months and the rest of the periods
-avg_sales_last_3 = last_3_months_data.groupby('product_subgroup_desc')['sales'].mean()
-avg_sales_rest = rest_of_periods_data.groupby('product_subgroup_desc')['sales'].mean()
+avg_sales_last_3 = df_last_3.groupby('product_subgroup_desc')['sales'].mean()
+avg_sales_rest = df_rest.groupby('product_subgroup_desc')['sales'].mean()
 
 # Calculate the percentage increase for each subcategory
 percentage_increase = ((avg_sales_last_3 - avg_sales_rest) / avg_sales_rest * 100).dropna()
@@ -28,14 +28,15 @@ overperforming_subcategory = percentage_increase.idxmax()
 overperforming_increase = percentage_increase.max()
 
 # Filter data for the overperforming subcategory in the last 3 months
-overperforming_data_last_3 = last_3_months_data[last_3_months_data['product_subgroup_desc'] == overperforming_subcategory]
+df_overperforming_last_3 = df_last_3[df_last_3['product_subgroup_desc'] == overperforming_subcategory]
 
 # Calculate the total discount value for the overperforming subcategory in the last 3 months
-overperforming_discount = ((overperforming_data_last_3['standard_selling_price'] - overperforming_data_last_3['aur']) * overperforming_data_last_3['sales']).sum()
+df_overperforming_last_3['discount'] = (df_overperforming_last_3['standard_selling_price'] - df_overperforming_last_3['aur']) * df_overperforming_last_3['sales']
+total_discount_value = df_overperforming_last_3['discount'].sum()
 
-# Create the result DataFrame
+# Prepare the result as a DataFrame
 result = pd.DataFrame({
     'subcategory': [overperforming_subcategory],
     'percentage_increase': [overperforming_increase],
-    'total_discount_value': [overperforming_discount]
+    'total_discount_value': [total_discount_value]
 })
