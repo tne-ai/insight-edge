@@ -5,42 +5,12 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Convert 'period' column to datetime for easier manipulation
-df['period'] = pd.to_datetime(df['period'], format='%Y%m')
+# Calculate Gross Margin and Gross Margin Percentage
+df['Gross Margin'] = (df['aur'] - df['standard_cost_price']) * df['sales']
+df['Gross Margin %'] = (df['Gross Margin'] / (df['aur'] * df['sales'])) * 100
 
-# Get the most recent period
-most_recent_period = df['period'].max()
+# Group by product_subgroup_desc and calculate the average Gross Margin %
+grouped = df.groupby('product_subgroup_desc', as_index=False)['Gross Margin %'].mean()
 
-# Filter data for the most recent period
-recent_data = df[df['period'] == most_recent_period]
-
-# Calculate the average sales for up to 11 prior periods within the last 12 months
-one_year_ago = most_recent_period - pd.DateOffset(months=12)
-prior_data = df[(df['period'] >= one_year_ago) & (df['period'] < most_recent_period)]
-
-# Group by style_colour_desc and calculate average sales for prior periods
-prior_avg_sales = (
-    prior_data.groupby('style_colour_desc')['sales']
-    .mean()
-    .reset_index()
-    .rename(columns={'sales': 'avg_sales_prior'})
-)
-
-# Merge recent data with prior average sales
-merged_data = recent_data.merge(prior_avg_sales, on='style_colour_desc', how='left')
-
-# Calculate percentage increase in sales
-merged_data['sales_increase_pct'] = (
-    (merged_data['sales'] - merged_data['avg_sales_prior']) / merged_data['avg_sales_prior']
-) * 100
-
-# Filter out styles with no prior sales data (to avoid division by zero or NaN issues)
-merged_data = merged_data[merged_data['avg_sales_prior'].notna()]
-
-# Sort by percentage increase in sales and select the top 10 rising styles
-rising_styles = merged_data.sort_values('sales_increase_pct', ascending=False).head(10)
-
-# Select relevant columns for the result
-result = rising_styles[[
-    'style_colour_desc', 'product_subgroup_desc', 'sales', 'avg_sales_prior', 'sales_increase_pct'
-]].reset_index(drop=True)
+# Find the subclass with the highest Gross Margin %
+result = grouped.sort_values(by='Gross Margin %', ascending=False).head(1)
