@@ -5,17 +5,28 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Calculate total sales, number of style-colors, and number of stores for each subclass
-subclass_profitability = df.groupby('product_subgroup_desc').agg(
-    total_sales=('sales', 'sum'),
-    number_of_style_colors=('style_colour_desc', 'nunique'),
-    number_of_stores=('distinct_store_count', 'sum')
-).reset_index()
+# Filter data for the 'Crossbody bag' subcategory
+crossbody_df = df[df['product_subgroup_desc'] == 'Crossbody bag']
 
-# Calculate profitability
-subclass_profitability['profitability'] = subclass_profitability['total_sales'] / (
-    subclass_profitability['number_of_style_colors'] * subclass_profitability['number_of_stores']
+# Group by 'price_metric' and calculate total sales, number of style-colors, and number of stores
+profitability_df = (
+    crossbody_df.groupby('price_metric')
+    .agg(
+        total_sales=('sales', 'sum'),
+        number_of_style_colors=('style_colour_desc', 'nunique'),
+        number_of_stores=('distinct_store_count', 'sum')
+    )
+    .reset_index()
 )
 
-# Identify subclasses with profitability less than or equal to 0
-result = subclass_profitability[subclass_profitability['profitability'] <= 0]
+# Calculate profitability as total_sales / (number_of_style_colors * number_of_stores)
+profitability_df['profitability'] = (
+    profitability_df['total_sales'] / 
+    (profitability_df['number_of_style_colors'] * profitability_df['number_of_stores'])
+)
+
+# Sort by profitability in descending order
+profitability_df = profitability_df.sort_values(by='profitability', ascending=False)
+
+# Limit to the top 12 results
+result = profitability_df.head(12)
