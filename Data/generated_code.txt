@@ -5,38 +5,42 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Convert 'period' to datetime for easier filtering
+# Convert 'period' column to datetime for easier manipulation
 df['period'] = pd.to_datetime(df['period'], format='%Y%m')
 
-# Determine the last 3 months available in the dataset
-max_date = df['period'].max()
-last_3_months = max_date - pd.DateOffset(months=3)
+# Get the most recent period
+most_recent_period = df['period'].max()
 
-# Filter data for the last 3 months and the rest of the periods
-df_last_3 = df[df['period'] > last_3_months]
-df_rest = df[df['period'] <= last_3_months]
+# Filter data for the most recent period
+recent_data = df[df['period'] == most_recent_period]
 
-# Calculate average sales for each subcategory in the last 3 months and the rest of the periods
-avg_sales_last_3 = df_last_3.groupby('product_subgroup_desc')['sales'].mean()
-avg_sales_rest = df_rest.groupby('product_subgroup_desc')['sales'].mean()
+# Calculate the average sales for up to 11 prior periods within the last 12 months
+one_year_ago = most_recent_period - pd.DateOffset(months=12)
+prior_data = df[(df['period'] >= one_year_ago) & (df['period'] < most_recent_period)]
 
-# Calculate the percentage increase for each subcategory
-percentage_increase = ((avg_sales_last_3 - avg_sales_rest) / avg_sales_rest * 100).dropna()
+# Group by style_colour_desc and calculate average sales for prior periods
+prior_avg_sales = (
+    prior_data.groupby('style_colour_desc')['sales']
+    .mean()
+    .reset_index()
+    .rename(columns={'sales': 'avg_sales_prior'})
+)
 
-# Identify the overperforming subcategory
-overperforming_subcategory = percentage_increase.idxmax()
-overperforming_increase = percentage_increase.max()
+# Merge recent data with prior average sales
+merged_data = recent_data.merge(prior_avg_sales, on='style_colour_desc', how='left')
 
-# Filter data for the overperforming subcategory in the last 3 months
-df_overperforming_last_3 = df_last_3[df_last_3['product_subgroup_desc'] == overperforming_subcategory]
+# Calculate percentage increase in sales
+merged_data['sales_increase_pct'] = (
+    (merged_data['sales'] - merged_data['avg_sales_prior']) / merged_data['avg_sales_prior']
+) * 100
 
-# Calculate the total discount value for the overperforming subcategory in the last 3 months
-df_overperforming_last_3['discount'] = (df_overperforming_last_3['standard_selling_price'] - df_overperforming_last_3['aur']) * df_overperforming_last_3['sales']
-total_discount_value = df_overperforming_last_3['discount'].sum()
+# Filter out styles with no prior sales data (to avoid division by zero or NaN issues)
+merged_data = merged_data[merged_data['avg_sales_prior'].notna()]
 
-# Prepare the result as a DataFrame
-result = pd.DataFrame({
-    'subcategory': [overperforming_subcategory],
-    'percentage_increase': [overperforming_increase],
-    'total_discount_value': [total_discount_value]
-})
+# Sort by percentage increase in sales and select the top 10 rising styles
+rising_styles = merged_data.sort_values('sales_increase_pct', ascending=False).head(10)
+
+# Select relevant columns for the result
+result = rising_styles[[
+    'style_colour_desc', 'product_subgroup_desc', 'sales', 'avg_sales_prior', 'sales_increase_pct'
+]].reset_index(drop=True)
