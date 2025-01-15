@@ -5,28 +5,20 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for the 'Crossbody bag' subcategory
-crossbody_df = df[df['product_subgroup_desc'] == 'Crossbody bag']
+# Filter data for 'Tote bag' in the product_subgroup_desc
+tote_bags = df[df['product_subgroup_desc'] == 'Tote bag']
 
-# Group by 'price_metric' and calculate total sales, number of style-colors, and number of stores
-profitability_df = (
-    crossbody_df.groupby('price_metric')
-    .agg(
-        total_sales=('sales', 'sum'),
-        number_of_style_colors=('style_colour_desc', 'nunique'),
-        number_of_stores=('distinct_store_count', 'sum')
-    )
-    .reset_index()
-)
+# Group by price_metric and calculate total sales for each price metric
+price_metric_sales = tote_bags.groupby('price_metric')['sales'].sum().reset_index()
 
-# Calculate profitability as total_sales / (number_of_style_colors * number_of_stores)
-profitability_df['profitability'] = (
-    profitability_df['total_sales'] / 
-    (profitability_df['number_of_style_colors'] * profitability_df['number_of_stores'])
-)
+# Calculate the total sales for all tote bags
+total_sales = price_metric_sales['sales'].sum()
 
-# Sort by profitability in descending order
-profitability_df = profitability_df.sort_values(by='profitability', ascending=False)
+# Calculate the contribution of each price metric
+price_metric_sales['contribution (%)'] = (price_metric_sales['sales'] / total_sales) * 100
 
-# Limit to the top 12 results
-result = profitability_df.head(12)
+# Sort by contribution percentage in descending order
+price_metric_sales = price_metric_sales.sort_values(by='contribution (%)', ascending=False)
+
+# Limit to 12 rows as per the general rules
+result = price_metric_sales.head(12)
