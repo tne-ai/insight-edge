@@ -5,17 +5,9 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter for Crossbody bags
-crossbody_df = df[df['product_subgroup_desc'] == 'Crossbody bag']
+# Filter for products with pareto designation 'A*' or 'A'
+star_products = df[df['pareto'].isin(['A', 'A*'])]
 
-# Calculate Gross Margin
-crossbody_df['gross_margin'] = (crossbody_df['aur'] - crossbody_df['standard_cost_price']) * crossbody_df['sales']
-
-# Group by Price Metric and calculate total gross margin
-price_metric_gross_margin = crossbody_df.groupby('price_metric')['gross_margin'].sum().reset_index()
-
-# Find the price metric with the highest gross margin
-price_metric_gross_margin = price_metric_gross_margin.sort_values(by='gross_margin', ascending=False)
-
-# Limit to the top result
-result = price_metric_gross_margin.head(1)
+# Group by season and count the number of unique style_colour_desc for each season
+result = star_products.groupby('season')['style_colour_desc'].nunique().reset_index()
+result.columns = ['season', 'star_product_count']
