@@ -5,9 +5,17 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter for products with pareto designation 'A*' or 'A'
-star_products = df[df['pareto'].isin(['A', 'A*'])]
+# Calculate total sales, number of style-colors, and number of stores for each subclass
+subclass_profitability = df.groupby('product_subgroup_desc').agg(
+    total_sales=('sales', 'sum'),
+    number_of_style_colors=('style_colour_desc', 'nunique'),
+    number_of_stores=('distinct_store_count', 'sum')
+).reset_index()
 
-# Group by season and count the number of unique style_colour_desc for each season
-result = star_products.groupby('season')['style_colour_desc'].nunique().reset_index()
-result.columns = ['season', 'star_product_count']
+# Calculate profitability
+subclass_profitability['profitability'] = subclass_profitability['total_sales'] / (
+    subclass_profitability['number_of_style_colors'] * subclass_profitability['number_of_stores']
+)
+
+# Identify subclasses with profitability less than or equal to 0
+result = subclass_profitability[subclass_profitability['profitability'] <= 0]
