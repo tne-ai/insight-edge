@@ -5,12 +5,17 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Calculate Gross Margin and Gross Margin Percentage
-df['Gross Margin'] = (df['aur'] - df['standard_cost_price']) * df['sales']
-df['Gross Margin %'] = (df['Gross Margin'] / (df['aur'] * df['sales'])) * 100
+# Filter for Crossbody bags
+crossbody_df = df[df['product_subgroup_desc'] == 'Crossbody bag']
 
-# Group by product_subgroup_desc and calculate the average Gross Margin %
-grouped = df.groupby('product_subgroup_desc', as_index=False)['Gross Margin %'].mean()
+# Calculate Gross Margin
+crossbody_df['gross_margin'] = (crossbody_df['aur'] - crossbody_df['standard_cost_price']) * crossbody_df['sales']
 
-# Find the subclass with the highest Gross Margin %
-result = grouped.sort_values(by='Gross Margin %', ascending=False).head(1)
+# Group by Price Metric and calculate total gross margin
+price_metric_gross_margin = crossbody_df.groupby('price_metric')['gross_margin'].sum().reset_index()
+
+# Find the price metric with the highest gross margin
+price_metric_gross_margin = price_metric_gross_margin.sort_values(by='gross_margin', ascending=False)
+
+# Limit to the top result
+result = price_metric_gross_margin.head(1)
