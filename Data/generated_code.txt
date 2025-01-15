@@ -5,20 +5,15 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for 'Tote bag' in the product_subgroup_desc
-tote_bags = df[df['product_subgroup_desc'] == 'Tote bag']
+# Filter data for Totes and group by price_metric
+totes_data = df[df['product_subgroup_desc'] == 'Tote bag']
+grouped_data = totes_data.groupby('price_metric')['sales'].sum().reset_index()
 
-# Group by price_metric and calculate total sales for each price metric
-price_metric_sales = tote_bags.groupby('price_metric')['sales'].sum().reset_index()
+# Calculate total sales for Totes
+total_sales = grouped_data['sales'].sum()
 
-# Calculate the total sales for all tote bags
-total_sales = price_metric_sales['sales'].sum()
+# Calculate contribution for each price point
+grouped_data['contribution (%)'] = (grouped_data['sales'] / total_sales) * 100
 
-# Calculate the contribution of each price metric
-price_metric_sales['contribution (%)'] = (price_metric_sales['sales'] / total_sales) * 100
-
-# Sort by contribution percentage in descending order
-price_metric_sales = price_metric_sales.sort_values(by='contribution (%)', ascending=False)
-
-# Limit to 12 rows as per the general rules
-result = price_metric_sales.head(12)
+# Sort the data by price_metric for better readability
+result = grouped_data.sort_values(by='price_metric').reset_index(drop=True)
