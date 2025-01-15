@@ -78,7 +78,7 @@ nodes:
   - id: JeKsgcbsvmI_P55qW5mwZ
     type: python_code
     position:
-      x: 581.6148028588891
+      x: 583.6148028588891
       'y': 469.6005680943883
     data:
       id: JeKsgcbsvmI_P55qW5mwZ
@@ -88,10 +88,10 @@ nodes:
       outputToCanvas: false
     width: 212
     height: 348
-    selected: true
+    selected: false
     dragging: false
     positionAbsolute:
-      x: 581.6148028588891
+      x: 583.6148028588891
       'y': 469.6005680943883
   - id: WrvWlKo5cLLGx6Nxg93Sl
     type: out
