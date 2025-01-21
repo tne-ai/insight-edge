@@ -5,8 +5,8 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter for crossbody bags in the product_subgroup_desc column
-crossbody_bags_count = df[df['product_subgroup_desc'] == 'Crossbody bag'].shape[0]
+# Filter for crossbody bags and count unique style_colour_desc
+unique_crossbody_bags = df[df['product_subgroup_desc'] == 'Crossbody bag']['style_colour_desc'].nunique()
 
 # Store the result
-result = crossbody_bags_count
+result = unique_crossbody_bags
