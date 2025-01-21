@@ -5,14 +5,12 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Calculate Gross Margin for each row
+# Calculate Gross Margin and Gross Margin Percentage
 df['gross_margin'] = (df['aur'] - df['standard_cost_price']) * df['sales']
-
-# Calculate Gross Margin Percentage for each row
 df['gross_margin_percentage'] = (df['gross_margin'] / (df['aur'] * df['sales'])) * 100
 
 # Group by product_subgroup_desc and calculate the average gross margin percentage
-subgroup_margin = df.groupby('product_subgroup_desc')['gross_margin_percentage'].mean().reset_index()
+grouped = df.groupby('product_subgroup_desc', as_index=False).agg({'gross_margin_percentage': 'mean'})
 
-# Find the subclass with the lowest average gross margin percentage
-result = subgroup_margin.sort_values(by='gross_margin_percentage', ascending=True).head(1)
+# Sort by gross margin percentage in ascending order and select the 5 subclasses with the lowest margin
+result = grouped.nsmallest(5, 'gross_margin_percentage')
