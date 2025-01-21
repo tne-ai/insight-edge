@@ -5,9 +5,14 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter for products with pareto designation 'A*'
-filtered_df = df[df['pareto'] == 'A*']
+# Filter data for January
+january_data = df[df['month'] == 'January']
 
-# Group by season and count distinct style_colour_desc
-result = filtered_df.groupby('season')['style_colour_desc'].nunique().reset_index()
-result.columns = ['season', 'distinct_A_star_products']
+# Group by colour_description and sum sales
+sales_by_colour = january_data.groupby('colour_description', as_index=False)['sales'].sum()
+
+# Sort by sales in descending order and get the top result
+sales_by_colour = sales_by_colour.sort_values(by='sales', ascending=False).head(12)
+
+# Store the result
+result = sales_by_colour
