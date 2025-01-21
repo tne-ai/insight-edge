@@ -8,26 +8,40 @@ df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.
 # Ensure 'period' is treated as a string for proper slicing
 df['period'] = df['period'].astype(str)
 
-# Filter data for December (202212)
-december_data = df[df['period'].str.endswith('12')]
+# Filter for December data
+december_data = df[df['period'].str.endswith('12') & (df['sales'] > 0)]
 
-# Extract the year for each row and calculate the prior 11 months for each December
-december_data['year'] = december_data['period'].str[:4].astype(int)
-prior_months_data = df[df['period'].str[:4].astype(int).isin(december_data['year'] - 1)]
+# Extract the year for each period
+december_data['year'] = december_data['period'].str[:4]
 
-# Calculate the average sales for the prior 11 months for each subgroup
-prior_months_data['month'] = prior_months_data['period'].str[4:6].astype(int)
-prior_months_data = prior_months_data[prior_months_data['month'] < 12]  # Exclude December
-average_sales_prior = prior_months_data.groupby('product_subgroup_desc')['sales'].mean().reset_index()
-average_sales_prior.rename(columns={'sales': 'average_sales_prior_months'}, inplace=True)
+# Calculate the average sales for the prior months within the same year
+def calculate_avg_prior_months(row, data):
+    year = row['year']
+    style_colour_desc = row['style_colour_desc']
+    prior_months = data[(data['period'].str.startswith(year)) & 
+                        (~data['period'].str.endswith('12')) & 
+                        (data['style_colour_desc'] == style_colour_desc)]
+    return prior_months['sales'].mean() if not prior_months.empty else 0
 
-# Merge December data with the calculated averages
-merged_data = december_data.merge(average_sales_prior, on='product_subgroup_desc', how='left')
+# Apply the function to calculate the average sales for prior months
+december_data['avg_prior_months'] = december_data.apply(
+    calculate_avg_prior_months, axis=1, data=df
+)
 
-# Calculate the percentage increase in sales for December
-merged_data['percentage_increase'] = ((merged_data['sales'] - merged_data['average_sales_prior_months']) / 
-                                      merged_data['average_sales_prior_months']) * 100
+# Calculate the percentage increase
+december_data['percentage_increase'] = (
+    (december_data['sales'] - december_data['avg_prior_months']) / 
+    december_data['avg_prior_months']
+) * 100
+
+# Filter out rows where the average prior months sales is 0 to avoid division errors
+december_data = december_data[december_data['avg_prior_months'] > 0]
 
 # Sort by percentage increase in descending order and limit to top 12 results
-result = merged_data[['product_subgroup_desc', 'sales', 'average_sales_prior_months', 'percentage_increase']].sort_values(
-    by='percentage_increase', ascending=False).head(12)
+result = december_data.sort_values(by='percentage_increase', ascending=False).head(12)
+
+# Select relevant columns for the result
+result = result[[
+    'style_colour_desc', 'product_subgroup_desc', 'sales', 
+    'avg_prior_months', 'percentage_increase'
+]]
