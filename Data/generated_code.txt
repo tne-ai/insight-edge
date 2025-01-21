@@ -5,20 +5,15 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for 'Crossbody bag' in the 'product_subgroup_desc' column
-crossbody_df = df[df['product_subgroup_desc'] == 'Crossbody bag']
+# Calculate total sales
+total_sales = df['sales'].sum()
 
-# Calculate Gross Margin and Gross Margin Percentage
-crossbody_df['gross_margin'] = (crossbody_df['aur'] - crossbody_df['standard_cost_price']) * crossbody_df['sales']
-crossbody_df['gross_margin_percentage'] = (crossbody_df['gross_margin'] / (crossbody_df['aur'] * crossbody_df['sales'])) * 100
+# Group by season and calculate sales contribution
+seasonal_sales = df.groupby('season')['sales'].sum().reset_index()
+seasonal_sales['contribution (%)'] = (seasonal_sales['sales'] / total_sales) * 100
 
-# Group by 'price_metric' and calculate the average gross margin percentage
-result_df = crossbody_df.groupby('price_metric', as_index=False).agg(
-    avg_gross_margin_percentage=('gross_margin_percentage', 'mean')
-)
+# Sort by contribution in descending order
+seasonal_sales = seasonal_sales.sort_values(by='contribution (%)', ascending=False).reset_index(drop=True)
 
-# Sort by average gross margin percentage in descending order
-result_df = result_df.sort_values(by='avg_gross_margin_percentage', ascending=False)
-
-# Limit to top 12 results
-result = result_df.head(12)
+# Limit to 12 rows if necessary
+result = seasonal_sales.head(12)
