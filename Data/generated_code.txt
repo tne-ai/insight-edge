@@ -29,13 +29,17 @@ prior_avg_sales = (
 # Merge recent data with prior average sales
 merged_data = recent_data.merge(prior_avg_sales, on='style_colour_desc', how='left')
 
-# Calculate percentage increase in sales
+# Calculate the percentage increase in sales
 merged_data['sales_increase_pct'] = (
     (merged_data['sales'] - merged_data['avg_sales_prior']) / merged_data['avg_sales_prior']
 ) * 100
 
-# Filter top 10 rising styles based on percentage increase
-rising_styles = merged_data.nlargest(10, 'sales_increase_pct')
+# Filter and sort the top 10 rising styles by percentage increase
+rising_styles = (
+    merged_data[['style_colour_desc', 'sales', 'avg_sales_prior', 'sales_increase_pct']]
+    .sort_values(by='sales_increase_pct', ascending=False)
+    .head(10)
+)
 
-# Select relevant columns for the result
-result = rising_styles[['style_colour_desc', 'sales', 'avg_sales_prior', 'sales_increase_pct']]
+# Reset index for the final output
+result = rising_styles.reset_index(drop=True)
