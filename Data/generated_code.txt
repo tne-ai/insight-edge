@@ -5,28 +5,26 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for 'Crossbody bag'
+# Filter data for 'Crossbody bag' in the product_subgroup_desc column
 crossbody_df = df[df['product_subgroup_desc'] == 'Crossbody bag']
 
-# Group by 'price_metric' and calculate total sales, number of style-colors, and number of stores
-profitability_df = (
-    crossbody_df.groupby('price_metric')
-    .agg(
-        total_sales=('sales', 'sum'),
-        number_of_style_colors=('style_colour_desc', 'nunique'),
-        number_of_stores=('distinct_store_count', 'sum')
-    )
-    .reset_index()
-)
+# Calculate Gross Margin for each row
+crossbody_df['gross_margin'] = (crossbody_df['aur'] - crossbody_df['standard_cost_price']) * crossbody_df['sales']
 
-# Calculate profitability
-profitability_df['profitability'] = (
-    profitability_df['total_sales'] / 
-    (profitability_df['number_of_style_colors'] * profitability_df['number_of_stores'])
-)
+# Calculate Total Sales Revenue for each row
+crossbody_df['total_sales_revenue'] = crossbody_df['aur'] * crossbody_df['sales']
 
-# Sort by profitability in descending order
-profitability_df = profitability_df.sort_values(by='profitability', ascending=False)
+# Calculate Gross Margin Percentage for each row
+crossbody_df['gross_margin_percentage'] = (crossbody_df['gross_margin'] / crossbody_df['total_sales_revenue']) * 100
 
-# Limit to top 12 results
-result = profitability_df.head(12)
+# Group by price_metric and calculate the average gross margin percentage
+result_df = crossbody_df.groupby('price_metric', as_index=False)['gross_margin_percentage'].mean()
+
+# Rename the column for clarity
+result_df.rename(columns={'gross_margin_percentage': 'avg_gross_margin_percentage'}, inplace=True)
+
+# Sort by average gross margin percentage in descending order
+result_df = result_df.sort_values(by='avg_gross_margin_percentage', ascending=False)
+
+# Limit to the top result
+result = result_df.head(1)
