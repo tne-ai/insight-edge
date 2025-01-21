@@ -5,17 +5,17 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Convert 'period' to datetime for filtering
+# Convert 'period' column to datetime for filtering
 df['period'] = pd.to_datetime(df['period'], format='%Y%m')
 
 # Determine the most recent period in the dataset
-max_period = df['period'].max()
+most_recent_period = df['period'].max()
 
 # Calculate the start of the last 3 months
-start_period = max_period - pd.DateOffset(months=3)
+start_date = most_recent_period - pd.DateOffset(months=3)
 
 # Filter data for the last 3 months and for 'Crossbody bag' in 'product_subgroup_desc'
-filtered_df = df[(df['period'] > start_period) & (df['period'] <= max_period) & (df['product_subgroup_desc'] == 'Crossbody bag')]
+filtered_df = df[(df['period'] > start_date) & (df['product_subgroup_desc'] == 'Crossbody bag')]
 
 # Calculate the total discount value
 filtered_df['discount_value'] = (filtered_df['standard_selling_price'] - filtered_df['aur']) * filtered_df['sales']
