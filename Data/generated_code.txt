@@ -5,20 +5,28 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Calculate total sales for Men and Women
-total_sales = df['sales'].sum()
-sales_by_gender = df.groupby('gender')['sales'].sum()
+# Filter data for 'Crossbody bag'
+crossbody_df = df[df['product_subgroup_desc'] == 'Crossbody bag']
 
-# Calculate contribution of Men's sales to Women's sales
-men_sales = sales_by_gender.get('Men', 0)
-women_sales = sales_by_gender.get('Women', 0)
+# Group by 'price_metric' and calculate total sales, number of style-colors, and number of stores
+profitability_df = (
+    crossbody_df.groupby('price_metric')
+    .agg(
+        total_sales=('sales', 'sum'),
+        number_of_style_colors=('style_colour_desc', 'nunique'),
+        number_of_stores=('distinct_store_count', 'sum')
+    )
+    .reset_index()
+)
 
-# Contribution formula
-contribution_men_to_women = (men_sales / women_sales) * 100 if women_sales > 0 else 0
+# Calculate profitability
+profitability_df['profitability'] = (
+    profitability_df['total_sales'] / 
+    (profitability_df['number_of_style_colors'] * profitability_df['number_of_stores'])
+)
 
-# Prepare the result as a DataFrame
-result = pd.DataFrame({
-    'Gender': ['Men', 'Women'],
-    'Total Sales': [men_sales, women_sales],
-    'Contribution to Women (%)': [contribution_men_to_women, 100.0]
-})
+# Sort by profitability in descending order
+profitability_df = profitability_df.sort_values(by='profitability', ascending=False)
+
+# Limit to the top 12 results
+result = profitability_df.head(12)
