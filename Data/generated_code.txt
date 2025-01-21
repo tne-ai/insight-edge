@@ -5,12 +5,20 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Calculate Gross Margin and Gross Margin Percentage
-df['gross_margin'] = (df['aur'] - df['standard_cost_price']) * df['sales']
-df['gross_margin_percentage'] = (df['gross_margin'] / (df['aur'] * df['sales'])) * 100
+# Calculate total sales for Men and Women
+total_sales = df['sales'].sum()
+sales_by_gender = df.groupby('gender')['sales'].sum()
 
-# Group by product_subgroup_desc and calculate the average gross margin percentage
-grouped = df.groupby('product_subgroup_desc', as_index=False).agg({'gross_margin_percentage': 'mean'})
+# Calculate contribution of Men's sales to Women's sales
+men_sales = sales_by_gender.get('Men', 0)
+women_sales = sales_by_gender.get('Women', 0)
 
-# Sort by gross margin percentage in ascending order and select the 5 subclasses with the lowest margin
-result = grouped.nsmallest(5, 'gross_margin_percentage')
+# Contribution formula
+contribution_men_to_women = (men_sales / women_sales) * 100 if women_sales > 0 else 0
+
+# Prepare the result as a DataFrame
+result = pd.DataFrame({
+    'Gender': ['Men', 'Women'],
+    'Total Sales': [men_sales, women_sales],
+    'Contribution to Women (%)': [contribution_men_to_women, 100.0]
+})
