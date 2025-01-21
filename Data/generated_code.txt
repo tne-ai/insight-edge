@@ -5,8 +5,6 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Calculate the number of distinct style colours
-distinct_style_colours = df['style_colour_desc'].nunique()
-
-# Store the result
-result = distinct_style_colours
+# Calculate the total count of unique products in the range
+# Since each style-color is uniquely identified, we count unique 'style_colour_desc'
+result = pd.DataFrame({'Total Count of Products': [df['style_colour_desc'].nunique()]})
