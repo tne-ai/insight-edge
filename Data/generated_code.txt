@@ -5,8 +5,17 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter for crossbody bags and count unique style_colour_desc
-unique_crossbody_bags = df[df['product_subgroup_desc'] == 'Crossbody bag']['style_colour_desc'].nunique()
+# Filter data for the 'Newness' range_segment
+newness_data = df[df['range_segment'] == 'Newness']
 
-# Store the result
-result = unique_crossbody_bags
+# Group by period and calculate total sales for each month
+monthly_sales = newness_data.groupby('period')['sales'].sum().reset_index()
+
+# Sort by period
+monthly_sales = monthly_sales.sort_values(by='period')
+
+# Rename columns for clarity
+monthly_sales.columns = ['Period', 'Total Sales']
+
+# Limit to 12 rows
+result = monthly_sales.head(12)
