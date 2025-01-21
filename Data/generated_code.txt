@@ -5,26 +5,21 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Convert 'period' column to datetime for easier filtering
+# Convert 'period' column to datetime for sorting
 df['period'] = pd.to_datetime(df['period'], format='%Y%m')
 
-# Filter for the last 3 months of data available
-max_period = df['period'].max()
-last_3_months = max_period - pd.DateOffset(months=3)
-filtered_df = df[(df['period'] > last_3_months) & (df['period'] <= max_period)]
+# Get the last available period
+last_period = df['period'].max()
 
-# Further filter for the 'City' category
-city_df = filtered_df[filtered_df['product_subgroup_desc'] == 'City']
+# Filter data for the last period
+last_period_data = df[df['period'] == last_period]
 
-# Calculate total sales and final inventory
-total_sales = city_df['sales'].sum()
-final_inv = city_df[city_df['period'] == city_df['period'].max()]['end_inv'].sum()
+# Calculate Sell-Through Rate (STR)
+last_period_data['sell_through_rate'] = (last_period_data['sales'] / 
+                                         (last_period_data['sales'] + last_period_data['end_inv'])) * 100
 
-# Calculate total inventory carried
-inventory_carried = final_inv + total_sales
+# Select the 10 products with the highest ending inventory
+high_inventory_stock = last_period_data.nlargest(10, 'end_inv')
 
-# Prepare the result as a DataFrame
-result = pd.DataFrame({
-    'Category': ['City'],
-    'Total Inventory Carried': [inventory_carried]
-})
+# Select relevant columns for the result
+result = high_inventory_stock[['style_colour_desc', 'end_inv', 'sell_through_rate']]
