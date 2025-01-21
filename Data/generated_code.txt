@@ -5,14 +5,14 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for January
-january_data = df[df['month'] == 'January']
+# Filter data for February
+df_february = df[df['month'] == 'February']
 
 # Group by colour_description and sum sales
-sales_by_colour = january_data.groupby('colour_description', as_index=False)['sales'].sum()
+colour_sales = df_february.groupby('colour_description', as_index=False)['sales'].sum()
 
 # Sort by sales in descending order and get the top result
-sales_by_colour = sales_by_colour.sort_values(by='sales', ascending=False).head(12)
+colour_sales_sorted = colour_sales.sort_values(by='sales', ascending=False).head(12)
 
 # Store the result
-result = sales_by_colour
+result = colour_sales_sorted
