@@ -5,15 +5,14 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for Totes and group by price_metric
-totes_data = df[df['product_subgroup_desc'] == 'Tote bag']
-grouped_data = totes_data.groupby('price_metric')['sales'].sum().reset_index()
+# Filter data for 'Crossbody bag' in the 'product_subgroup_desc' column
+crossbody_df = df[df['product_subgroup_desc'] == 'Crossbody bag']
 
-# Calculate total sales for Totes
-total_sales = grouped_data['sales'].sum()
+# Group by 'range_segment' and calculate total sales for each segment
+range_segment_sales = crossbody_df.groupby('range_segment')['sales'].sum().reset_index()
 
-# Calculate contribution for each price point
-grouped_data['contribution (%)'] = (grouped_data['sales'] / total_sales) * 100
+# Sort by sales in descending order to identify the best-selling range segments
+range_segment_sales = range_segment_sales.sort_values(by='sales', ascending=False).head(12)
 
-# Sort the data by price_metric for better readability
-result = grouped_data.sort_values(by='price_metric').reset_index(drop=True)
+# Store the result in the variable 'result'
+result = range_segment_sales
