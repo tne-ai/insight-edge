@@ -5,21 +5,38 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Convert 'period' column to datetime for sorting
+# Convert 'period' to datetime for easier filtering
 df['period'] = pd.to_datetime(df['period'], format='%Y%m')
 
-# Get the last available period
-last_period = df['period'].max()
+# Determine the last 3 months available in the dataset
+max_period = df['period'].max()
+last_3_months = max_period - pd.DateOffset(months=3)
 
-# Filter data for the last period
-last_period_data = df[df['period'] == last_period]
+# Filter data for the last 3 months and the rest of the periods
+df_last_3 = df[df['period'] > last_3_months]
+df_rest = df[df['period'] <= last_3_months]
 
-# Calculate Sell-Through Rate (STR)
-last_period_data['sell_through_rate'] = (last_period_data['sales'] / 
-                                         (last_period_data['sales'] + last_period_data['end_inv'])) * 100
+# Calculate average sales for each subcategory in the last 3 months and the rest of the periods
+avg_sales_last_3 = df_last_3.groupby('product_subgroup_desc')['sales'].mean()
+avg_sales_rest = df_rest.groupby('product_subgroup_desc')['sales'].mean()
 
-# Select the 10 products with the highest ending inventory
-high_inventory_stock = last_period_data.nlargest(10, 'end_inv')
+# Calculate the percentage increase for each subcategory
+percentage_increase = ((avg_sales_last_3 - avg_sales_rest) / avg_sales_rest * 100).reset_index()
+percentage_increase.columns = ['product_subgroup_desc', 'percentage_increase']
 
-# Select relevant columns for the result
-result = high_inventory_stock[['style_colour_desc', 'end_inv', 'sell_through_rate']]
+# Identify the overperforming subcategory
+overperforming_subcategory = percentage_increase.sort_values(by='percentage_increase', ascending=False).iloc[0]
+
+# Filter data for the overperforming subcategory in the last 3 months
+df_overperforming_last_3 = df_last_3[df_last_3['product_subgroup_desc'] == overperforming_subcategory['product_subgroup_desc']]
+
+# Calculate the total discount value for the overperforming subcategory in the last 3 months
+df_overperforming_last_3['discount'] = (df_overperforming_last_3['standard_selling_price'] - df_overperforming_last_3['aur']) * df_overperforming_last_3['sales']
+total_discount_value = df_overperforming_last_3['discount'].sum()
+
+# Prepare the result as a DataFrame
+result = pd.DataFrame({
+    'Overperforming Subcategory': [overperforming_subcategory['product_subgroup_desc']],
+    'Percentage Increase': [overperforming_subcategory['percentage_increase']],
+    'Total Discount Value': [total_discount_value]
+})
