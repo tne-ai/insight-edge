@@ -5,17 +5,8 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter for Crossbody bags
-crossbody_bags = df[df['product_subgroup_desc'] == 'Crossbody bag']
+# Filter for products in the 'Carryover EOL' range_segment
+eol_products = df[df['range_segment'] == 'Carryover EOL']
 
-# Calculate Gross Margin
-crossbody_bags['gross_margin'] = (crossbody_bags['aur'] - crossbody_bags['standard_cost_price']) * crossbody_bags['sales']
-
-# Group by Price Metric and calculate the total gross margin for each
-price_metric_gross_margin = crossbody_bags.groupby('price_metric')['gross_margin'].sum().reset_index()
-
-# Find the price metric with the highest gross margin
-price_metric_gross_margin = price_metric_gross_margin.sort_values(by='gross_margin', ascending=False).head(12)
-
-# Store the result
-result = price_metric_gross_margin
+# Count the number of unique products in the 'Carryover EOL' range_segment
+result = eol_products['style_colour_desc'].nunique()
