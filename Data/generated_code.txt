@@ -5,5 +5,5 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Calculate the total count of unique products
+# Count unique style-color descriptions, which represent unique products
 result = df['style_colour_desc'].nunique()
