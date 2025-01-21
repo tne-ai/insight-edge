@@ -5,11 +5,14 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter for Crossbody bags in the month of July
-filtered_df = df[(df['product_subgroup_desc'] == 'Crossbody bag') & (df['month'] == 'July')]
+# Filter data for 'Newness' range_segment
+newness_df = df[df['range_segment'] == 'Newness']
 
-# Sort by sales in descending order to find the top-selling product
-top_crossbody_bag = filtered_df.sort_values(by='sales', ascending=False).head(1)
+# Group by period and calculate total sales for each month
+sales_by_month = newness_df.groupby('period')['sales'].sum().reset_index()
 
-# Select relevant columns for the result
-result = top_crossbody_bag[['style_colour_desc', 'sales', 'month', 'season', 'pareto']]
+# Sort by sales in descending order to find the month with the highest sales
+sales_by_month = sales_by_month.sort_values(by='sales', ascending=False)
+
+# Limit to the top 12 months
+result = sales_by_month.head(12)
