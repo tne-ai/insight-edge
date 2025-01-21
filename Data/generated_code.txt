@@ -5,49 +5,14 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Ensure 'period' is treated as a string for proper slicing
-df['period'] = df['period'].astype(str)
+# Filter data for the "Clutch" subcategory
+clutch_data = df[df['product_subgroup_desc'] == 'Clutch']
 
-# Filter for December data
-december_data = df[df['period'].str.endswith('12')]
+# Group by month and calculate total sales for each month
+monthly_sales = clutch_data.groupby('month')['sales'].sum().reset_index()
 
-# Exclude products with 0 sales
-december_data = december_data[december_data['sales'] > 0]
+# Find the month with the highest sales
+best_month = monthly_sales.loc[monthly_sales['sales'].idxmax()]
 
-# Extract the year for each period
-df['year'] = df['period'].str[:4]
-december_data['year'] = december_data['period'].str[:4]
-
-# Calculate the average sales for the prior months within the same year
-prior_months_data = df[~df['period'].str.endswith('12')]  # Exclude December
-prior_months_data['year'] = prior_months_data['period'].str[:4]
-
-# Group by style_colour_desc and year to calculate average sales for prior months
-prior_avg_sales = (
-    prior_months_data.groupby(['style_colour_desc', 'year'])['sales']
-    .mean()
-    .reset_index()
-    .rename(columns={'sales': 'average_sales_prior_months'})
-)
-
-# Merge the December data with the prior average sales
-merged_data = pd.merge(
-    december_data,
-    prior_avg_sales,
-    on=['style_colour_desc', 'year'],
-    how='left'
-)
-
-# Calculate the percentage increase in sales
-merged_data['percentage_increase'] = (
-    (merged_data['sales'] - merged_data['average_sales_prior_months']) /
-    merged_data['average_sales_prior_months']
-) * 100
-
-# Sort by percentage increase in descending order
-merged_data = merged_data.sort_values(by='percentage_increase', ascending=False)
-
-# Select relevant columns and limit to top 12 results
-result = merged_data[
-    ['style_colour_desc', 'product_subgroup_desc', 'sales', 'average_sales_prior_months', 'percentage_increase']
-].head(12)
+# Prepare the result as a DataFrame
+result = pd.DataFrame([best_month])
