@@ -5,34 +5,26 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Convert 'period' to datetime for easier filtering
+# Convert 'period' column to datetime for easier filtering
 df['period'] = pd.to_datetime(df['period'], format='%Y%m')
 
-# Determine the last 3 months in the dataset
+# Filter for the last 3 months of data available
 max_period = df['period'].max()
 last_3_months = max_period - pd.DateOffset(months=3)
+filtered_df = df[(df['period'] > last_3_months) & (df['period'] <= max_period)]
 
-# Filter data for the last 3 months and the rest of the periods
-last_3_months_data = df[df['period'] > last_3_months]
-rest_of_periods_data = df[df['period'] <= last_3_months]
+# Further filter for the 'City' category
+city_df = filtered_df[filtered_df['product_subgroup_desc'] == 'City']
 
-# Calculate average sales for each subcategory in the last 3 months
-avg_sales_last_3 = last_3_months_data.groupby('product_subgroup_desc')['sales'].mean()
+# Calculate total sales and final inventory
+total_sales = city_df['sales'].sum()
+final_inv = city_df[city_df['period'] == city_df['period'].max()]['end_inv'].sum()
 
-# Calculate average sales for each subcategory in the rest of the periods
-avg_sales_rest = rest_of_periods_data.groupby('product_subgroup_desc')['sales'].mean()
+# Calculate total inventory carried
+inventory_carried = final_inv + total_sales
 
-# Combine the two averages into a single DataFrame
-comparison_df = pd.DataFrame({
-    'AVG_sales_rest': avg_sales_rest,
-    'AVG_sales_last_3': avg_sales_last_3
-}).dropna()
-
-# Calculate the percentage decrease
-comparison_df['percentage_decrease'] = (comparison_df['AVG_sales_rest'] - comparison_df['AVG_sales_last_3']) / comparison_df['AVG_sales_rest'] * 100
-
-# Find the subcategory with the highest percentage decrease
-comparison_df = comparison_df.sort_values(by='percentage_decrease', ascending=False).reset_index()
-
-# Limit to the top result
-result = comparison_df.head(1)
+# Prepare the result as a DataFrame
+result = pd.DataFrame({
+    'Category': ['City'],
+    'Total Inventory Carried': [inventory_carried]
+})
