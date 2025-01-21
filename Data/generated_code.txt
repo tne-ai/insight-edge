@@ -5,8 +5,8 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter for products in the 'Carryover EOL' range_segment
-eol_products = df[df['range_segment'] == 'Carryover EOL']
+# Filter for Tote bags in the product_subgroup_desc and Newness in the range_segment
+filtered_df = df[(df['product_subgroup_desc'] == 'Tote bag') & (df['range_segment'] == 'Newness')]
 
-# Count the number of unique products in the 'Carryover EOL' range_segment
-result = eol_products['style_colour_desc'].nunique()
+# Count the number of unique style-colors in the filtered data
+result = filtered_df['style_colour_desc'].nunique()
