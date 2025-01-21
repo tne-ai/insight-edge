@@ -5,17 +5,34 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for 'Tote bag' in the product_subgroup_desc column
-tote_sales = df[df['product_subgroup_desc'] == 'Tote bag']['sales'].sum()
+# Convert 'period' column to datetime for easier filtering
+df['period'] = pd.to_datetime(df['period'], format='%Y%m')
 
-# Calculate total sales across all products
-total_sales = df['sales'].sum()
+# Determine the last 3 months in the dataset
+max_date = df['period'].max()
+last_3_months = max_date - pd.DateOffset(months=3)
 
-# Calculate the contribution of totes
-tote_contribution = (tote_sales / total_sales) * 100
+# Filter data for the last 3 months and the rest of the periods
+last_3_months_data = df[df['period'] > last_3_months]
+rest_of_data = df[df['period'] <= last_3_months]
 
-# Create a DataFrame to display the result
-result = pd.DataFrame({
-    'Category': ['Tote bag'],
-    'Contribution (%)': [tote_contribution]
-})
+# Calculate average sales for each subcategory in the last 3 months
+avg_sales_last_3 = last_3_months_data.groupby('product_subgroup_desc')['sales'].mean()
+
+# Calculate average sales for each subcategory in the rest of the periods
+avg_sales_rest = rest_of_data.groupby('product_subgroup_desc')['sales'].mean()
+
+# Combine the two averages into a single DataFrame
+comparison_df = pd.DataFrame({
+    'AVG_sales_rest': avg_sales_rest,
+    'AVG_sales_last_3': avg_sales_last_3
+}).dropna()
+
+# Calculate the percentage decrease for each subcategory
+comparison_df['percentage_decrease'] = (comparison_df['AVG_sales_rest'] - comparison_df['AVG_sales_last_3']) / comparison_df['AVG_sales_rest'] * 100
+
+# Find the subcategory with the highest percentage decrease
+comparison_df = comparison_df.sort_values(by='percentage_decrease', ascending=False).head(12)
+
+# Store the result
+result = comparison_df
