@@ -5,14 +5,8 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for the "Clutch" subcategory
-clutch_data = df[df['product_subgroup_desc'] == 'Clutch']
+# Calculate the number of distinct style colours
+distinct_style_colours = df['style_colour_desc'].nunique()
 
-# Group by month and calculate total sales for each month
-monthly_sales = clutch_data.groupby('month')['sales'].sum().reset_index()
-
-# Find the month with the highest sales
-best_month = monthly_sales.loc[monthly_sales['sales'].idxmax()]
-
-# Prepare the result as a DataFrame
-result = pd.DataFrame([best_month])
+# Store the result
+result = distinct_style_colours
