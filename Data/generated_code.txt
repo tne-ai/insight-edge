@@ -28,5 +28,5 @@ profitability_df['profitability'] = (
 # Sort by profitability in descending order
 profitability_df = profitability_df.sort_values(by='profitability', ascending=False)
 
-# Limit to the top 12 results
+# Limit to top 12 results
 result = profitability_df.head(12)
