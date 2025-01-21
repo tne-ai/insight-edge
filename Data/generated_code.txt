@@ -5,14 +5,20 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for February
-df_february = df[df['month'] == 'February']
+# Calculate Gross Margin for each row
+df['gross_margin'] = (df['aur'] - df['standard_cost_price']) * df['sales']
 
-# Group by colour_description and sum sales
-colour_sales = df_february.groupby('colour_description', as_index=False)['sales'].sum()
+# Group by product_subgroup_desc to calculate Total Margin and Total Sales Revenue
+grouped = df.groupby('product_subgroup_desc').agg(
+    total_margin=('gross_margin', 'sum'),
+    total_sales_revenue=('sales v', 'sum')
+).reset_index()
 
-# Sort by sales in descending order and get the top result
-colour_sales_sorted = colour_sales.sort_values(by='sales', ascending=False).head(12)
+# Calculate Gross Margin Percentage
+grouped['gross_margin_percentage'] = (grouped['total_margin'] / grouped['total_sales_revenue']) * 100
 
-# Store the result
-result = colour_sales_sorted
+# Filter for subclasses with negative Total Margin
+result = grouped[grouped['total_margin'] < 0].sort_values(by='total_margin', ascending=True)
+
+# Limit to 12 rows
+result = result.head(12)
