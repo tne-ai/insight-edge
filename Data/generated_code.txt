@@ -5,11 +5,14 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Calculate gross margin percentage for each subclass
-df['gross_margin_percentage'] = ((df['margin  v'] / df['sales v']) * 100)
+# Check if ROS field exists in the dataset
+if 'ros' in df.columns:
+    # Use the existing ROS field to find the product with the highest ROS
+    result = df.loc[df['ros'].idxmax()]
+else:
+    # Calculate ROS using the formula provided
+    df['ros'] = df['sales'] / (df['weeks_selling'] * df['distinct_store_count'])
+    result = df.loc[df['ros'].idxmax()]
 
-# Group by product_subgroup_desc and calculate the average gross margin percentage
-grouped = df.groupby('product_subgroup_desc', as_index=False)['gross_margin_percentage'].mean()
-
-# Find the subclass with the highest gross margin percentage
-result = grouped.sort_values(by='gross_margin_percentage', ascending=False).head(1)
+# Return the result as a DataFrame for better readability
+result = result.to_frame().T
