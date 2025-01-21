@@ -5,23 +5,41 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Convert 'period' column to datetime for filtering
+# Convert 'period' to datetime for easier manipulation
 df['period'] = pd.to_datetime(df['period'], format='%Y%m')
 
-# Determine the most recent period in the dataset
+# Get the most recent period
 most_recent_period = df['period'].max()
 
-# Calculate the start of the last 3 months
-start_date = most_recent_period - pd.DateOffset(months=3)
+# Filter data for the most recent period
+recent_data = df[df['period'] == most_recent_period]
 
-# Filter data for the last 3 months and for 'Crossbody bag' in 'product_subgroup_desc'
-filtered_df = df[(df['period'] > start_date) & (df['product_subgroup_desc'] == 'Crossbody bag')]
+# Calculate the average sales for up to 11 prior periods within the last 12 months
+one_year_ago = most_recent_period - pd.DateOffset(months=12)
+prior_data = df[(df['period'] >= one_year_ago) & (df['period'] < most_recent_period)]
 
-# Calculate the total discount value
-filtered_df['discount_value'] = (filtered_df['standard_selling_price'] - filtered_df['aur']) * filtered_df['sales']
+# Group by style_colour_desc and calculate average sales for prior periods
+prior_avg_sales = (
+    prior_data.groupby('style_colour_desc')['sales']
+    .mean()
+    .reset_index()
+    .rename(columns={'sales': 'avg_sales_prior'})
+)
 
-# Sum the total discount value
-total_discount_value = filtered_df['discount_value'].sum()
+# Merge recent data with prior average sales
+merged_data = recent_data.merge(prior_avg_sales, on='style_colour_desc', how='left')
+
+# Calculate percentage increase in sales
+merged_data['sales_increase_pct'] = (
+    (merged_data['sales'] - merged_data['avg_sales_prior']) / merged_data['avg_sales_prior']
+) * 100
+
+# Filter and sort by percentage increase in sales
+rising_styles = (
+    merged_data[['style_colour_desc', 'sales', 'avg_sales_prior', 'sales_increase_pct']]
+    .sort_values(by='sales_increase_pct', ascending=False)
+    .head(10)
+)
 
 # Store the result
-result = total_discount_value
+result = rising_styles
