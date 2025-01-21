@@ -5,8 +5,17 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Calculate the number of unique style colours
-unique_style_colours = df['style_colour_desc'].nunique()
+# Filter for Crossbody bags
+crossbody_bags = df[df['product_subgroup_desc'] == 'Crossbody bag']
+
+# Calculate Gross Margin
+crossbody_bags['gross_margin'] = (crossbody_bags['aur'] - crossbody_bags['standard_cost_price']) * crossbody_bags['sales']
+
+# Group by Price Metric and calculate the total gross margin for each
+price_metric_gross_margin = crossbody_bags.groupby('price_metric')['gross_margin'].sum().reset_index()
+
+# Find the price metric with the highest gross margin
+price_metric_gross_margin = price_metric_gross_margin.sort_values(by='gross_margin', ascending=False).head(12)
 
 # Store the result
-result = unique_style_colours
+result = price_metric_gross_margin
