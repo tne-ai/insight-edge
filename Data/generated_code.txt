@@ -34,12 +34,8 @@ merged_data['sales_increase_pct'] = (
     (merged_data['sales'] - merged_data['avg_sales_prior']) / merged_data['avg_sales_prior']
 ) * 100
 
-# Filter and sort by percentage increase in sales
-rising_styles = (
-    merged_data[['style_colour_desc', 'sales', 'avg_sales_prior', 'sales_increase_pct']]
-    .sort_values(by='sales_increase_pct', ascending=False)
-    .head(10)
-)
+# Filter top 10 rising styles based on percentage increase
+rising_styles = merged_data.nlargest(10, 'sales_increase_pct')
 
-# Store the result
-result = rising_styles
+# Select relevant columns for the result
+result = rising_styles[['style_colour_desc', 'sales', 'avg_sales_prior', 'sales_increase_pct']]
