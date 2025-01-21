@@ -5,14 +5,29 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Check if ROS field exists in the dataset
-if 'ros' in df.columns:
-    # Use the existing ROS field to find the product with the highest ROS
-    result = df.loc[df['ros'].idxmax()]
-else:
-    # Calculate ROS using the formula provided
-    df['ros'] = df['sales'] / (df['weeks_selling'] * df['distinct_store_count'])
-    result = df.loc[df['ros'].idxmax()]
+# Ensure 'period' is treated as a string for proper slicing
+df['period'] = df['period'].astype(str)
 
-# Return the result as a DataFrame for better readability
-result = result.to_frame().T
+# Filter data for December (202212)
+december_data = df[df['period'].str.endswith('12')]
+
+# Extract the year for each row and calculate the prior 11 months for each December
+december_data['year'] = december_data['period'].str[:4].astype(int)
+prior_months_data = df[df['period'].str[:4].astype(int).isin(december_data['year'] - 1)]
+
+# Calculate the average sales for the prior 11 months for each subgroup
+prior_months_data['month'] = prior_months_data['period'].str[4:6].astype(int)
+prior_months_data = prior_months_data[prior_months_data['month'] < 12]  # Exclude December
+average_sales_prior = prior_months_data.groupby('product_subgroup_desc')['sales'].mean().reset_index()
+average_sales_prior.rename(columns={'sales': 'average_sales_prior_months'}, inplace=True)
+
+# Merge December data with the calculated averages
+merged_data = december_data.merge(average_sales_prior, on='product_subgroup_desc', how='left')
+
+# Calculate the percentage increase in sales for December
+merged_data['percentage_increase'] = ((merged_data['sales'] - merged_data['average_sales_prior_months']) / 
+                                      merged_data['average_sales_prior_months']) * 100
+
+# Sort by percentage increase in descending order and limit to top 12 results
+result = merged_data[['product_subgroup_desc', 'sales', 'average_sales_prior_months', 'percentage_increase']].sort_values(
+    by='percentage_increase', ascending=False).head(12)
