@@ -5,19 +5,11 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for 'Tote bag' in the product_subgroup_desc column
-tote_sales = df[df['product_subgroup_desc'] == 'Tote bag']['sales'].sum()
+# Filter for Crossbody bags in the month of July
+filtered_df = df[(df['product_subgroup_desc'] == 'Crossbody bag') & (df['month'] == 'July')]
 
-# Calculate total sales for all handbags
-total_sales = df['sales'].sum()
+# Sort by sales in descending order to find the top-selling product
+top_crossbody_bag = filtered_df.sort_values(by='sales', ascending=False).head(1)
 
-# Calculate the contribution percentage of tote sales within total handbag sales
-contribution_percentage = (tote_sales / total_sales) * 100
-
-# Create a DataFrame to display the result
-result = pd.DataFrame({
-    'Category': ['Tote bag'],
-    'Total Sales': [tote_sales],
-    'Total Handbag Sales': [total_sales],
-    'Contribution (%)': [contribution_percentage]
-})
+# Select relevant columns for the result
+result = top_crossbody_bag[['style_colour_desc', 'sales', 'month', 'season', 'pareto']]
