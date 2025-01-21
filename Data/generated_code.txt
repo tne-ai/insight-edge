@@ -5,5 +5,17 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Count unique style-color descriptions, which represent unique products
-result = df['style_colour_desc'].nunique()
+# Filter data for December
+df['period'] = pd.to_numeric(df['period'], errors='coerce')
+december_data = df[df['period'] % 100 == 12]
+
+# Group by 'product_subgroup_desc' (subclass) and sum the sales
+top_subclasses = (
+    december_data.groupby('product_subgroup_desc', as_index=False)['sales']
+    .sum()
+    .sort_values(by='sales', ascending=False)
+    .head(12)
+)
+
+# Store the result
+result = top_subclasses
