@@ -5,9 +5,9 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter for products with pareto designation 'A*' or 'A'
-filtered_df = df[df['pareto'].isin(['A*', 'A'])]
+# Filter for A* products only (exclude A products)
+filtered_df = df[df['pareto'] == 'A*']
 
-# Group by season and count the number of unique style_colour_desc (products)
+# Group by season and count the number of unique style_colour_desc for A* products
 result = filtered_df.groupby('season')['style_colour_desc'].nunique().reset_index()
-result.columns = ['season', 'count_of_star_products']
+result.columns = ['season', 'a_star_product_count']
