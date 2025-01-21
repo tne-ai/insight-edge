@@ -5,14 +5,17 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
 
-# Filter data for 'Newness' range_segment
-newness_df = df[df['range_segment'] == 'Newness']
+# Filter data for 'Tote bag' in the product_subgroup_desc column
+tote_sales = df[df['product_subgroup_desc'] == 'Tote bag']['sales'].sum()
 
-# Group by period and calculate total sales for each month
-sales_by_month = newness_df.groupby('period')['sales'].sum().reset_index()
+# Calculate total sales across all products
+total_sales = df['sales'].sum()
 
-# Sort by sales in descending order to find the month with the highest sales
-sales_by_month = sales_by_month.sort_values(by='sales', ascending=False)
+# Calculate the contribution of totes
+tote_contribution = (tote_sales / total_sales) * 100
 
-# Limit to the top 12 months
-result = sales_by_month.head(12)
+# Create a DataFrame to display the result
+result = pd.DataFrame({
+    'Category': ['Tote bag'],
+    'Contribution (%)': [tote_contribution]
+})
