@@ -8,17 +8,11 @@ df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.
 # Calculate Gross Margin for each row
 df['gross_margin'] = (df['aur'] - df['standard_cost_price']) * df['sales']
 
-# Group by product_subgroup_desc to calculate Total Margin and Total Sales Revenue
-grouped = df.groupby('product_subgroup_desc').agg(
-    total_margin=('gross_margin', 'sum'),
-    total_sales_revenue=('sales v', 'sum')
-).reset_index()
+# Calculate Gross Margin Percentage for each row
+df['gross_margin_percentage'] = (df['gross_margin'] / (df['aur'] * df['sales'])) * 100
 
-# Calculate Gross Margin Percentage
-grouped['gross_margin_percentage'] = (grouped['total_margin'] / grouped['total_sales_revenue']) * 100
+# Group by product_subgroup_desc and calculate the average gross margin percentage
+subgroup_margin = df.groupby('product_subgroup_desc')['gross_margin_percentage'].mean().reset_index()
 
-# Filter for subclasses with negative Total Margin
-result = grouped[grouped['total_margin'] < 0].sort_values(by='total_margin', ascending=True)
-
-# Limit to 12 rows
-result = result.head(12)
+# Find the subclass with the lowest average gross margin percentage
+result = subgroup_margin.sort_values(by='gross_margin_percentage', ascending=True).head(1)
