@@ -5,14 +5,14 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter data for 'Newness' range_segment
-newness_df = df[df['range_segment'] == 'Newness']
+# Filter data for "Women Skirts"
+skirts_df = df[df['product_subgroup_desc'] == 'WOMENS SKIRTS']
 
-# Group by pareto tagging, material, and colour, and calculate total sales
-grouped = newness_df.groupby(['pareto', 'material', 'colour_description'], as_index=False)['sales'].sum()
+# Calculate total stock for each period
+skirts_df['total_stock'] = skirts_df['end_inv'] + skirts_df['sales']
 
-# Sort within each pareto tagging to find the best-selling material-colour combination
-sorted_grouped = grouped.sort_values(['pareto', 'sales'], ascending=[True, False])
+# Find the month with the least total stock
+least_stock_row = skirts_df.loc[skirts_df['total_stock'].idxmin()]
 
-# Get the top-selling material-colour combination for each pareto tagging
-result = sorted_grouped.groupby('pareto').head(1).reset_index(drop=True)
+# Extract the period (month) with the least total stock
+result = least_stock_row['period']
