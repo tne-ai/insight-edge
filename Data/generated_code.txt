@@ -5,17 +5,14 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter data for 'WOMENS SKIRTS' in the 'product_subgroup_desc' column
+# Filter data for women's skirts
 skirts_df = df[df['product_subgroup_desc'] == 'WOMENS SKIRTS']
 
-# Exclude rows where 'standard_selling_price' is 0
-skirts_df = skirts_df[skirts_df['standard_selling_price'] > 0]
+# Group by size_code and calculate the average AUR
+aur_by_size = skirts_df.groupby('size_code')['aur'].mean().reset_index()
 
-# Calculate the average SSP for each size
-average_ssp_by_size = skirts_df.groupby('size_code')['standard_selling_price'].mean()
+# Sort by AUR in descending order
+aur_by_size_sorted = aur_by_size.sort_values(by='aur', ascending=False)
 
-# Find the size with the highest average SSP
-most_expensive_size = average_ssp_by_size.idxmax()
-
-# Store the result
-result = most_expensive_size
+# Limit to the top 12 sizes
+result = aur_by_size_sorted.head(12)
