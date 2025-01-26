@@ -8,11 +8,11 @@ df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_size
 # Filter for 'Newness' in the 'range_segment' column
 newness_df = df[df['range_segment'] == 'Newness']
 
-# Group by 'material' and 'colour_description', summing up the 'sales' column
-grouped = newness_df.groupby(['material', 'colour_description'], as_index=False)['sales'].sum()
+# Group by material, colour_description, and size_code, summing up the sales
+grouped = newness_df.groupby(['material', 'colour_description', 'size_code'], as_index=False)['sales'].sum()
 
-# Sort by sales in descending order and select the top result
-best_selling_combination = grouped.sort_values(by='sales', ascending=False).head(1)
+# Sort by sales in descending order to find the best-selling combination
+best_selling = grouped.sort_values(by='sales', ascending=False).head(1)
 
 # Store the result
-result = best_selling_combination
+result = best_selling
