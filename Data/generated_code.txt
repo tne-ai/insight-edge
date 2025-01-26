@@ -3,25 +3,19 @@ from tne.TNE import TNE
 
 # Initialize session and get data
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
-df = session.get_object("handbags-shopping_list-no_run-1_1-with_periods_cleaned.csv")
+df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter data for tote bags
-tote_bags = df[df['product_subgroup_desc'] == 'Tote bag']
+# Filter data for "WOMENS PANTS" in November (period 202111)
+filtered_df = df[
+    (df['product_group_description'] == 'WOMENS PANTS') &
+    (df['period'] == 202111)
+]
 
-# Calculate total sales for tote bags
-total_sales_tote_bags = tote_bags['sales'].sum()
+# Group by size_code and sum sales
+size_sales = filtered_df.groupby('size_code')['sales'].sum().reset_index()
 
-# Group by price metric and calculate sales contribution
-contribution = (
-    tote_bags.groupby('price_metric')['sales']
-    .sum()
-    .reset_index()
-    .rename(columns={'sales': 'price_metric_sales'})
-)
-contribution['contribution_percentage'] = (contribution['price_metric_sales'] / total_sales_tote_bags) * 100
+# Find the size with the highest sales
+best_selling_size = size_sales.sort_values(by='sales', ascending=False).head(1)
 
-# Sort by contribution percentage in descending order
-contribution = contribution.sort_values(by='contribution_percentage', ascending=False).reset_index(drop=True)
-
-# Limit to 12 rows
-result = contribution.head(12)
+# Store the result
+result = best_selling_size
