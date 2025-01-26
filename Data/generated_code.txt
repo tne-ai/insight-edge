@@ -8,11 +8,11 @@ df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_size
 # Filter data for 'Newness' range_segment
 newness_df = df[df['range_segment'] == 'Newness']
 
-# Group by material and colour_description, summing sales
-grouped = newness_df.groupby(['material', 'colour_description'], as_index=False)['sales'].sum()
+# Group by pareto tagging, material, and colour, and calculate total sales
+grouped = newness_df.groupby(['pareto', 'material', 'colour_description'], as_index=False)['sales'].sum()
 
-# Sort by sales in descending order to find the best-selling combination
-sorted_grouped = grouped.sort_values(by='sales', ascending=False)
+# Sort within each pareto tagging to find the best-selling material-colour combination
+sorted_grouped = grouped.sort_values(['pareto', 'sales'], ascending=[True, False])
 
-# Limit to the top result
-result = sorted_grouped.head(1)
+# Get the top-selling material-colour combination for each pareto tagging
+result = sorted_grouped.groupby('pareto').head(1).reset_index(drop=True)
