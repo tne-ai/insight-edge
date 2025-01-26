@@ -5,12 +5,15 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter data for 'Carryover' range segment, 'WOMENS PANTS' product group, and colors 'Espresso' and 'Grey'
+# Filter data for 'WOMENS SKIRTS' in 'product_subgroup_desc', 'Tail' in 'pareto', and 'Newness' in 'range_segment'
 filtered_df = df[
-    (df['range_segment'] == 'Carryover') &
-    (df['product_group_description'] == 'WOMENS PANTS') &
-    (df['colour_description'].str.lower().isin(['espresso', 'grey']))
+    (df['product_subgroup_desc'] == 'WOMENS SKIRTS') &
+    (df['pareto'] == 'Tail') &
+    (df['range_segment'] == 'Newness')
 ]
 
-# Group by color and calculate total sales
-result = filtered_df.groupby('colour_description', as_index=False)['sales'].sum()
+# Select unique sizes from the 'size_code' column
+unique_sizes = filtered_df['size_code'].unique()
+
+# Store the result
+result = unique_sizes
