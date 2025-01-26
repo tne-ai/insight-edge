@@ -5,17 +5,17 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter data for "WOMENS SKIRTS" in the product_subgroup_desc column
+# Filter data for 'WOMENS SKIRTS' in the 'product_subgroup_desc' column
 skirts_df = df[df['product_subgroup_desc'] == 'WOMENS SKIRTS']
 
 # Exclude rows where 'standard_selling_price' is 0
 skirts_df = skirts_df[skirts_df['standard_selling_price'] > 0]
 
-# Group by 'size_code' and calculate the average standard selling price (SSP)
-avg_ssp_by_size = skirts_df.groupby('size_code')['standard_selling_price'].mean()
+# Calculate the average SSP for each size
+average_ssp_by_size = skirts_df.groupby('size_code')['standard_selling_price'].mean()
 
 # Find the size with the highest average SSP
-most_expensive_size = avg_ssp_by_size.idxmax()
+most_expensive_size = average_ssp_by_size.idxmax()
 
 # Store the result
 result = most_expensive_size
