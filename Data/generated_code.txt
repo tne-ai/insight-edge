@@ -5,17 +5,14 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter data for Women's Pants and size 14
-filtered_df = df[
-    (df['product_group_description'] == 'WOMENS PANTS') &
-    (df['size_code'] == 14)
-]
+# Filter for 'Newness' in the 'range_segment' column
+newness_df = df[df['range_segment'] == 'Newness']
 
-# Group by colour_description and sum sales
-sales_by_colour = filtered_df.groupby('colour_description')['sales'].sum().reset_index()
+# Group by 'material' and 'colour_description', summing up the 'sales' column
+grouped = newness_df.groupby(['material', 'colour_description'], as_index=False)['sales'].sum()
 
-# Sort by sales in descending order to find the best-selling colour
-sales_by_colour = sales_by_colour.sort_values(by='sales', ascending=False)
+# Sort by sales in descending order and select the top result
+best_selling_combination = grouped.sort_values(by='sales', ascending=False).head(1)
 
-# Limit to the top result
-result = sales_by_colour.head(1)
+# Store the result
+result = best_selling_combination
