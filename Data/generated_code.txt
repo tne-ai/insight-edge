@@ -5,14 +5,14 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter for 'Newness' in the 'range_segment' column
-newness_df = df[df['range_segment'] == 'Newness']
+# Filter data for 'WOMENS PANTS' in the 'product_subgroup_desc' column
+womens_pants_data = df[df['product_subgroup_desc'] == 'WOMENS PANTS']
 
-# Group by material, colour_description, and size_code, summing up the sales
-grouped = newness_df.groupby(['material', 'colour_description', 'size_code'], as_index=False)['sales'].sum()
+# Group by 'period' and sum the 'sales' column to find the month with the highest sales
+sales_by_month = womens_pants_data.groupby('period')['sales'].sum()
 
-# Sort by sales in descending order to find the best-selling combination
-best_selling = grouped.sort_values(by='sales', ascending=False).head(1)
+# Find the month with the highest sales
+best_month = sales_by_month.idxmax()
 
 # Store the result
-result = best_selling
+result = best_month
