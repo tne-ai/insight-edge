@@ -5,14 +5,21 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter data for "Women Skirts"
-skirts_df = df[df['product_subgroup_desc'] == 'WOMENS SKIRTS']
+# Filter for Women Shorts in the product_subgroup_desc column
+shorts_df = df[df['product_subgroup_desc'] == 'WOMENS SHORTS']
 
-# Calculate total stock for each period
-skirts_df['total_stock'] = skirts_df['end_inv'] + skirts_df['sales']
+# Convert product_launch_date to datetime for filtering
+shorts_df['product_launch_date'] = pd.to_datetime(shorts_df['product_launch_date'], format='%d/%m/%Y', errors='coerce')
 
-# Find the month with the least total stock
-least_stock_row = skirts_df.loc[skirts_df['total_stock'].idxmin()]
+# Filter for SKUs launched in February 2021
+filtered_df = shorts_df[shorts_df['product_launch_date'].dt.month == 2]
+filtered_df = filtered_df[filtered_df['product_launch_date'].dt.year == 2021]
 
-# Extract the period (month) with the least total stock
-result = least_stock_row['period']
+# Group by SKU and sum sales to get total sales per SKU
+sku_sales = filtered_df.groupby(['sku_id', 'style_color_description', 'size_code'], as_index=False)['sales'].sum()
+
+# Sort by sales in descending order and select the top 10 SKUs
+top_skus = sku_sales.sort_values(by='sales', ascending=False).head(10)
+
+# Select relevant columns for the result
+result = top_skus[['sku_id', 'style_color_description', 'size_code', 'sales']]
