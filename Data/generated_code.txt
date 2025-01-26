@@ -5,17 +5,12 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter data for "WOMENS PANTS" in November (period 202111)
+# Filter data for 'Carryover' range segment, 'WOMENS PANTS' product group, and colors 'Espresso' and 'Grey'
 filtered_df = df[
+    (df['range_segment'] == 'Carryover') &
     (df['product_group_description'] == 'WOMENS PANTS') &
-    (df['period'] == 202111)
+    (df['colour_description'].str.lower().isin(['espresso', 'grey']))
 ]
 
-# Group by size_code and sum sales
-size_sales = filtered_df.groupby('size_code')['sales'].sum().reset_index()
-
-# Find the size with the highest sales
-best_selling_size = size_sales.sort_values(by='sales', ascending=False).head(1)
-
-# Store the result
-result = best_selling_size
+# Group by color and calculate total sales
+result = filtered_df.groupby('colour_description', as_index=False)['sales'].sum()
