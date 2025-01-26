@@ -5,14 +5,14 @@ from tne.TNE import TNE
 session = TNE(uid=UID, bucket_name=BUCKET, project=PROJECT, version=VERSION)
 df = session.get_object("womens_rtw-shopping_list-442-1_1-with_periods-with_sizes_cleaned.csv")
 
-# Filter data for women's skirts
-skirts_df = df[df['product_subgroup_desc'] == 'WOMENS SKIRTS']
+# Filter data for 'Newness' range_segment
+newness_df = df[df['range_segment'] == 'Newness']
 
-# Group by size_code and calculate the average AUR
-aur_by_size = skirts_df.groupby('size_code')['aur'].mean().reset_index()
+# Group by material and colour_description, summing sales
+grouped = newness_df.groupby(['material', 'colour_description'], as_index=False)['sales'].sum()
 
-# Sort by AUR in descending order
-aur_by_size_sorted = aur_by_size.sort_values(by='aur', ascending=False)
+# Sort by sales in descending order to find the best-selling combination
+sorted_grouped = grouped.sort_values(by='sales', ascending=False)
 
-# Limit to the top 12 sizes
-result = aur_by_size_sorted.head(12)
+# Limit to the top result
+result = sorted_grouped.head(1)
